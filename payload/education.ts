@@ -5,16 +5,19 @@ const education: IEducation.Payload = {
 
   list: [
     {
-      title: 'University of Open Source',
-      subTitle: 'PhD in System Engineering (Honorary)',
-      startedAt: '1991-03',
-      // endedAt: '2010-02',
+      title: '한신대학교',
+      subTitle: '컴퓨터공학부 재학',
+      startedAt: '2020-03',
+      descriptions: [
+        {content: '학점 4.15/4.5'},
+        {content: '성적 장학금 4회'}
+      ]
     },
     {
-      title: 'Antarctica High School',
-      subTitle: 'Graduated',
-      startedAt: '1989-03',
-      endedAt: '1991-02',
+      title: '경기 이우고등학교',
+      subTitle: '이공계열 졸업',
+      startedAt: '2016-03',
+      endedAt: '2018-02',
     },
   ],
 };

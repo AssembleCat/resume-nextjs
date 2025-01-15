@@ -34,7 +34,7 @@ const profile: IProfile.Payload = {
   ],
   notice: {
     title:
-      "The content below is all fictitious and is just a sample from 'https://github.com/uyu423/resume-nextjs'.",
+      "웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일로 연락바랍니다.",
     icon: faBell,
   },
 };
