@@ -26,6 +26,7 @@ const project: IProject.Payload = {
       where: '프리페이지',
       descriptions: [
         {
+          weight: 'MEDIUM',
           content:
             '동시접속자 10,000명 이상을 처리할 수 있는 고가용성 티켓팅 시스템을 설계 및 개발했습니다.',
         },
