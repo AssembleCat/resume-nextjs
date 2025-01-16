@@ -4,14 +4,19 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
-      title: 'Analyze the Spire 전투 예측 모델',
+      title: '[Analyze the Spire] 전투 예측 모델',
       startedAt: '2024-12',
       endedAt: '2025-01',
       where: '머신러닝 교내 컨퍼런스',
       descriptions: [
         {
+          weight: 'MEDIUM',
           content:
-            '턴제 카드 게임 Slay the Spire에서 플레이어가 전투 중 받을 것으로 예상되는 피해량을 예측하는 딥러닝 기반 시스텝입니다. 약 4억개의 전투 데이터를 활용하여 효과적인 전투계획을 돕는것을 목표로 했습니다.',
+            '턴제 카드 게임 Slay the Spire에서 플레이어가 전투 중 받을 것으로 예상되는 피해량을 예측하는 딥러닝 기반 시스템입니다.',
+        },
+        {
+          content:
+            '약 4억개의 전투 데이터를 활용하여 효과적인 전투계획을 돕는것을 목표로 했습니다.',
         },
         {
           content:
@@ -32,7 +37,7 @@ const project: IProject.Payload = {
         },
         {
           content:
-            'CDN + WAF + 로드 밸런서를 적용하여 트래픽 부하를 분산하고, 오토스케일링(Auto Scaling)을 통해 동적 확장성을 확보했습니다.',
+            'CDN + 로드 밸런서를 적용하여 트래픽 부하를 분산하고, 오토스케일링을 통해 동적 확장성을 확보했습니다.',
         },
         {
           content:
@@ -40,11 +45,11 @@ const project: IProject.Payload = {
         },
         {
           content:
-            '데이터베이스 읽기/쓰기 분리 및 캐싱(Redis/Memcached) 적용으로 성능을 최적화하고, 분산 락을 통해 중복 티켓 구매를 방지했습니다.',
+            '데이터베이스 읽기/쓰기 분리 및 캐싱(Redis) 적용으로 성능을 최적화하고, 분산 락을 통해 중복 티켓 구매를 방지했습니다.',
         },
         {
           content:
-            '결제 프로세스를 비동기 처리(Kafka, RabbitMQ)하여 빠르고 안정적인 티켓 구매 경험을 제공했습니다.',
+            '결제 프로세스를 비동기 처리(RabbitMQ)하여 빠르고 안정적인 티켓 구매 경험을 제공했습니다.',
         },
       ],
     },
@@ -60,8 +65,7 @@ const project: IProject.Payload = {
             '하나의 계정으로 테너시티즈의 여러 서비스를 이용할 수 있도록 SSO 기반의 통합 인증 시스템을 설계 및 구현했습니다.',
         },
         {
-          content:
-            'OAuth 2.0 / OpenID Connect(OIDC)를 활용하여 JWT 기반 인증 및 자동 로그인 기능을 제공했습니다.',
+          content: 'OAuth 2.0를 활용하여 JWT 기반 인증 및 자동 로그인 기능을 제공했습니다.',
         },
         {
           content:
@@ -85,7 +89,7 @@ const project: IProject.Payload = {
         },
         {
           content:
-            'Spring/Kotlin (백엔드)과 React/TypeScript (프론트엔드)를 활용하여, 확장성과 유지보수성이 높은 구조로 개발했습니다.',
+            'Spring/Kotlin과 React/TypeScript를 활용하여, 확장성과 유지보수성이 높은 구조로 개발했습니다.',
         },
         {
           content:
@@ -93,7 +97,7 @@ const project: IProject.Payload = {
         },
         {
           content:
-            '브랜드마다 UI/UX 및 기능 요구사항이 다르므로, 공통 모듈을 유지하면서도 브랜드별로 환경설정(Configuration) 및 플러그인 형태로 기능 확장이 가능한 구조로 개발했습니다.',
+            '브랜드마다 UI/UX 및 기능 요구사항이 다르므로, 공통 모듈을 유지하면서도 브랜드별로 환경설정 및 플러그인 형태로 기능 확장이 가능한 구조로 개발했습니다.',
         },
         {
           content:
@@ -110,11 +114,11 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            '매장에 배포된 여러 KIOSK가 생성한 결제 데이터를 메시지 큐(Message Queue) 기반의 비동기 아키텍처로 중앙 서버에 전송하는 시스템을 설계 및 구현했습니다.',
+            '매장에 배포된 여러 KIOSK가 생성한 결제 데이터를 메시지 큐 기반의 비동기 아키텍처로 중앙 서버에 전송하는 시스템을 설계 및 구현했습니다.',
         },
         {
           content:
-            '기존에는 KIOSK가 1분마다 미전송 데이터를 확인 후 전송하는 Pull 방식이었으나, 메시지 큐(RabbitMQ)를 도입하여 실시간 처리 방식으로 개선했습니다.',
+            '기존에는 KIOSK가 1분마다 미전송 데이터를 확인 후 전송하는 Push 방식이었으나, 메시지 큐를 도입하여 실시간 처리 방식으로 개선했습니다.',
         },
         {
           content:

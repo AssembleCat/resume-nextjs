@@ -9,7 +9,7 @@ const introduce: IIntroduce.Payload = {
     '비즈니스를 이해하고 기여하는일이 중요하다고 생각합니다. 개발자이기 전에 서비스를 만드는 구성원으로서 조직의 목표와 환경을 이해하고 빠르게 개발, 배포하는 역량을 키우는 것에 집중했습니다. 또한, 큰 임팩트는 혼자가 아닌 함께 만들 수 있다고 생각하기에 다양한 직무의 구성원과의 협업해왔습니다.',
   ],
   sign: 'Tibe',
-  latestUpdated: '2025-01-15',
+  latestUpdated: '2025-01-16',
 };
 
 export default introduce;
