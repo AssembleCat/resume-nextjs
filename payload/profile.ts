@@ -28,13 +28,13 @@ const profile: IProfile.Payload = {
       icon: faGithub,
     },
     {
-      link: 'https://recondite-orange-10c.notion.site/In-My-Brain-6048496dc81b453aa9aeee5ab859802a?pvs=74',
+      link:
+        'https://recondite-orange-10c.notion.site/In-My-Brain-6048496dc81b453aa9aeee5ab859802a?pvs=74',
       icon: faBlogger,
     },
   ],
   notice: {
-    title:
-      "웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일로 연락바랍니다.",
+    title: '웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일로 연락바랍니다.',
     icon: faBell,
   },
 };

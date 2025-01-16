@@ -6,12 +6,9 @@ const education: IEducation.Payload = {
   list: [
     {
       title: '한신대학교',
-      subTitle: '컴퓨터공학부 재학',
+      subTitle: '컴퓨터공학부 재학(4.15/4.5)',
       startedAt: '2020-03',
-      descriptions: [
-        {content: '학점 4.15/4.5'},
-        {content: '성적 장학금 4회'}
-      ]
+      endedAt: '2026-02',
     },
     {
       title: '경기 이우고등학교',

@@ -79,7 +79,7 @@ const project: IProject.Payload = {
       where: '아이엠티소프트',
       descriptions: [
         {
-          weight: "MEDIUM",
+          weight: 'MEDIUM',
           content:
             '기존에는 브랜드별로 개별 KIOSK 프로젝트를 개발하여 유지보수 및 확장이 어려운 문제가 있었습니다. 이를 해결하기 위해 여러 브랜드에서 공통으로 사용할 수 있는 통합 KIOSK 시스템을 설계하고 개발했습니다.',
         },
@@ -133,4 +133,4 @@ const project: IProject.Payload = {
   ],
 };
 
-export default project
+export default project;
