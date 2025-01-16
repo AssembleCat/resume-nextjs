@@ -57,7 +57,7 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            '하나의 계정으로 여러 서비스를 이용할 수 있도록 SSO(Single Sign-On) 기반의 통합 인증 시스템을 설계 및 구현했습니다.',
+            '하나의 계정으로 테너시티즈의 여러 서비스를 이용할 수 있도록 SSO 기반의 통합 인증 시스템을 설계 및 구현했습니다.',
         },
         {
           content:
@@ -68,8 +68,7 @@ const project: IProject.Payload = {
             'API Gateway를 통한 인증 프록시 방식을 적용하여 각 서비스에서 별도의 로그인 구현 없이 인증 가능하도록 했습니다.',
         },
         {
-          content:
-            '통합 로그아웃(SLO) 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다',
+          content: '통합 로그아웃 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다',
         },
       ],
     },

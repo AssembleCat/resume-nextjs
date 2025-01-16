@@ -1,19 +1,13 @@
 import { IEtc } from '../component/etc/IEtc';
 
 const etc: IEtc.Payload = {
-  disable: true,
+  disable: false,
 
   list: [
     {
-      title: 'Featured on SuperTuxKart',
-      subTitle: "Steve & Oliver Baker's",
-      startedAt: '2016-07',
-    },
-    {
-      title: "Biting Linus Torvalds' Foot",
-      subTitle: 'Australia National Zoo & Aquarium',
-      startedAt: '1993-07',
-      endedAt: '1993-08',
+      title: 'AWS Certified Solutions Architect - Associate',
+      subTitle: 'AWS SAA(C-03)',
+      startedAt: '2024-07',
     },
   ],
 };
