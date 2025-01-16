@@ -19,9 +19,8 @@ const profile: IProfile.Payload = {
       icon: faEnvelope,
     },
     {
-      title: 'Please contact me by email',
+      title: '010-2623-9283',
       icon: faPhone,
-      badge: true,
     },
     {
       link: 'https://github.com/AssembleCat',
@@ -34,7 +33,7 @@ const profile: IProfile.Payload = {
     },
   ],
   notice: {
-    title: '웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일로 연락바랍니다.',
+    title: '웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일 or 전화번호로 연락바랍니다.',
     icon: faBell,
   },
 };
