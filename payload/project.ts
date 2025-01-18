@@ -31,6 +31,10 @@ const project: IProject.Payload = {
       where: '프리페이지',
       descriptions: [
         {
+          content: '아키텍처 다이어그램',
+          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2809da47ff987155ebf1c?pvs=4',
+        },
+        {
           weight: 'MEDIUM',
           content:
             '동시접속자 10,000명 이상을 처리할 수 있는 고가용성 티켓팅 시스템을 설계 및 개발했습니다.',
@@ -59,6 +63,10 @@ const project: IProject.Payload = {
       endedAt: '2024-06',
       where: '테너시티즈',
       descriptions: [
+        {
+          content: '아키텍처 다이어그램',
+          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f28027b0a5f069a42c8b88?pvs=4',
+        },
         {
           weight: 'MEDIUM',
           content:
@@ -111,6 +119,10 @@ const project: IProject.Payload = {
       endedAt: '2023-04',
       where: '아이엠티소프트',
       descriptions: [
+        {
+          content: '아키텍처 다이어그램',
+          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2807785e5f4f261641bf4',
+        },
         {
           weight: 'MEDIUM',
           content:
