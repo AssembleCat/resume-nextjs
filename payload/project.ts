@@ -26,8 +26,8 @@ const project: IProject.Payload = {
     },
     {
       title: '대규모 콘서트 티켓팅 시스템 구축',
-      startedAt: '2024-06',
-      endedAt: '2024-07',
+      startedAt: '2024-07',
+      endedAt: '2024-08',
       where: '프리페이지',
       descriptions: [
         {
