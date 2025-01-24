@@ -67,7 +67,7 @@ export default function ExperienceRow({
             {item.title}{' '}
             <span style={{ fontSize: '65%', display: 'inline-flex', alignItems: 'center' }}>
               {isCurrentlyEmployed && (
-                <Badge color="primary" className="ml-1">
+                <Badge color="info" className="ml-1">
                   재직 중
                 </Badge>
               )}

@@ -10,7 +10,6 @@ const experience: IExperience.Payload = {
         {
           title: 'Freelancer Backend Engineer',
           startedAt: '2024-11',
-          endedAt: '2025-02',
           descriptions: [
             '결제 시스템 통합 모듈 개발: 다양한 VAN사(결제 대행사)와의 연동을 통해 유연한 통합 결제 모듈 설계 및 개발.',
             '포인트 적립 및 사용 시스템 개발: POS 및 KIOSK 환경에서 사용 가능한 포인트 시스템 설계 및 구현.',

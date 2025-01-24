@@ -27,7 +27,7 @@ function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
     }
     return (
       <span style={{ fontSize: '50%' }}>
-        <Badge>{getFormattingExperienceTotalDuration(payload)}</Badge>
+        <Badge color="info">{getFormattingExperienceTotalDuration(payload)}</Badge>
       </span>
     );
   };
