@@ -136,7 +136,6 @@ function createSkillKeywords(skillKeywords?: string[]) {
   }
   return (
     <li>
-      <strong>Skill Keywords</strong>
       <div>
         {skillKeywords.map((keyword, index) => (
           <Badge
