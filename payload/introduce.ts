@@ -10,7 +10,7 @@ const introduce: IIntroduce.Payload = {
     '또한, 개발은 혼자가 아닌 함께 만들어가는 과정이라고 생각합니다. 기획, 디자인, 운영, 영업 등 다양한 직군과 협업하며 더 나은 서비스를 만들기 위해 고민해왔습니다. 앞으로도 기술적 성장뿐만 아니라, 비즈니스와 조직의 성장에 기여할 수 있는 개발자가 되고 싶습니다.',
   ],
   sign: 'Tibe',
-  latestUpdated: '2025-01-24',
+  latestUpdated: '2025-02-07',
 };
 
 export default introduce;
