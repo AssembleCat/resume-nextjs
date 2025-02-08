@@ -6,7 +6,6 @@ import image from '../asset/avatar.jpg';
 
 const profile: IProfile.Payload = {
   disable: false,
-
   image,
   name: {
     title: '천신영',
@@ -27,8 +26,7 @@ const profile: IProfile.Payload = {
       icon: faGithub,
     },
     {
-      link:
-        'https://recondite-orange-10c.notion.site/In-My-Brain-6048496dc81b453aa9aeee5ab859802a?pvs=74',
+      link: 'https://titibebe.tistory.com/',
       icon: faBlogger,
     },
   ],
