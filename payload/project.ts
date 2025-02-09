@@ -100,7 +100,7 @@ const project: IProject.Payload = {
       descriptions: [
         {
           content: '아키텍처 다이어그램',
-          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2807785e5f4f261641bf4',
+          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2807785e5f4f261641bf4?pvs=4',
         },
         {
           weight: 'MEDIUM',
