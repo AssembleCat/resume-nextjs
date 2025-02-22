@@ -20,7 +20,7 @@ const project: IProject.Payload = {
         },
         {
           content:
-            '결제 프로세스를 메시지 큐 기반 비동기 처리로 빠르고 안정적인 티켓 구매 경험을 제공했습니다.',
+            '결제 프로세스를 큐 기반 비동기 처리로 빠르고 안정적인 티켓 구매 경험을 제공했습니다.',
         },
         {
           content:
@@ -29,10 +29,6 @@ const project: IProject.Payload = {
         {
           content:
             'Redis 기반의 가상 대기열 시스템을 구축하여 동시 요청 폭주에도 안정적인 티켓팅 프로세스를 보장했습니다.',
-        },
-        {
-          content:
-            '데이터베이스 읽기/쓰기 분리 및 캐싱(Redis) 적용으로 성능을 최적화하고, 분산 락을 통해 중복 티켓 구매를 방지했습니다.',
         },
       ],
     },
@@ -53,11 +49,11 @@ const project: IProject.Payload = {
         },
         {
           content:
-            '[중앙인증서버] Google, Kakao, Facebook의 OAuth인증을 대신하는 프록시서버를 구현했습니다.',
+            '[중앙인증서버] Google, Kakao, Facebook의 OAuth를 대신하는 프록시서버를 구현했습니다.',
         },
         {
           content:
-            '[신규서비스 확장] 새로운 서비스는 직접 OAuth 인증서버와 통신하지않고 중앙인증서버를 통해 유연하게 확장할 수 있습니다.',
+            '[신규서비스 확장] 새로운 서비스는 직접 OAuth 인증서버와 통신하지않고 프록시서버를 통해 유연하게 확장할 수 있습니다.',
         },
         {
           content:
@@ -103,7 +99,7 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            'KIOSK에서 생성된 20만여개 결제 데이터를 큐 기반의 비동기 아키텍처로 워커 서버에 전송하는 시스템을 설계 및 구현했습니다.',
+            'KIOSK에서 생성된 40만여개 결제 데이터를 큐 기반의 비동기 아키텍처로 워커 서버에 전송하는 시스템을 설계 및 구현했습니다.',
         },
         {
           content:
