@@ -4,35 +4,6 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
-      title: '대규모 콘서트 티켓팅 시스템 구축',
-      startedAt: '2024-07',
-      endedAt: '2024-08',
-      where: '프리페이지',
-      descriptions: [
-        {
-          content: '아키텍처 다이어그램',
-          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2809da47ff987155ebf1c?pvs=4',
-        },
-        {
-          weight: 'MEDIUM',
-          content:
-            '동시접속자 10,000명 이상을 처리할 수 있는 고가용성 티켓팅 시스템을 설계 및 개발했습니다.',
-        },
-        {
-          content:
-            '결제 프로세스를 큐 기반 비동기 처리로 빠르고 안정적인 티켓 구매 경험을 제공했습니다.',
-        },
-        {
-          content:
-            'CDN + 로드 밸런서를 적용하여 트래픽 부하를 분산하고, 오토스케일링을 통해 동적 확장성을 확보했습니다.',
-        },
-        {
-          content:
-            'Redis 기반의 가상 대기열 시스템을 구축하여 동시 요청 폭주에도 안정적인 티켓팅 프로세스를 보장했습니다.',
-        },
-      ],
-    },
-    {
       title: '통합 인증 및 보안 서비스 구축',
       startedAt: '2024-04',
       endedAt: '2024-06',
@@ -57,7 +28,7 @@ const project: IProject.Payload = {
         },
         {
           content:
-            '[토큰 기반 통합 로그인] 통합 로그아웃 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다',
+            '[토큰 기반 통합 로그인] 통합 로그아웃 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다.',
         },
       ],
     },

@@ -1,6 +1,5 @@
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faBlogger, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { IProfile } from '../component/profile/IProfile';
 import image from '../asset/avatar.jpg';
 
@@ -30,10 +29,6 @@ const profile: IProfile.Payload = {
       icon: faBlogger,
     },
   ],
-  notice: {
-    title: '웹/앱 기반의 외주 프로젝트도 진행하고 있습니다. 이메일 or 전화번호로 연락바랍니다.',
-    icon: faBell,
-  },
 };
 
 export default profile;
