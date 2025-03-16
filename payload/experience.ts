@@ -10,9 +10,10 @@ const experience: IExperience.Payload = {
         {
           title: 'Freelancer Backend Engineer',
           startedAt: '2024-11',
+          endedAt: '2025-03',
           descriptions: [
             '결제 시스템 통합 모듈 개발: 다양한 VAN사(결제 대행사)와의 연동을 통해 유연한 통합 결제 모듈 설계 및 개발',
-            '포인트 적립 및 사용 시스템 개발: POS 및 KIOSK 환경에서 사용 가능한 포인트 시스템 설계 및 구현',
+            '포인트 적립 및 사용 시스템 개발',
           ],
           skillKeywords: ['Spring', 'Kotlin', 'RDBMS', 'Docker', 'AWS'],
         },
@@ -24,7 +25,7 @@ const experience: IExperience.Payload = {
         {
           title: 'Backend Engineer',
           startedAt: '2023-09',
-          endedAt: '2024-11',
+          endedAt: '2024-08',
           descriptions: [
             '두번째 웹 개발자로 합류하여 IT 서비스(인프라, 웹사이트, 백오피스)를 개발, 배포, 운영',
             '메타버스와 웹 서비스 공통으로 접근가능하도록 유저보안 통합시스템 구축, 서비스간의 통일된 보안으로 조회',

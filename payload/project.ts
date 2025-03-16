@@ -10,10 +10,6 @@ const project: IProject.Payload = {
       where: '테너시티즈',
       descriptions: [
         {
-          content: '아키텍처 다이어그램',
-          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f28027b0a5f069a42c8b88?pvs=4',
-        },
-        {
           weight: 'MEDIUM',
           content:
             '하나의 계정으로 모든 서비스를 이용할 수 있도록 SSO 기반의 통합 인증 시스템을 설계 및 구현했습니다.',
