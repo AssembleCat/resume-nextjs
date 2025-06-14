@@ -1,5 +1,5 @@
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { faBlogger, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { IProfile } from '../component/profile/IProfile';
 import image from '../asset/avatar.jpg';
 
@@ -23,10 +23,6 @@ const profile: IProfile.Payload = {
     {
       link: 'https://github.com/AssembleCat',
       icon: faGithub,
-    },
-    {
-      link: 'https://titibebe.tistory.com/',
-      icon: faBlogger,
     },
   ],
 };
