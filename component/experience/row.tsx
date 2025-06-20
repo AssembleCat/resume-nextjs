@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import { IExperience } from './IExperience';
 import { Style } from '../common/Style';
 import Util from '../common/Util';
+import { CommonDescription } from '../common/CommonDescription';
 
 type PositionWithDates = IExperience.Position & {
   startedAtDate: DateTime;
@@ -93,9 +94,7 @@ export default function ExperienceRow({
           <Col sm={12} md={9}>
             <i style={Style.gray}>{position.title}</i>
             <ul className="pt-2">
-              {position.descriptions.map((description, descIndex) => (
-                <li key={descIndex.toString()}>{description}</li>
-              ))}
+              <CommonDescription descriptions={position.descriptions} />
               {createSkillKeywords(position.skillKeywords)}
             </ul>
           </Col>

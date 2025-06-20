@@ -9,6 +9,11 @@ const etc: IEtc.Payload = {
       subTitle: 'AWS SAA(C-03)',
       startedAt: '2024-07',
     },
+    {
+      title: 'SQL Developer',
+      subTitle: '한국데이터산업진흥원',
+      startedAt: '2025-06',
+    },
   ],
 };
 

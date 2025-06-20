@@ -11,7 +11,7 @@ export function CommonDescription({
   return (
     <>
       {descriptions ? (
-        <ul className={option?.padding ? 'pt-2' : ''}>
+        <ul className={option?.padding ? 'pt-2' : ''} style={{ paddingLeft: 0, marginLeft: 0 }}>
           {descriptions.map((description, descIndex) => {
             return (
               <>
@@ -40,7 +40,7 @@ function DescriptionRecursion({
   descriptions,
 }: PropsWithChildren<{ descriptions: IRow.Description[] }>) {
   return (
-    <ul>
+    <ul style={{ paddingLeft: 0, marginLeft: 0 }}>
       {descriptions.map((description, index) => {
         return (
           <>
