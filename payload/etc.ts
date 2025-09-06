@@ -5,6 +5,11 @@ const etc: IEtc.Payload = {
 
   list: [
     {
+      title: '미래에셋AI페스티벌 우수상',
+      subTitle: '442팀 중 최종 6팀 선정',
+      startedAt: '2025-07',
+    },
+    {
       title: 'AWS Certified Solutions Architect - Associate',
       subTitle: 'AWS SAA(C-03)',
       startedAt: '2024-07',
