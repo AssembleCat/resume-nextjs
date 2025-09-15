@@ -9,9 +9,13 @@ export function EmptyRowCol<T = {}>({ children }: PropsWithChildren<T>) {
   );
 }
 
-export function HrefTargetBlank({ url, text }: PropsWithChildren<{ url: string; text?: string }>) {
+export function HrefTargetBlank({
+  url,
+  text,
+  download,
+}: PropsWithChildren<{ url: string; text?: string; download?: boolean }>) {
   return (
-    <a href={url} target="_blank" rel="noreferrer noopener">
+    <a href={url} target="_blank" rel="noreferrer noopener" download={download}>
       {text || url}
     </a>
   );

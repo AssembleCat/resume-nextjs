@@ -22,7 +22,7 @@ function createLink(payload: IProfile.Contact) {
     return <Badge color="light">{payload.title || payload.link}</Badge>;
   }
   return payload.link ? (
-    <HrefTargetBlank url={payload.link} text={payload.title} />
+    <HrefTargetBlank url={payload.link} text={payload.title} download={payload.download} />
   ) : (
     <span>{payload.title}</span>
   );

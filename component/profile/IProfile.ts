@@ -56,6 +56,8 @@ export declare namespace IProfile {
      * @description 해당 필드가 not null 이면 title 전체가 `<a href>` 태그로 감싸진다.
      */
     link?: string;
+    /** ### 링크를 다운로드로 처리할지 여부 */
+    download?: boolean;
     /**
      * ### 내용을 뱃지로 표시할 것인가?
      *
