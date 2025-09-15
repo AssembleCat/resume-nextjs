@@ -11,6 +11,8 @@ export declare namespace IRow {
 
   export interface Right {
     title?: string;
+    /** ### 타이틀 하이퍼링크 */
+    titleHref?: string;
     subTitle?: string;
     descriptions?: Description[];
   }

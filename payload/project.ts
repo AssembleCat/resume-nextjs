@@ -4,6 +4,76 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
+      title: 'Stock Agent',
+      startedAt: '2025-07',
+      endedAt: '2025-08',
+      where: '미래에셋AI 페스티벌 공모전',
+      href: 'https://github.com/AssembleCat/stock-agent',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '최근 3개년 한국 주식시장 데이터를 수집하여, 사용자의 주가/거래량 자연어 질의에 LLM, AI Agent, RAG로 응답하는 주식 에이전트를 구현했습니다.',
+        },
+        {
+          content:
+            '[데이터] 최근 3개년 일/분 시계열(OHLCV)과 종목 메타데이터를 정제·정규화하여 분석 가능한 단일 스키마로 통합했습니다.',
+        },
+        {
+          content:
+            '[질의 해석] 자연어에서 종목, 기간, 지표(가격·거래량)를 파싱해 정량 쿼리로 변환했습니다.',
+        },
+        {
+          content:
+            '"삼성전자 2024년 거래량 급등일 알려줘", "카카오 최근 3년 수익률과 최대 낙폭" 등의 질의에 근거와 수치로 답변합니다.',
+        },
+      ],
+    },
+    {
+      title: 'Prismedia',
+      startedAt: '2025-03',
+      endedAt: '2025-06',
+      where: '캡스톤 프로젝트',
+      href: 'https://github.com/Prismedia',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '언론사별 정치적 편향성을 분석하고 균형 잡힌 기사 추천을 제공하는 웹 서비스를 개발했습니다.',
+        },
+        {
+          content:
+            '단순 기사 큐레이션이 아닌, 사용자가 편향을 인지하고 스스로 판단할 수 있도록 돕는 것을 목표로 했습니다.',
+        },
+        {
+          content:
+            'Ground News를 모티브로 언론의 사회적 영향력에 대한 문제의식에서 출발해 기획과 개발을 함께 진행했습니다.',
+        },
+      ],
+    },
+    {
+      title: 'Analyze the Spire',
+      startedAt: '2025-01',
+      endedAt: '2025-01',
+      where: '개인 프로젝트',
+      href: 'https://github.com/AssembleCat/analyze-the-spire',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            'Slay the Spire 카드게임의 약 3,200만건 플레이 로그를 수집하고 딥러닝으로 분석했습니다.',
+        },
+        {
+          content:
+            "2.2 패치 기준으로 '곡예'는 사일런트에게 가장 가치가 높은 카드임을 확인했습니다.",
+        },
+        {
+          content:
+            "좋아하는 게임을 '데이터로 다시 플레이'하며, 플레이 데이터 기반 분석의 인사이트를 얻었습니다.",
+        },
+      ],
+    },
+    /*     {
       title: '통합 인증 및 보안 서비스 구축',
       startedAt: '2024-04',
       endedAt: '2024-06',
@@ -27,7 +97,7 @@ const project: IProject.Payload = {
             '[토큰 기반 통합 로그인] 통합 로그아웃 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다.',
         },
       ],
-    },
+    }, */
     {
       title: '다중 브랜드 대응 KIOSK 시스템 개발',
       startedAt: '2023-04',
@@ -58,11 +128,8 @@ const project: IProject.Payload = {
       startedAt: '2023-01',
       endedAt: '2023-03',
       where: '아이엠티소프트',
+      href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2807785e5f4f261641bf4?pvs=4',
       descriptions: [
-        {
-          content: '아키텍처 다이어그램',
-          href: 'https://recondite-orange-10c.notion.site/17f28cd4a9f2807785e5f4f261641bf4?pvs=4',
-        },
         {
           weight: 'MEDIUM',
           content:
