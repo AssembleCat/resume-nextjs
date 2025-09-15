@@ -8,7 +8,7 @@ const project: IProject.Payload = {
       startedAt: '2025-07',
       endedAt: '2025-08',
       where: '미래에셋AI 페스티벌 공모전',
-      href: 'https://github.com/AssembleCat/stock-agent',
+      href: 'https://github.com/AssembleCat/stock-agent-blinded',
       descriptions: [
         {
           weight: 'MEDIUM',
