@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { PropsWithChildren } from 'react';
+import { useRouter } from 'next/router';
 import { CommonSection } from '../common/CommonSection';
 import { EmptyRowCol } from '../common';
 import { CommonRows } from '../common/CommonRow';
@@ -21,18 +22,30 @@ export const Education = {
 };
 
 function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
+  const router = useRouter();
+  const blindParam = router?.query?.blind;
+  const isBlind = Array.isArray(blindParam)
+    ? (blindParam[0] ?? '').toString().toLowerCase() === 'true'
+    : ((blindParam as string | undefined) ?? '').toString().toLowerCase() === 'true';
+
   return (
     <CommonSection title="EDUCATION">
-      <EducationRow payload={payload} />
+      <EducationRow payload={payload} isBlind={isBlind} />
     </CommonSection>
   );
 }
 
-function EducationRow({ payload }: PropsWithChildren<{ payload: Payload }>) {
+function EducationRow({
+  payload,
+  isBlind,
+}: PropsWithChildren<{ payload: Payload; isBlind?: boolean }>) {
   return (
     <EmptyRowCol>
       {payload.list.map((item, index) => {
-        return <CommonRows key={index.toString()} payload={serialize(item)} index={index} />;
+        const itemForRender: Item = isBlind ? { ...item, title: maskSchoolName(item.title) } : item;
+        return (
+          <CommonRows key={index.toString()} payload={serialize(itemForRender)} index={index} />
+        );
       })}
     </EmptyRowCol>
   );
@@ -57,4 +70,15 @@ function serialize(item: Item): IRow.Payload {
       ...item,
     },
   };
+}
+
+function maskSchoolName(name: string): string {
+  if (!name) return name;
+  const keywords = ['대학교', '고등학교'];
+  const found = keywords.find((keyword) => name.indexOf(keyword) !== -1);
+  if (found) {
+    const idx = name.indexOf(found);
+    return `***${name.slice(idx)}`;
+  }
+  return '***';
 }
