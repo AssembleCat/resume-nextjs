@@ -7,7 +7,7 @@ const etc: IEtc.Payload = {
     {
       title: '미래에셋AI페스티벌 우수상',
       subTitle: '442팀 중 최종 6팀 선정',
-      startedAt: '2025-07',
+      startedAt: '2025-10',
     },
     {
       title: 'AWS Certified Solutions Architect - Associate',

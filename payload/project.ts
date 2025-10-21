@@ -4,16 +4,23 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
-      title: 'Stock Agent',
+      title: 'Stock Agent / Destiny Stock',
       startedAt: '2025-07',
-      endedAt: '2025-08',
+      endedAt: '2025-10',
       where: '미래에셋AI 페스티벌 공모전',
-      href: 'https://github.com/AssembleCat/stock-agent-blinded',
       descriptions: [
         {
           weight: 'MEDIUM',
+          href: 'https://github.com/AssembleCat/stock-agent-blinded',
           content:
-            '최근 3개년 한국 주식시장 데이터를 수집하여, 사용자의 주가/거래량 자연어 질의에 LLM, AI Agent, RAG로 응답하는 주식 에이전트를 구현했습니다.',
+            '[Stock Agent] 최근 3개년 한국 주식시장 데이터를 수집, 자연어 질의에 LLM, AI Agent, RAG로 응답하는 주식 에이전트를 구현했습니다.',
+        },
+        {
+          weight: 'MEDIUM',
+          href:
+            'https://github.com/AssembleCat/stock-agent-blinded/blob/main/2025%20%EB%AF%B8%EB%9E%98%EC%97%90%EC%85%8B%EC%A6%9D%EA%B6%8C%20AI%20%ED%8E%98%EC%8A%A4%ED%8B%B0%EB%B2%8C_%EC%98%A4%EC%98%AC%EB%A0%88%EB%93%9C.pdf',
+          content:
+            '[Destiny Stock] Stock Agent 기능을 사주데이터와 확장하여 주식/운세 정보를 해석하는 에이전트로 발전시켰습니다.',
         },
         {
           content:
