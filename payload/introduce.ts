@@ -8,7 +8,7 @@ const introduce: IIntroduce.Payload = {
     '백엔드 개발을 주로 담당하면서도 인프라 영역에도 관심을 가지고 경험을 확장해왔습니다. 다양한 기술 스택을 학습하고 적용하는 것을 즐기며, 새로운 문제를 해결하는 과정에서 성장한다고 느낍니다.',
   ],
   sign: 'Tibe',
-  latestUpdated: '2025-10-21',
+  latestUpdated: '2025-11-12',
 };
 
 export default introduce;

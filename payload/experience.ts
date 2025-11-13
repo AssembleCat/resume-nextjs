@@ -28,7 +28,7 @@ const experience: IExperience.Payload = {
       ],
     },
     {
-      title: '테너시티즈',
+      title: '테너시티즈(스페이스비앤비)',
       positions: [
         {
           title: 'Backend Engineer',
