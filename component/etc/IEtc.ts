@@ -14,6 +14,13 @@ export declare namespace IEtc {
   }
 
   export interface Item {
+    /**
+     * ### URL 뷰 필터용 식별자
+     *
+     * @description `?view=` `?hide=` `?show=` 에서 사용. 없으면 모든 뷰에서 표시한다.
+     */
+    id?: string;
+
     /** ### 기타 항목 제목 */
     title: string;
 

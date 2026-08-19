@@ -1,6 +1,5 @@
 import { Row, Col } from 'reactstrap';
 import { PropsWithChildren } from 'react';
-import { useRouter } from 'next/router';
 import ProfileContact from './contact';
 import ProfileImage from './image';
 import { IProfile } from './IProfile';
@@ -19,17 +18,7 @@ export const Profile = {
 };
 
 function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
-  const router = useRouter();
-  const blindParam = router?.query?.blind;
-  const isBlind = Array.isArray(blindParam)
-    ? (blindParam[0] ?? '').toString().toLowerCase() === 'true'
-    : ((blindParam as string | undefined) ?? '').toString().toLowerCase() === 'true';
-
   const { image, contact, name } = payload;
-
-  const contactsForRender: Payload['contact'] = isBlind
-    ? contact.map((c) => (c.download ? { ...c, link: '/천신영_이력서_블라인드Ver.pdf' } : c))
-    : contact;
 
   return (
     <div className="mt-5">
@@ -39,7 +28,7 @@ function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
         </Col>
         <Col md={9} sm={12}>
           {createNameArea(name)}
-          {createProfileContactMap(contactsForRender)}
+          {createProfileContactMap(contact)}
         </Col>
       </Row>
     </div>

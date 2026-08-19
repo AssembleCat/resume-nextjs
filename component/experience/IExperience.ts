@@ -16,6 +16,13 @@ export declare namespace IExperience {
   }
 
   export interface Item {
+    /**
+     * ### URL 뷰 필터용 식별자
+     *
+     * @description `?view=` `?hide=` `?show=` 에서 사용. 없으면 모든 뷰에서 표시한다.
+     */
+    id?: string;
+
     /** ### (직장)경험 명 */
     title: string;
 

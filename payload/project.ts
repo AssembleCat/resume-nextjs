@@ -4,6 +4,61 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
+      id: 'onprem',
+      title: '온프레미스 사이트 운영 플랫폼',
+      startedAt: '2025-11',
+      where: '로민',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '고객사·프로젝트가 100개를 넘으면서 버전 기록이 Slack·Confluence·SharePoint에 흩어지고, 설정 불일치와 휴먼 에러가 났습니다. 운영팀이 정성적으로 관리하던 환경 구성을 한 플랫폼으로 전산화했습니다.',
+        },
+        {
+          content:
+            '[기여] 백엔드 2인이 설계부터 함께했고, 서버사이드 Image Registry, Git 연동, Lomin CLI를 주로 맡았습니다.',
+        },
+        {
+          content:
+            '[버전 묶음] Pipeline, Triton, Model Factory, Core, Wrapper 등 서비스 이미지 버전과 DB·Storage·NoSQL 오픈소스 버전을 분리한 뒤, 솔루션 조합별로 묶어 고객사 단위로 추적·구성하게 했습니다.',
+        },
+        {
+          content:
+            '[환경 구성] 온프레미스 납품 시 해당 버전 조합으로 환경을 구성할 수 있게 해, 솔루션 코드를 늘리는 대신 운영 구성의 단일화로 납품·운영 안정성을 높였습니다.',
+        },
+      ],
+    },
+    {
+      id: 'lomin-backend',
+      title: 'Lomin 솔루션 백엔드 및 금융권 연동',
+      startedAt: '2025-11',
+      where: '로민 · 금융권',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '일 8만 건 문서 추론에서 단일 GPU로는 타임아웃이 났고, 분산·병렬 처리와 상태 기반 재처리를 솔루션 기능으로 넣었습니다.',
+        },
+        {
+          content:
+            '[분산] 단일 GPU 대기열을 워커로 나눠 병렬 추론하고, 진행 상태는 서버에 남겨 실패 지점부터 재투입할 수 있게 했습니다.',
+        },
+        {
+          content:
+            '[실패 모드] 암호·손상 PDF는 렌더 전에 Fast Fail로 원인을 상태에 남기고, 스토리지 순간 장애처럼 복구 가능한 건은 Recovery Success 경로로 재처리했습니다. 타임아웃 하나로 뭉개면 재처리 입구가 사라졌습니다.',
+        },
+        {
+          content:
+            '[온프레미스] 망이 나뉜 환경에서 반입·추론·적재 경로가 곧 허용된 포트와 저장소였습니다. 고객 보안·SI·내부 운영과 구간을 맞춰 파이프라인이 고객망에서 막히지 않게 했고, 입수는 NAS·S3·API 어댑터로 흡수해 솔루션 본체를 고객 인프라에 맞추지 않았습니다.',
+        },
+        {
+          content:
+            '[제품화] 배치·분산·재처리는 솔루션에 남기고, 출처 매핑과 구간 맞춤은 연동에서 끝났습니다. 추론 인접은 FastAPI, 상태머신·연동 경계는 Spring Kotlin으로 나눴습니다.',
+        },
+      ],
+    },
+    {
+      id: 'stock-agent',
       title: 'Stock Agent / Destiny Stock',
       startedAt: '2025-07',
       endedAt: '2025-10',
@@ -13,7 +68,7 @@ const project: IProject.Payload = {
           weight: 'MEDIUM',
           href: 'https://github.com/AssembleCat/stock-agent-blinded',
           content:
-            '[Stock Agent] 최근 3개년 한국 주식시장 데이터를 수집, 자연어 질의에 LLM, AI Agent, RAG로 응답하는 주식 에이전트를 구현했습니다.',
+            '[Stock Agent] RAG 기반 공모전에서 최근 3개년 한국 주식 데이터로 자연어 질의에 답하는 에이전트를 설계·구현했습니다. 다른 팀원이 아이디어를 구체화했습니다.',
         },
         {
           weight: 'MEDIUM',
@@ -37,28 +92,7 @@ const project: IProject.Payload = {
       ],
     },
     {
-      title: 'Prismedia',
-      startedAt: '2025-03',
-      endedAt: '2025-06',
-      where: '캡스톤 프로젝트',
-      href: 'https://github.com/Prismedia',
-      descriptions: [
-        {
-          weight: 'MEDIUM',
-          content:
-            '언론사별 정치적 편향성을 분석하고 균형 잡힌 기사 추천을 제공하는 웹 서비스를 개발했습니다.',
-        },
-        {
-          content:
-            '단순 기사 큐레이션이 아닌, 사용자가 편향을 인지하고 스스로 판단할 수 있도록 돕는 것을 목표로 했습니다.',
-        },
-        {
-          content:
-            'Ground News를 모티브로 언론의 사회적 영향력에 대한 문제의식에서 출발해 기획과 개발을 함께 진행했습니다.',
-        },
-      ],
-    },
-    {
+      id: 'spire',
       title: 'Analyze the Spire',
       startedAt: '2025-01',
       endedAt: '2025-01',
@@ -80,32 +114,8 @@ const project: IProject.Payload = {
         },
       ],
     },
-    /*     {
-      title: '통합 인증 및 보안 서비스 구축',
-      startedAt: '2024-04',
-      endedAt: '2024-06',
-      where: '테너시티즈',
-      descriptions: [
-        {
-          weight: 'MEDIUM',
-          content:
-            '하나의 계정으로 모든 서비스를 이용할 수 있도록 SSO 기반의 통합 인증 시스템을 설계 및 구현했습니다.',
-        },
-        {
-          content:
-            '[중앙인증서버] Google, Kakao, Facebook의 OAuth를 대신하는 프록시서버를 구현했습니다.',
-        },
-        {
-          content:
-            '[신규서비스 확장] 새로운 서비스는 직접 OAuth 인증서버와 통신하지않고 프록시서버를 통해 유연하게 확장할 수 있습니다.',
-        },
-        {
-          content:
-            '[토큰 기반 통합 로그인] 통합 로그아웃 및 보안 강화를 통해 편리하면서도 안전한 인증 환경을 제공했습니다.',
-        },
-      ],
-    }, */
     {
+      id: 'kiosk-multi',
       title: '다중 브랜드 대응 KIOSK 시스템 개발',
       startedAt: '2023-04',
       endedAt: '2023-08',
@@ -114,23 +124,20 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            '브랜드별로 개별 KIOSK 프로젝트를 개발하여 유지보수 및 확장이 어려운 문제가 있었습니다. 이를 해결하기 위해 여러 브랜드에서 공통으로 사용할 수 있는 통합 KIOSK 시스템을 설계하고 개발했습니다.',
+            '브랜드마다 DB·API가 달랐지만 역할은 같아서 반복잡업이 많았습니다. 중앙 마스터 서버를 기준으로 공통 설계를 다시 해, 신규 브랜드 도입과 기존 고객사 KIOSK 흡수가 설정으로 되게 했습니다.',
         },
         {
           content:
-            '[설정기반] 레거시 KIOSK의 핵심 기능 및 자주 사용하는 기능을 선별하여 재설계하고, 브랜드별 커스터마이징이 가능하도록 설정 기반의 유연한 구조를 도입했습니다.',
+            '[설정 기반] 특정 브랜드 전용 요구가 아니면 환경설정으로 전환할 수 있게 해, 브랜드별 개별 배포를 없앴습니다.',
         },
         {
           content:
-            '[공통기능 모듈화] 브랜드마다 요구사항이 다르므로, 공통 모듈을 유지하면서도 브랜드별로 환경설정으로 확장이 가능한 구조로 개발했습니다.',
-        },
-        {
-          content:
-            '[유지보수 효율 증가] 단일 코드베이스로 수십개의 브랜드에 적용할 수 있도록 하여 개발/배포 효율성을 향상시켰고, 신규 브랜드의 도입 속도를 단축할 수 있었습니다.',
+            '[흡수] 고객사별로 나가 있던 기존 KIOSK도 다중 브랜드 대응 코드베이스로 다시 넣었습니다.',
         },
       ],
     },
     {
+      id: 'payment',
       title: '결제데이터 저장 시스템 개발',
       startedAt: '2023-01',
       endedAt: '2023-03',
@@ -140,23 +147,19 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            'KIOSK에서 생성된 40만여개 결제 데이터를 큐 기반의 비동기 아키텍처로 워커 서버에 전송하는 시스템을 설계 및 구현했습니다.',
+            'KIOSK 결제 데이터를 하루 40만 건까지 SQS 기반 비동기 파이프로 저장하는 시스템을 설계했고, 서버사이드는 단독 구현했습니다. 클라이언트 프로그램은 프론트 팀과 협업했습니다.',
         },
         {
           content:
-            '[실시간 처리] KIOSK가 1분마다 미전송 데이터를 확인 후 전송하는 Push 방식이었으나, 큐를 도입하여 실시간 처리 방식으로 개선했습니다.',
+            '[실시간] KIOSK가 1분마다 미전송 분을 Push하던 방식을 SQS로 바꿔, 전송과 DB 저장을 분리했습니다.',
         },
         {
           content:
-            '[비동기 아키텍처] 큐를 통해 KIOSK는 데이터를 즉시 전송하고, 워커 서버가 DB에 저장하는 구조로 변경하여 전송과 저장을 비동기적으로 구현했습니다.',
+            '[유실 Zero] DLQ와 함께, 네트워크가 끊겨도 클라이언트 로컬에 데이터를 들고 복구 후 재전송하게 해 유실을 막았습니다.',
         },
         {
           content:
-            '[데이터유실 Zero] 확인 응답 기반의 장애 대응, 검증 로직 및 DLQ를 사용하여 데이터 신뢰성을 향상시켰습니다.',
-        },
-        {
-          content:
-            '[모니터링] 저장 성공률, 큐/DLQ 적재량, 워커 서버 상태 등을 실시간으로 관찰할 수 있도록 했습니다.',
+            '[모니터링] 저장 성공률, 큐/DLQ 적재량, 워커 서버 상태를 관찰할 수 있게 했습니다.',
         },
       ],
     },

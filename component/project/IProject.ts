@@ -15,6 +15,13 @@ export declare namespace IProject {
   }
 
   export interface Item {
+    /**
+     * ### URL 뷰 필터용 식별자
+     *
+     * @description `?view=` `?hide=` `?show=` 에서 사용. 없으면 모든 뷰에서 표시한다.
+     */
+    id?: string;
+
     /** ### 프로젝트 제목 */
     title: string;
 
