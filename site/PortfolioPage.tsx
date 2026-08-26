@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Payload } from '../payload';
 import { DIAGRAM_TABS, FlowDiagramId, PIPELINE_DIAGRAMS } from '../payload/flows';
-import { buildTimeline, totalPeriodLabel, uniqueSkills } from './lib/career';
+import { buildTimeline, parentOfProject, totalPeriodLabel, uniqueSkills } from './lib/career';
 import { scrollToId } from './lib/date';
 import { buildCareerGraph, buildPipelineGraph } from './lib/graph';
 import { CareerStrip } from './sections/CareerStrip';
@@ -50,6 +50,16 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
     scrollToId(`exp-${id}`);
   };
 
+  const openProject = (id: string) => {
+    const parent = parentOfProject(id);
+    if (parent !== 'side') {
+      setExpandedExp(parent);
+      window.setTimeout(() => scrollToId(`project-${id}`), 320);
+      return;
+    }
+    scrollToId(`project-${id}`);
+  };
+
   const handleHighlight = (target: HighlightTarget) => {
     if (target.kind === 'diagram') {
       openDiagram(target.id);
@@ -59,7 +69,7 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
       openExperience(target.id);
       return;
     }
-    scrollToId(`project-${target.id}`);
+    openProject(target.id);
   };
 
   return (
@@ -80,9 +90,12 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
       <Highlights onOpen={handleHighlight} />
       <ExperienceSection
         experience={resume.experience}
+        project={resume.project}
         totalLabel={totalLabel}
         expandedId={expandedExp}
         onToggle={(id) => setExpandedExp((current) => (current === id ? undefined : id))}
+        onOpenProject={openProject}
+        onOpenDiagram={openDiagram}
       />
       <ProjectSection project={resume.project} onOpenDiagram={openDiagram} />
       <GraphPlayground
@@ -103,7 +116,6 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
       <RecordsSection
         education={resume.education}
         etc={resume.etc}
-        introduce={resume.introduce}
         isBlind={isBlind}
       />
       <SiteFooter profile={resume.profile} />

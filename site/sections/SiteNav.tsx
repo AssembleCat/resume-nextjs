@@ -3,7 +3,6 @@ import { motion } from 'motion/react';
 const LINKS = [
   { href: '#intro', label: '소개' },
   { href: '#experience', label: '경력' },
-  { href: '#projects', label: '프로젝트' },
   { href: '#map', label: '맵' },
   { href: '#records', label: '기록' },
 ];

@@ -8,7 +8,7 @@ const profile: IProfile.Payload = {
   image,
   name: {
     title: '천신영',
-    small: '(Shorty)',
+    small: '',
   },
   contact: [
     {

@@ -1,10 +1,11 @@
 import { IExperience } from '../../component/experience/IExperience';
+import { IProject } from '../../component/project/IProject';
 import { formatMonths, monthCount } from './date';
 
-export const DOMAIN_LINE = 'Document AI · Payments · On-prem';
+export const DOMAIN_LINE = 'KIOSK · Payments · Document AI · On-prem';
 
 export const NOW_FACTS = [
-  'Document AI · 추론 파이프 운영',
+  'Document AI · 추론 흐름 운영',
   'FastAPI는 추론, Spring Kotlin은 상태·연동',
   '온프레미스에서 실패를 상태로 재처리',
 ];
@@ -27,6 +28,30 @@ const SHORT_NAME: Record<string, string> = {
   'imt-kiosk': 'IMT',
   tenacity: '테너시티즈',
 };
+
+export const PROJECT_PARENT: Record<string, string> = {
+  onprem: 'lomin',
+  'lomin-backend': 'lomin',
+  'kiosk-multi': 'imt-kiosk',
+  payment: 'imt-kiosk',
+  'stock-agent': 'side',
+  spire: 'side',
+};
+
+export function parentOfProject(id?: string): string {
+  if (!id) {
+    return 'side';
+  }
+  return PROJECT_PARENT[id] || 'side';
+}
+
+export function projectsForCompany(list: IProject.Item[], companyId: string): IProject.Item[] {
+  return list.filter((item) => parentOfProject(item.id) === companyId);
+}
+
+export function sideProjects(list: IProject.Item[]): IProject.Item[] {
+  return list.filter((item) => parentOfProject(item.id) === 'side');
+}
 
 export interface TimelineSegment {
   id: string;

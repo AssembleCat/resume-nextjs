@@ -1,7 +1,7 @@
 /**
  * 한 payload로 이력서 형태를 나눈다.
  *
- * - `/?view=core`  백엔드 핵심 (기본값, Spire·고교 생략)
+ * - `/?view=core`  백엔드 핵심 (기본값, Spire 생략)
  * - `/?view=full`  전체
  * - `/?view=game`  핵심 + Spire
  * - `/?view=core&hide=stock-agent`  추가로 숨김
@@ -34,7 +34,7 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   core: {
     experience: 'all',
     project: ['onprem', 'lomin-backend', 'stock-agent', 'kiosk-multi', 'payment'],
-    education: ['hanshin'],
+    education: ['hanshin', 'iwoo'],
     etc: 'all',
   },
   full: {
@@ -46,7 +46,7 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   game: {
     experience: 'all',
     project: ['onprem', 'lomin-backend', 'stock-agent', 'spire', 'kiosk-multi', 'payment'],
-    education: ['hanshin'],
+    education: ['hanshin', 'iwoo'],
     etc: 'all',
   },
 };

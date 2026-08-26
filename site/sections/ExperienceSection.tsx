@@ -1,17 +1,27 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { IExperience } from '../../component/experience/IExperience';
+import { IProject } from '../../component/project/IProject';
+import { FlowDiagramId } from '../../payload/flows';
+import { projectsForCompany } from '../lib/career';
 import { formatMonths, monthCount, periodLabel } from '../lib/date';
+import { ProjectCard } from './ProjectSection';
 
 export function ExperienceSection({
   experience,
+  project,
   totalLabel,
   expandedId,
   onToggle,
+  onOpenProject,
+  onOpenDiagram,
 }: {
   experience: IExperience.Payload;
+  project: IProject.Payload;
   totalLabel: string;
   expandedId?: string;
   onToggle: (id: string) => void;
+  onOpenProject: (id: string) => void;
+  onOpenDiagram: (id: FlowDiagramId, nodeId?: string) => void;
 }) {
   if (experience.disable) {
     return null;
@@ -32,13 +42,14 @@ export function ExperienceSection({
           const expanded = expandedId === companyId;
           const lead = position.descriptions.find((item) => item.weight === 'MEDIUM') || position.descriptions[0];
           const rest = position.descriptions.filter((item) => item !== lead);
+          const nested = projectsForCompany(project.list, companyId);
           return (
             <motion.article
               key={companyId}
               id={`exp-${companyId}`}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.04 }}
               className={`border bg-ink-800 p-6 md:p-8 ${
                 expanded ? 'border-ember-500/40' : 'border-white/10'
@@ -59,9 +70,23 @@ export function ExperienceSection({
                   <p className="mt-5 text-sm leading-relaxed text-zinc-300">{lead.content}</p>
                 ) : null}
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-                  {expanded ? '접기' : '근거 더 보기'}
+                  {expanded ? '접기' : '더 보기'}
                 </p>
               </button>
+              {nested.length > 0 && !expanded ? (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {nested.map((item) => (
+                    <button
+                      key={item.id || item.title}
+                      type="button"
+                      onClick={() => item.id && onOpenProject(item.id)}
+                      className="border border-white/15 px-2.5 py-1 text-left text-[11px] text-zinc-300"
+                    >
+                      {item.title}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
               <AnimatePresence initial={false}>
                 {expanded ? (
                   <motion.div
@@ -88,6 +113,19 @@ export function ExperienceSection({
                           >
                             {tag}
                           </span>
+                        ))}
+                      </div>
+                    ) : null}
+                    {nested.length > 0 ? (
+                      <div className="mt-6 grid gap-4 md:grid-cols-2">
+                        {nested.map((item, nestedIndex) => (
+                          <ProjectCard
+                            key={item.id || item.title}
+                            item={item}
+                            index={nestedIndex}
+                            hideWhere
+                            onOpenDiagram={onOpenDiagram}
+                          />
                         ))}
                       </div>
                     ) : null}

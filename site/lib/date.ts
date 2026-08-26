@@ -9,6 +9,13 @@ export function formatYearMonth(value?: string): string {
   return DateTime.fromFormat(value, MONTH_FORMAT).toFormat('yyyy. LL');
 }
 
+export function formatShortYearMonth(value?: string): string {
+  if (!value) {
+    return '현재';
+  }
+  return DateTime.fromFormat(value, MONTH_FORMAT).toFormat('yy. LL');
+}
+
 export function periodLabel(startedAt: string, endedAt?: string): string {
   return `${formatYearMonth(startedAt)} – ${endedAt ? formatYearMonth(endedAt) : '현재'}`;
 }

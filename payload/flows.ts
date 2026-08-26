@@ -29,7 +29,7 @@ export interface PipelineDiagram {
 export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
   {
     id: 'inference',
-    title: '문서 추론 파이프',
+    title: '문서 추론 흐름',
     subtitle: '출처는 어댑터로 흡수하고, 실패는 상태로 남겨 재처리 입구를 지킵니다.',
     projectId: 'lomin-backend',
     nodes: [
@@ -59,7 +59,7 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
   },
   {
     id: 'payment',
-    title: '결제 적재 파이프',
+    title: '결제 적재 흐름',
     subtitle: '전송과 저장을 분리하고, 끊겨도 로컬에 들고 있다가 다시 밀어 넣습니다.',
     projectId: 'payment',
     nodes: [
@@ -114,7 +114,7 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
 
 export const DIAGRAM_TABS: { id: FlowDiagramId; label: string }[] = [
   { id: 'inference', label: '문서 추론' },
-  { id: 'payment', label: '결제 파이프' },
+  { id: 'payment', label: '결제 흐름' },
   { id: 'onprem', label: '온프렘 구성' },
   { id: 'career', label: '커리어 맵' },
 ];

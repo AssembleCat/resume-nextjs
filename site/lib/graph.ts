@@ -3,6 +3,7 @@ import { IExperience } from '../../component/experience/IExperience';
 import { IProject } from '../../component/project/IProject';
 import { IEtc } from '../../component/etc/IEtc';
 import { IProfile } from '../../component/profile/IProfile';
+import { PROJECT_PARENT } from './career';
 import { periodLabel } from './date';
 import { assetSrc } from './format';
 import { PIPELINE_DIAGRAMS, PipelineDiagram } from '../../payload/flows';
@@ -23,15 +24,6 @@ export interface PortfolioNodeData {
 }
 
 export type PortfolioNode = Node<PortfolioNodeData, PortfolioNodeType>;
-
-const PROJECT_PARENT: Record<string, string> = {
-  onprem: 'lomin',
-  'lomin-backend': 'lomin',
-  'kiosk-multi': 'imt-kiosk',
-  payment: 'imt-kiosk',
-  'stock-agent': 'side',
-  spire: 'side',
-};
 
 export function buildCareerGraph(input: {
   profile: IProfile.Payload;

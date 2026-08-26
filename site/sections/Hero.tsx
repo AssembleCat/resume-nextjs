@@ -58,9 +58,7 @@ export function Hero({
             {profile.name.title}
           </motion.h1>
           <motion.p variants={item} className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-300">
-            문서 추론을 서비스로 만드는 사람.
-            <br />
-            실패를 상태로 남기고, 재처리 입구를 지킵니다.
+            실패해도 다시 돌아가는 백엔드를 만듭니다.
           </motion.p>
           <motion.p variants={item} className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-zinc-500">
             {totalLabel} · {DOMAIN_LINE}
@@ -87,7 +85,7 @@ export function Hero({
               onClick={onOpenPipe}
               className="border border-white/15 px-5 py-2.5 text-sm text-zinc-300 hover:border-white/40 hover:text-white"
             >
-              파이프 보기
+              처리 흐름 보기
             </button>
             {profile.contact.map((contact) => {
               const label = contact.title || contact.link || '';

@@ -15,7 +15,7 @@ const education: IEducation.Payload = {
       id: 'iwoo',
       title: '경기 이우고등학교',
       subTitle: '',
-      startedAt: '2016-03',
+      startedAt: '2015-03',
       endedAt: '2018-02',
     },
   ],

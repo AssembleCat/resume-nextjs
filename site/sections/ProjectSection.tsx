@@ -1,24 +1,24 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 import { IProject } from '../../component/project/IProject';
+import { sideProjects } from '../lib/career';
 import { findPipelineByProjectId } from '../lib/graph';
 import { periodLabel } from '../lib/date';
 import { FlowDiagramId } from '../../payload/flows';
 
-const SIDE_IDS = new Set(['stock-agent', 'spire']);
-
-function ProjectCard({
+export function ProjectCard({
   item,
   index,
   onOpenDiagram,
+  hideWhere,
 }: {
   item: IProject.Item;
   index: number;
   onOpenDiagram: (id: FlowDiagramId, nodeId?: string) => void;
+  hideWhere?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const pipeline = findPipelineByProjectId(item.id);
-  const isSide = Boolean(item.id && SIDE_IDS.has(item.id));
   const lead = item.descriptions.find((desc) => desc.weight === 'MEDIUM') || item.descriptions[0];
   const rest = item.descriptions.filter((desc) => desc !== lead);
 
@@ -29,13 +29,12 @@ function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ delay: index * 0.04 }}
-      className="flex flex-col border border-white/10 bg-ink-800 p-6"
+      className={`flex flex-col border border-white/10 p-6 ${hideWhere ? 'bg-ink-950' : 'bg-ink-800'}`}
     >
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">
-        {isSide ? 'Side · ' : ''}
-        {item.where}
-      </p>
-      <h3 className="mt-2 text-xl font-semibold leading-snug">{item.title}</h3>
+      {hideWhere ? null : (
+        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{item.where}</p>
+      )}
+      <h3 className={`text-xl font-semibold leading-snug ${hideWhere ? '' : 'mt-2'}`}>{item.title}</h3>
       <p className="mt-1 font-mono text-xs text-zinc-500">{periodLabel(item.startedAt, item.endedAt)}</p>
       {lead ? <p className="mt-4 text-sm leading-relaxed text-zinc-300">{lead.content}</p> : null}
       <AnimatePresence initial={false}>
@@ -60,7 +59,7 @@ function ProjectCard({
             onClick={() => onOpenDiagram(pipeline.id, item.id ? `project:${item.id}` : undefined)}
             className="bg-white px-3 py-1.5 text-xs font-semibold text-black"
           >
-            파이프 보기
+            처리 흐름
           </button>
         ) : (
           <button
@@ -104,30 +103,20 @@ export function ProjectSection({
     return null;
   }
 
-  const production = project.list.filter((item) => !item.id || !SIDE_IDS.has(item.id));
-  const side = project.list.filter((item) => item.id && SIDE_IDS.has(item.id));
+  const side = sideProjects(project.list);
+  if (side.length === 0) {
+    return null;
+  }
 
   return (
     <section id="projects" className="mx-auto max-w-6xl px-5 py-20">
-      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Projects</p>
-      <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">만든 시스템</h2>
+      <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Side</p>
+      <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">사이드 프로젝트</h2>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
-        {production.map((item, index) => (
+        {side.map((item, index) => (
           <ProjectCard key={item.id || item.title} item={item} index={index} onOpenDiagram={onOpenDiagram} />
         ))}
       </div>
-      {side.length > 0 ? (
-        <>
-          <p className="mt-12 font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-            Side
-          </p>
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {side.map((item, index) => (
-              <ProjectCard key={item.id || item.title} item={item} index={index} onOpenDiagram={onOpenDiagram} />
-            ))}
-          </div>
-        </>
-      ) : null}
     </section>
   );
 }
