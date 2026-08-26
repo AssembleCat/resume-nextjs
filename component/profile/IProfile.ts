@@ -13,7 +13,7 @@ export declare namespace IProfile {
     /**
      * ### 프로필 이미지
      */
-    image: string;
+    image: string | { src: string };
     /** ### 이름 Object */
     name: {
       /** ### 이름 */

@@ -16,7 +16,7 @@ export const _global: IGlobal.Payload = {
       description,
       images: [
         {
-          url: previewImage,
+          url: previewImage.src,
           width: 800,
           height: 600,
           alt: 'OpenGraph Image Sample.png',

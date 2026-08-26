@@ -6,7 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -17,10 +17,19 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2017",
-    "outDir": "docs"
+    "incremental": true
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "docs", "out", "component/**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "types.d.ts",
+    "pages/**/*.ts",
+    "pages/**/*.tsx",
+    "payload/**/*.ts",
+    "site/**/*.ts",
+    "site/**/*.tsx",
+    "component/**/*.ts"
+  ],
   "typedocOptions": {
     "out": "docs/typedoc",
     "mode": "file",

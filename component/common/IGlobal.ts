@@ -12,7 +12,7 @@ export declare namespace IGlobal {
     /**
      * ### favicon 이미지
      */
-    favicon: string;
+    favicon: string | { src: string };
 
     /**
      * ### SEO Properties

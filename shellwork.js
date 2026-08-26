@@ -4,6 +4,21 @@ const shelljs = require('shelljs');
 const path = require('path');
 const { homepage } = require('./package.json');
 
+function copyExportToDocs() {
+  const outDir = path.join(__dirname, 'out');
+  const docsDir = path.join(__dirname, 'docs');
+
+  if (!shelljs.test('-d', outDir)) {
+    console.error(chalk.red('shellwork: out/ directory is missing. Did next build finish with output: export?'));
+    process.exit(1);
+  }
+
+  shelljs.rm('-rf', docsDir);
+  shelljs.mkdir('-p', docsDir);
+  shelljs.cp('-R', path.join(outDir, '*'), docsDir);
+  console.log(chalk.yellow('shellwork: copied out/ to docs/'));
+}
+
 /**
  * * judge `CNAME` file
  */
@@ -21,7 +36,7 @@ function judgeCnameCreation() {
         `shellwork: The homepage field in package.json is '${homepage}'. Consider github pages hosting and don't generate docs/CNAME file.`,
       ),
     );
-    process.exit(0);
+    return;
   }
 
   // * 위 정규표현식에 걸리지 않았을 경우 Custom Domain 으로 간주하고 docs/CNAME 을 생성한다.
@@ -44,5 +59,6 @@ function createNojekyll() {
   console.log(chalk.yellow('shellwork: create docs/.nojekyll done.'));
 }
 
+copyExportToDocs();
 createNojekyll();
 judgeCnameCreation();

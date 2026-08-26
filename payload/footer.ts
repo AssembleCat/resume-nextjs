@@ -1,11 +1,11 @@
-import { homepage, version } from '../package.json';
+import packageInfo from '../package.json';
 
 import { IFooter } from '../component/footer/IFooter';
 
 const footer: IFooter.Payload = {
   disable: true,
-  version,
-  github: homepage,
+  version: packageInfo.version,
+  github: packageInfo.homepage,
 };
 
 export default footer;

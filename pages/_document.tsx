@@ -5,19 +5,15 @@ export default class ResumeDocument extends Document {
     return (
       <Html lang="ko-KR">
         <Head>
-          {/* Step 5: Output the styles in the head  */}
           <meta charSet="utf-8" />
-          {/* <meta name="viewport" content="initial-scale=1.0, width=device-width" /> */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link
-            href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700|Parisienne&display=swap&subset=korean"
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap"
             rel="stylesheet"
           />
           <link
-            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Parisienne&display=swap"
+            href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css"
             rel="stylesheet"
           />
         </Head>
