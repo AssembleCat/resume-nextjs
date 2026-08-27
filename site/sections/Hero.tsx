@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { IProfile } from '../../component/profile/IProfile';
 import { assetSrc } from '../lib/format';
 import { DOMAIN_LINE, NOW_FACTS } from '../lib/career';
+import { CompanyName } from './CompanyName';
 
 const container = {
   hidden: { opacity: 0 },
@@ -21,25 +22,25 @@ export function Hero({
   profile,
   totalLabel,
   skills,
-  onOpenPipe,
+  currentCompanyHref,
 }: {
   profile: IProfile.Payload;
   totalLabel: string;
   skills: string[];
-  onOpenPipe: () => void;
+  currentCompanyHref?: string;
 }) {
   return (
     <section id="intro" className="relative overflow-hidden site-grid">
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute right-[8%] top-24 h-36 w-36 bg-ember-500"
+        className="pointer-events-none absolute right-[4%] top-10 z-0 h-36 w-36 bg-ember-500"
         animate={{ x: 22, y: -18, rotate: 10 }}
         transition={{ duration: 4.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
         style={{ boxShadow: '0 0 120px rgba(255,77,0,0.45)', willChange: 'transform' }}
       />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute right-[18%] top-56 h-16 w-16 border border-white/20 bg-white/5"
+        className="pointer-events-none absolute right-[10%] top-44 z-0 h-16 w-16 border border-white/20 bg-white/5"
         animate={{ rotate: -12, x: ['0%', '-30%'] }}
         transition={{ duration: 8, repeat: Infinity, repeatType: 'mirror' }}
       />
@@ -57,10 +58,7 @@ export function Hero({
           >
             {profile.name.title}
           </motion.h1>
-          <motion.p variants={item} className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-300">
-            실패해도 다시 돌아가는 백엔드를 만듭니다.
-          </motion.p>
-          <motion.p variants={item} className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-zinc-500">
+          <motion.p variants={item} className="mt-6 font-mono text-xs tracking-[0.12em] text-zinc-500">
             {totalLabel} · {DOMAIN_LINE}
           </motion.p>
           <motion.div variants={item} className="mt-4 flex flex-wrap gap-1.5">
@@ -74,19 +72,6 @@ export function Hero({
             ))}
           </motion.div>
           <motion.div variants={item} className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#experience"
-              className="bg-white px-5 py-2.5 text-sm font-semibold text-black"
-            >
-              경력 보기
-            </a>
-            <button
-              type="button"
-              onClick={onOpenPipe}
-              className="border border-white/15 px-5 py-2.5 text-sm text-zinc-300 hover:border-white/40 hover:text-white"
-            >
-              처리 흐름 보기
-            </button>
             {profile.contact.map((contact) => {
               const label = contact.title || contact.link || '';
               if (!contact.link && !contact.title) {
@@ -96,7 +81,7 @@ export function Hero({
                 <a
                   key={label}
                   href={contact.link}
-                  className="inline-flex items-center gap-2 border border-white/15 px-4 py-2.5 text-sm text-zinc-300 hover:border-white/40 hover:text-white"
+                  className="chip-frame inline-flex items-center gap-2 px-4 py-2.5 text-sm text-zinc-300"
                 >
                   <FontAwesomeIcon icon={contact.icon} />
                   <span>{label.replace('https://github.com/', 'github/')}</span>
@@ -117,15 +102,20 @@ export function Hero({
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="relative border border-white/10 bg-ink-800/80 p-5"
+          className="card-frame relative z-10 bg-ink-800/80 p-5"
         >
           <img
             src={assetSrc(profile.image)}
             alt={profile.name.title}
-            className="mb-5 h-28 w-28 object-cover ring-1 ring-white/10"
+            width={176}
+            height={176}
+            className="mx-auto mb-5 block h-36 w-36 object-cover object-top ring-1 ring-white/10 md:h-44 md:w-44"
           />
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">Now</p>
-          <p className="mt-2 text-lg font-semibold">로민 · 1인 백엔드</p>
+          <p className="mt-2 text-lg font-semibold">
+            <CompanyName title="로민" href={currentCompanyHref} />
+            {' · 백엔드챕터'}
+          </p>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-zinc-400">
             {NOW_FACTS.map((line) => (
               <li key={line}>{line}</li>

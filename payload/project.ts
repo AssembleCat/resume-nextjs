@@ -115,6 +115,50 @@ const project: IProject.Payload = {
       ],
     },
     {
+      id: 'van-switch',
+      title: 'VAN 확장 및 결제수단 전환',
+      startedAt: '2024-11',
+      endedAt: '2025-03',
+      where: '아이엠티소프트',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '기존 KIOSK 팀 요청으로 VAN 확장에 합류했습니다. 결제 모듈을 1개사에서 4개사로 늘렸고, 페이 포함 결제수단을 설정만으로 전환할 수 있게 했습니다.',
+        },
+        {
+          content:
+            '[공통 동작] 통합 전에는 같은 기능의 키오스크도 계약 VAN마다 배포·운영 비용이 갈렸습니다. 결제·환불·조회를 공통 동작으로 두고 Factory·Strategy로 구현체를 교체했습니다.',
+        },
+        {
+          content:
+            '[비동기] 피크타임 결제 부하와 유실을 막기 위해 VAN 연동을 비동기로 두었습니다.',
+        },
+      ],
+    },
+    {
+      id: 'inhouse-point',
+      title: '자사 포인트 적립·사용',
+      startedAt: '2024-11',
+      endedAt: '2025-03',
+      where: '아이엠티소프트',
+      descriptions: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '외부 포인트 연동 수수료를 줄이려 자사 적립·사용을 만들었습니다. 개발 리드 설계 아래 구현 방향을 보태며 잔액 정합성(트랜잭션·멱등)을 성능보다 우선했습니다.',
+        },
+        {
+          content:
+            '[멱등] 같은 적립·사용 요청이 재시도되어도 잔액을 두 번 바꾸지 않게 했습니다.',
+        },
+        {
+          content:
+            '[트랜잭션] 잔액 변경을 한 단위로 묶어, 동시 사용에도 잔액이 어긋나지 않게 했습니다.',
+        },
+      ],
+    },
+    {
       id: 'kiosk-multi',
       title: '다중 브랜드 대응 KIOSK 시스템 개발',
       startedAt: '2023-04',

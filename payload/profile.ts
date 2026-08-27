@@ -1,7 +1,7 @@
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { IProfile } from '../component/profile/IProfile';
-import image from '../asset/avatar.jpg';
+import image from '../asset/avatar-square.jpg';
 
 const profile: IProfile.Payload = {
   disable: false,

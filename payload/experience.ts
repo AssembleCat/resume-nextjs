@@ -7,6 +7,7 @@ const experience: IExperience.Payload = {
     {
       title: '로민(Lomin)',
       id: 'lomin',
+      href: 'https://www.lomin.ai/',
       positions: [
         {
           title: 'Backend Engineer',
@@ -39,6 +40,7 @@ const experience: IExperience.Payload = {
     {
       title: '아이엠티소프트',
       id: 'imt-freelance',
+      href: 'https://www.imtsoft.co.kr/',
       positions: [
         {
           title: 'Freelancer Backend Engineer',
@@ -92,6 +94,7 @@ const experience: IExperience.Payload = {
     {
       title: '아이엠티소프트',
       id: 'imt-kiosk',
+      href: 'https://www.imtsoft.co.kr/',
       positions: [
         {
           title: 'KIOSK Team Backend Engineer',

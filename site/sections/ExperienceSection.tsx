@@ -4,7 +4,12 @@ import { IProject } from '../../component/project/IProject';
 import { FlowDiagramId } from '../../payload/flows';
 import { projectsForCompany } from '../lib/career';
 import { formatMonths, monthCount, periodLabel } from '../lib/date';
+import { CompanyName } from './CompanyName';
 import { ProjectCard } from './ProjectSection';
+
+function shouldIgnoreCardToggle(target: EventTarget | null) {
+  return target instanceof Element && Boolean(target.closest('a, button, [data-no-toggle]'));
+}
 
 export function ExperienceSection({
   experience,
@@ -30,7 +35,7 @@ export function ExperienceSection({
   return (
     <section id="experience" className="mx-auto max-w-6xl px-5 py-20">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Experience</p>
-      <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">일한 자리</h2>
+      <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">경험과 경력</h2>
       <p className="mt-3 font-mono text-xs text-zinc-500">총 {totalLabel}</p>
       <div className="mt-10 space-y-4">
         {experience.list.map((company, index) => {
@@ -51,27 +56,35 @@ export function ExperienceSection({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.04 }}
-              className={`border bg-ink-800 p-6 md:p-8 ${
-                expanded ? 'border-ember-500/40' : 'border-white/10'
-              }`}
+              onClick={(event) => {
+                if (shouldIgnoreCardToggle(event.target)) {
+                  return;
+                }
+                onToggle(companyId);
+              }}
+              className={`card-frame cursor-pointer bg-ink-800 p-6 md:p-8 ${expanded ? 'is-active' : ''}`}
             >
-              <button type="button" onClick={() => onToggle(companyId)} className="w-full text-left">
-                <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                  <div>
-                    <h3 className="text-2xl font-semibold">{company.title}</h3>
-                    <p className="mt-1 text-sm text-zinc-400">{position.title}</p>
-                  </div>
-                  <p className="font-mono text-xs text-zinc-500">
-                    {periodLabel(position.startedAt, position.endedAt)} ·{' '}
-                    {formatMonths(monthCount(position.startedAt, position.endedAt))}
-                  </p>
+              <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h3 className="text-2xl font-semibold">
+                    <CompanyName title={company.title} href={company.href} />
+                  </h3>
+                  <p className="mt-1 text-sm text-zinc-400">{position.title}</p>
                 </div>
-                {lead ? (
-                  <p className="mt-5 text-sm leading-relaxed text-zinc-300">{lead.content}</p>
-                ) : null}
-                <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-                  {expanded ? '접기' : '더 보기'}
+                <p className="font-mono text-xs text-zinc-500">
+                  {periodLabel(position.startedAt, position.endedAt)} ·{' '}
+                  {formatMonths(monthCount(position.startedAt, position.endedAt))}
                 </p>
+              </div>
+              {lead ? (
+                <p className="mt-5 text-sm leading-relaxed text-zinc-300">{lead.content}</p>
+              ) : null}
+              <button
+                type="button"
+                onClick={() => onToggle(companyId)}
+                className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500"
+              >
+                {expanded ? '접기' : '자세히 보기'}
               </button>
               {nested.length > 0 && !expanded ? (
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -80,7 +93,7 @@ export function ExperienceSection({
                       key={item.id || item.title}
                       type="button"
                       onClick={() => item.id && onOpenProject(item.id)}
-                      className="border border-white/15 px-2.5 py-1 text-left text-[11px] text-zinc-300"
+                      className="chip-frame px-2.5 py-1 text-left text-[11px] text-zinc-300"
                     >
                       {item.title}
                     </button>
@@ -91,6 +104,7 @@ export function ExperienceSection({
                 {expanded ? (
                   <motion.div
                     key="body"
+                    data-no-toggle
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

@@ -33,7 +33,15 @@ export interface ResumeViewQuery {
 export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   core: {
     experience: 'all',
-    project: ['onprem', 'lomin-backend', 'stock-agent', 'kiosk-multi', 'payment'],
+    project: [
+      'onprem',
+      'lomin-backend',
+      'stock-agent',
+      'van-switch',
+      'inhouse-point',
+      'kiosk-multi',
+      'payment',
+    ],
     education: ['hanshin', 'iwoo'],
     etc: 'all',
   },
@@ -45,7 +53,16 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   },
   game: {
     experience: 'all',
-    project: ['onprem', 'lomin-backend', 'stock-agent', 'spire', 'kiosk-multi', 'payment'],
+    project: [
+      'onprem',
+      'lomin-backend',
+      'stock-agent',
+      'spire',
+      'van-switch',
+      'inhouse-point',
+      'kiosk-multi',
+      'payment',
+    ],
     education: ['hanshin', 'iwoo'],
     etc: 'all',
   },

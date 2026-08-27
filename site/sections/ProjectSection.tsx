@@ -29,7 +29,7 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ delay: index * 0.04 }}
-      className={`flex flex-col border border-white/10 p-6 ${hideWhere ? 'bg-ink-950' : 'bg-ink-800'}`}
+      className={`card-frame flex flex-col p-6 ${hideWhere ? 'bg-ink-950' : 'bg-ink-800'}`}
     >
       {hideWhere ? null : (
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{item.where}</p>
@@ -61,20 +61,12 @@ export function ProjectCard({
           >
             처리 흐름
           </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => onOpenDiagram('career', item.id ? `project:${item.id}` : undefined)}
-            className="border border-white/15 px-3 py-1.5 text-xs text-zinc-300"
-          >
-            맵에서 보기
-          </button>
-        )}
+        ) : null}
         {rest.length > 0 ? (
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="border border-white/15 px-3 py-1.5 text-xs text-zinc-300"
+            className="chip-frame px-3 py-1.5 text-xs text-zinc-300"
           >
             {open ? '접기' : '더 보기'}
           </button>
@@ -82,7 +74,7 @@ export function ProjectCard({
         {item.href ? (
           <a
             href={item.href}
-            className="border border-white/15 px-3 py-1.5 text-xs text-zinc-300"
+            className="chip-frame px-3 py-1.5 text-xs text-zinc-300"
           >
             링크
           </a>

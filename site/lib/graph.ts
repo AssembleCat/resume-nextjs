@@ -66,6 +66,7 @@ export function buildCareerGraph(input: {
           ? `${position.title} · ${periodLabel(position.startedAt, position.endedAt)}`
           : company.title,
         tags: position?.skillKeywords?.slice(0, 4),
+        href: company.href,
         entityId: companyId,
       },
     });
@@ -203,6 +204,7 @@ export function buildPipelineGraph(diagram: PipelineDiagram): { nodes: Portfolio
       target: edge.target,
       label: edge.label,
       animated: edge.animated,
+      className: edge.kind,
     })),
   };
 }

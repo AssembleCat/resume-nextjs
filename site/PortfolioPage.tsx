@@ -3,7 +3,7 @@ import { Payload } from '../payload';
 import { DIAGRAM_TABS, FlowDiagramId, PIPELINE_DIAGRAMS } from '../payload/flows';
 import { buildTimeline, parentOfProject, totalPeriodLabel, uniqueSkills } from './lib/career';
 import { scrollToId } from './lib/date';
-import { buildCareerGraph, buildPipelineGraph } from './lib/graph';
+import { buildPipelineGraph } from './lib/graph';
 import { CareerStrip } from './sections/CareerStrip';
 import { ExperienceSection } from './sections/ExperienceSection';
 import { GraphPlayground } from './sections/GraphPlayground';
@@ -19,35 +19,28 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
   const [selectedId, setSelectedId] = useState<string | undefined>();
   const [expandedExp, setExpandedExp] = useState<string | undefined>('lomin');
 
+  const lomin = resume.experience.list.find((item) => item.id === 'lomin');
   const timeline = useMemo(() => buildTimeline(resume.experience), [resume.experience]);
   const totalLabel = useMemo(() => totalPeriodLabel(resume.experience), [resume.experience]);
   const skills = useMemo(() => uniqueSkills(resume.experience), [resume.experience]);
 
   const graph = useMemo(() => {
-    if (diagram === 'career') {
-      return buildCareerGraph({
-        profile: resume.profile,
-        experience: resume.experience,
-        project: resume.project,
-        etc: resume.etc,
-      });
-    }
     const pipeline = PIPELINE_DIAGRAMS.find((item) => item.id === diagram);
     if (!pipeline) {
       return { nodes: [], edges: [] };
     }
     return buildPipelineGraph(pipeline);
-  }, [diagram, resume]);
+  }, [diagram]);
 
   const openDiagram = (id: FlowDiagramId, nodeId?: string) => {
     setDiagram(id);
     setSelectedId(nodeId);
-    scrollToId('map');
+    window.setTimeout(() => scrollToId('architecture'), 50);
   };
 
   const openExperience = (id: string) => {
     setExpandedExp(id);
-    scrollToId(`exp-${id}`);
+    window.setTimeout(() => scrollToId(`exp-${id}`), 50);
   };
 
   const openProject = (id: string) => {
@@ -79,7 +72,7 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         profile={resume.profile}
         totalLabel={totalLabel}
         skills={skills}
-        onOpenPipe={() => openDiagram('inference')}
+        currentCompanyHref={lomin?.href}
       />
       <CareerStrip
         segments={timeline}

@@ -5,26 +5,23 @@ import { formatMonths, monthCount } from './date';
 export const DOMAIN_LINE = 'KIOSK · Payments · Document AI · On-prem';
 
 export const NOW_FACTS = [
-  'Document AI · 추론 흐름 운영',
-  'FastAPI는 추론, Spring Kotlin은 상태·연동',
-  '온프레미스에서 실패를 상태로 재처리',
+  "Document AI Agent 'Lomin'을 운영합니다.",
+  '주로 Python, Kotlin으로 SaaS, On-prem 환경의 고민점을 해결하고 있습니다.',
 ];
 
 const STACK_ORDER = [
   'Kotlin',
   'Spring',
-  'FastAPI',
   'Python',
   'AWS',
   'Docker',
-  'Redis',
-  'Celery',
   'RDB',
+  'NoSQL',
 ];
 
 const SHORT_NAME: Record<string, string> = {
   lomin: '로민',
-  'imt-freelance': 'IMT 프리랜스',
+  'imt-freelance': 'IMT',
   'imt-kiosk': 'IMT',
   tenacity: '테너시티즈',
 };
@@ -32,6 +29,8 @@ const SHORT_NAME: Record<string, string> = {
 export const PROJECT_PARENT: Record<string, string> = {
   onprem: 'lomin',
   'lomin-backend': 'lomin',
+  'van-switch': 'imt-freelance',
+  'inhouse-point': 'imt-freelance',
   'kiosk-multi': 'imt-kiosk',
   payment: 'imt-kiosk',
   'stock-agent': 'side',
@@ -106,6 +105,5 @@ export function uniqueSkills(experience: IExperience.Payload): string[] {
     });
   });
   const ordered = STACK_ORDER.filter((tag) => seen.has(tag));
-  const rest = Array.from(seen).filter((tag) => !STACK_ORDER.includes(tag));
-  return [...ordered, ...rest].slice(0, 8);
+  return ordered;
 }

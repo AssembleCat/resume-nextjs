@@ -26,6 +26,9 @@ export declare namespace IExperience {
     /** ### (직장)경험 명 */
     title: string;
 
+    /** ### 회사 홈페이지 */
+    href?: string;
+
     /** ### (직장)수행한 직위/직책 포지션 정보 */
     positions: Position[];
   }

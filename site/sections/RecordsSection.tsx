@@ -23,7 +23,7 @@ export function RecordsSection({
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-white/10 bg-ink-800 p-6"
+            className="card-frame bg-ink-800 p-6"
           >
             <h3 className="font-display text-2xl">Education</h3>
             <div className="mt-5 space-y-4">
@@ -48,7 +48,7 @@ export function RecordsSection({
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="border border-white/10 bg-ink-800 p-6"
+            className="card-frame bg-ink-800 p-6"
           >
             <h3 className="font-display text-2xl">Awards & Certs</h3>
             <div className="mt-5 space-y-4">

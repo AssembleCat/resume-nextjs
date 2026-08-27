@@ -5,12 +5,12 @@ import { TimelineSegment } from '../lib/career';
 
 function segmentClass(active: boolean, current: boolean): string {
   if (active) {
-    return 'bg-ember-500/15';
+    return 'bg-ember-500/15 shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
   }
   if (current) {
-    return 'bg-ember-500/10 hover:bg-ember-500/15';
+    return 'bg-ember-500/10 transition-shadow duration-200 hover:shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
   }
-  return 'bg-ink-800 hover:bg-ink-700';
+  return 'bg-ink-800 transition-shadow duration-200 hover:shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
 }
 
 function segmentFlex(months: number): CSSProperties {
@@ -40,7 +40,7 @@ export function CareerStrip({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Timeline</p>
-          <h2 className="mt-2 font-display text-2xl tracking-tight md:text-3xl">일한 기간</h2>
+          <h2 className="mt-2 font-display text-2xl tracking-tight md:text-3xl">재직 이력</h2>
         </div>
         <p className="font-mono text-xs text-zinc-500">
           총 {totalLabel} · {origin} – 현재
@@ -50,16 +50,16 @@ export function CareerStrip({
         {segments.map((segment, index) => {
           const active = activeId === segment.id;
           return (
-            <motion.button
+            <motion.a
               key={segment.id}
-              type="button"
+              href={`#exp-${segment.id}`}
               onClick={() => onSelect(segment.id)}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.04 }}
               style={segmentFlex(segment.months)}
-              className={`border-r border-white/10 px-3 py-2 text-left last:border-r-0 ${segmentClass(
+              className={`block border-r border-white/10 px-3 py-2 text-left last:border-r-0 ${segmentClass(
                 active,
                 segment.current,
               )}`}
@@ -68,7 +68,7 @@ export function CareerStrip({
                 {formatMonths(segment.months)}
               </p>
               <p className="mt-1 truncate text-sm font-medium">{segment.short}</p>
-            </motion.button>
+            </motion.a>
           );
         })}
       </div>

@@ -4,7 +4,9 @@ import { PortfolioNodeData } from '../lib/graph';
 type FlowNodeProps = NodeProps<Node<PortfolioNodeData>>;
 
 function selectedRing(selected?: boolean) {
-  return selected ? 'shadow-ember ring-1 ring-ember-500/70' : 'ring-1 ring-white/10';
+  return selected
+    ? 'shadow-ember ring-1 ring-ember-500/70'
+    : 'ring-1 ring-white/10 transition-[box-shadow] duration-200 hover:ring-ember-500/50';
 }
 
 export function PersonNode({ data }: FlowNodeProps) {
@@ -39,7 +41,19 @@ export function CompanyNode({ data }: FlowNodeProps) {
       <Handle type="source" position={Position.Right} />
       <Handle type="source" position={Position.Bottom} />
       <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ember-400">Company</p>
-      <p className="mt-1 text-[15px] font-semibold leading-snug">{data.label}</p>
+      {data.href ? (
+        <a
+          href={data.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => event.stopPropagation()}
+          className="mt-1 text-[15px] font-semibold leading-snug underline-offset-4 hover:text-ember-400 hover:underline"
+        >
+          {data.label}
+        </a>
+      ) : (
+        <p className="mt-1 text-[15px] font-semibold leading-snug">{data.label}</p>
+      )}
       <p className="mt-1 text-xs leading-relaxed text-zinc-400">{data.caption}</p>
       {data.tags && data.tags.length > 0 ? (
         <div className="mt-2 flex flex-wrap gap-1">
@@ -69,8 +83,10 @@ export function ProjectNode({ data }: FlowNodeProps) {
 export function AwardNode({ data }: FlowNodeProps) {
   return (
     <div
-      className={`w-[236px] bg-ember-500/10 px-4 py-3 ${
-        data.selected ? 'shadow-ember ring-1 ring-ember-500' : 'ring-1 ring-ember-500/40'
+      className={`w-[236px] bg-ember-500/10 px-4 py-3 transition-[box-shadow] duration-200 ${
+        data.selected
+          ? 'shadow-ember ring-1 ring-ember-500'
+          : 'ring-1 ring-ember-500/40 hover:ring-ember-500/80'
       }`}
     >
       <Handle type="target" position={Position.Top} />
@@ -91,7 +107,7 @@ const TONE_CLASS: Record<string, string> = {
 export function PipelineNode({ data }: FlowNodeProps) {
   const tone = TONE_CLASS[data.tone || 'mute'];
   return (
-    <div className={`w-[210px] border px-4 py-3 ${tone} ${selectedRing(data.selected)}`}>
+    <div className={`w-[210px] border px-4 py-3 transition-colors duration-200 hover:border-ember-500/50 ${tone} ${selectedRing(data.selected)}`}>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
       <p className="text-sm font-semibold leading-snug">{data.label}</p>
