@@ -58,7 +58,13 @@ export function FlowCanvas({ nodes, edges, selectedId, onSelect, hint }: FlowCan
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       nodeTypes={portfolioNodeTypes}
-      onNodeClick={(_, node) => onSelect(node.id)}
+      onNodeClick={(_, node) => {
+        if (node.type === 'region') {
+          onSelect(undefined);
+          return;
+        }
+        onSelect(node.id);
+      }}
       onPaneClick={() => onSelect(undefined)}
       fitView
       minZoom={0.25}
@@ -74,7 +80,7 @@ export function FlowCanvas({ nodes, edges, selectedId, onSelect, hint }: FlowCan
         pannable
         zoomable
         maskColor="rgba(0,0,0,0.55)"
-        nodeColor={() => '#ff4d00'}
+        nodeColor={(node) => (node.type === 'region' ? '#2a2a2a' : '#ff4d00')}
         bgColor="#111"
       />
       <Panel position="top-left">

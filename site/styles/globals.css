@@ -97,20 +97,31 @@ body::before {
 
 .react-flow__edge-path {
   stroke: rgba(255, 255, 255, 0.28) !important;
+  stroke-dasharray: none;
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 
 .react-flow__edge.animated .react-flow__edge-path {
   stroke: #ff4d00 !important;
+  stroke-dasharray: 6 4;
+  animation: flow-dash 0.6s linear infinite;
 }
 
 .react-flow__edge.fail .react-flow__edge-path {
   stroke: rgba(239, 68, 68, 0.75) !important;
-  stroke-dasharray: 5 4;
+  stroke-dasharray: none !important;
+  animation: none !important;
 }
 
 .react-flow__edge.retry .react-flow__edge-path {
   stroke: rgba(52, 211, 153, 0.75) !important;
-  stroke-dasharray: 4 3;
+  stroke-dasharray: none !important;
+  animation: none !important;
 }
 
 .react-flow__handle {
@@ -130,6 +141,14 @@ body::before {
 
 .react-flow__controls-button:hover {
   background: #1d1d1d !important;
+}
+
+.react-flow__node-region {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .no-scrollbar::-webkit-scrollbar {

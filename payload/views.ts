@@ -42,7 +42,7 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
       'kiosk-multi',
       'payment',
     ],
-    education: ['hanshin', 'iwoo'],
+    education: ['hanshin'],
     etc: 'all',
   },
   full: {
@@ -63,7 +63,7 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
       'kiosk-multi',
       'payment',
     ],
-    education: ['hanshin', 'iwoo'],
+    education: ['hanshin'],
     etc: 'all',
   },
 };

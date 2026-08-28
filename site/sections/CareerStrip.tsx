@@ -3,14 +3,27 @@ import { motion } from 'motion/react';
 import { formatMonths, formatShortYearMonth } from '../lib/date';
 import { TimelineSegment } from '../lib/career';
 
-function segmentClass(active: boolean, current: boolean): string {
+function segmentClass(segment: TimelineSegment, active: boolean): string {
+  if (segment.kind === 'aside') {
+    if (active) {
+      return 'bg-white/5 text-zinc-300 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.28)]';
+    }
+    return 'bg-ink-950 text-zinc-400 transition-shadow duration-200 hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)]';
+  }
   if (active) {
     return 'bg-ember-500/15 shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
   }
-  if (current) {
+  if (segment.current) {
     return 'bg-ember-500/10 transition-shadow duration-200 hover:shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
   }
   return 'bg-ink-800 transition-shadow duration-200 hover:shadow-[inset_0_0_0_1px_rgba(255,77,0,0.5)]';
+}
+
+function segmentHref(segment: TimelineSegment): string {
+  if (segment.kind === 'aside') {
+    return `#project-${segment.id}`;
+  }
+  return `#exp-${segment.id}`;
 }
 
 function segmentFlex(months: number): CSSProperties {
@@ -30,9 +43,12 @@ export function CareerStrip({
   segments: TimelineSegment[];
   totalLabel: string;
   activeId?: string;
-  onSelect: (id: string) => void;
+  onSelect: (segment: TimelineSegment) => void;
 }) {
-  const total = segments.reduce((sum, item) => sum + item.months, 0);
+  const workMonths = segments
+    .filter((item) => item.kind === 'work')
+    .reduce((sum, item) => sum + item.months, 0);
+  const hasAside = segments.some((item) => item.kind === 'aside');
   const origin = segments[0] ? formatShortYearMonth(segments[0].startedAt) : '';
 
   return (
@@ -44,6 +60,7 @@ export function CareerStrip({
         </div>
         <p className="font-mono text-xs text-zinc-500">
           총 {totalLabel} · {origin} – 현재
+          {hasAside ? ' · 재직 합. 공모전 기간은 별도' : ''}
         </p>
       </div>
       <div className="mt-5 flex h-16 overflow-hidden border border-white/10">
@@ -52,19 +69,23 @@ export function CareerStrip({
           return (
             <motion.a
               key={segment.id}
-              href={`#exp-${segment.id}`}
-              onClick={() => onSelect(segment.id)}
+              href={segmentHref(segment)}
+              onClick={() => onSelect(segment)}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.04 }}
               style={segmentFlex(segment.months)}
               className={`block border-r border-white/10 px-3 py-2 text-left last:border-r-0 ${segmentClass(
+                segment,
                 active,
-                segment.current,
               )}`}
             >
-              <p className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-ember-400">
+              <p
+                className={`truncate font-mono text-[10px] uppercase tracking-[0.14em] ${
+                  segment.kind === 'aside' ? 'text-zinc-500' : 'text-ember-400'
+                }`}
+              >
                 {formatMonths(segment.months)}
               </p>
               <p className="mt-1 truncate text-sm font-medium">{segment.short}</p>
@@ -89,7 +110,7 @@ export function CareerStrip({
           );
         })}
       </div>
-      <p className="sr-only">재직 기간 합 {total}개월</p>
+      <p className="sr-only">재직 기간 합 {workMonths}개월</p>
     </section>
   );
 }

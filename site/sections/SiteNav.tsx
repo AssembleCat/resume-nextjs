@@ -4,6 +4,7 @@ const LINKS = [
   { href: '#intro', label: '소개' },
   { href: '#experience', label: '경력' },
   { href: '#architecture', label: '아키텍처' },
+  { href: '#projects', label: '사이드' },
   { href: '#records', label: '기록' },
 ];
 

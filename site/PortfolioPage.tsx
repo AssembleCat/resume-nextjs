@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Payload } from '../payload';
 import { DIAGRAM_TABS, FlowDiagramId, PIPELINE_DIAGRAMS } from '../payload/flows';
-import { buildTimeline, parentOfProject, totalPeriodLabel, uniqueSkills } from './lib/career';
+import { buildTimeline, parentOfProject, totalPeriodLabel, uniqueSkills, TimelineSegment } from './lib/career';
 import { scrollToId } from './lib/date';
 import { buildPipelineGraph } from './lib/graph';
 import { CareerStrip } from './sections/CareerStrip';
@@ -65,6 +65,14 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
     openProject(target.id);
   };
 
+  const handleTimelineSelect = (segment: TimelineSegment) => {
+    if (segment.kind === 'aside') {
+      openProject(segment.id);
+      return;
+    }
+    openExperience(segment.id);
+  };
+
   return (
     <div className="min-h-screen bg-ink-950 text-zinc-100">
       <SiteNav />
@@ -78,7 +86,7 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         segments={timeline}
         totalLabel={totalLabel}
         activeId={expandedExp}
-        onSelect={openExperience}
+        onSelect={handleTimelineSelect}
       />
       <Highlights onOpen={handleHighlight} />
       <ExperienceSection
@@ -90,7 +98,6 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         onOpenProject={openProject}
         onOpenDiagram={openDiagram}
       />
-      <ProjectSection project={resume.project} onOpenDiagram={openDiagram} />
       <GraphPlayground
         diagram={diagram}
         onDiagramChange={(id) => {
@@ -106,6 +113,7 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         project={resume.project}
         etc={resume.etc}
       />
+      <ProjectSection project={resume.project} onOpenDiagram={openDiagram} />
       <RecordsSection
         education={resume.education}
         etc={resume.etc}

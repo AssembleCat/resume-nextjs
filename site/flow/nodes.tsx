@@ -115,3 +115,27 @@ export function PipelineNode({ data }: FlowNodeProps) {
     </div>
   );
 }
+
+const REGION_FILL: Record<string, string> = {
+  ember: 'border-ember-500/25 bg-ember-500/[0.06]',
+  mute: 'border-white/10 bg-white/[0.035]',
+};
+
+export function RegionNode({ data }: FlowNodeProps) {
+  const fill = REGION_FILL[data.tone || 'mute'];
+  return (
+    <div className={`relative h-full w-full ${fill}`}>
+      <div
+        className={`absolute inset-y-0 left-0 w-[3px] ${
+          data.tone === 'ember' ? 'bg-ember-500/70' : 'bg-white/25'
+        }`}
+      />
+      <div className="px-4 pt-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{data.label}</p>
+        {data.caption ? (
+          <p className="mt-0.5 text-[10px] leading-snug text-zinc-600">{data.caption}</p>
+        ) : null}
+      </div>
+    </div>
+  );
+}

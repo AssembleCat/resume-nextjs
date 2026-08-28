@@ -4,8 +4,10 @@ import { formatMonths, monthCount } from './date';
 
 export const DOMAIN_LINE = 'KIOSK · Payments · Document AI · On-prem';
 
+export const LOMIN_PRODUCT_HREF = 'https://beta.zixy.io/';
+
 export const NOW_FACTS = [
-  "Document AI Agent 'Lomin'을 운영합니다.",
+  'Document AI Agent Lomin을 운영합니다.',
   '주로 Python, Kotlin으로 SaaS, On-prem 환경의 고민점을 해결하고 있습니다.',
 ];
 
@@ -13,10 +15,11 @@ const STACK_ORDER = [
   'Kotlin',
   'Spring',
   'Python',
-  'AWS',
+  'FastAPI',
+  'Redis',
   'Docker',
+  'AWS',
   'RDB',
-  'NoSQL',
 ];
 
 const SHORT_NAME: Record<string, string> = {
@@ -52,6 +55,8 @@ export function sideProjects(list: IProject.Item[]): IProject.Item[] {
   return list.filter((item) => parentOfProject(item.id) === 'side');
 }
 
+export type TimelineKind = 'work' | 'aside';
+
 export interface TimelineSegment {
   id: string;
   label: string;
@@ -61,6 +66,7 @@ export interface TimelineSegment {
   endedAt?: string;
   months: number;
   current: boolean;
+  kind: TimelineKind;
 }
 
 export function buildTimeline(experience: IExperience.Payload): TimelineSegment[] {
@@ -79,8 +85,10 @@ export function buildTimeline(experience: IExperience.Payload): TimelineSegment[
       endedAt: position.endedAt,
       months: monthCount(position.startedAt, position.endedAt),
       current: !position.endedAt,
+      kind: 'work',
     });
   });
+
   return segments.sort((a, b) => a.startedAt.localeCompare(b.startedAt));
 }
 

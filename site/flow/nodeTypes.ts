@@ -1,5 +1,5 @@
 import { NodeTypes } from '@xyflow/react';
-import { AwardNode, CompanyNode, PersonNode, PipelineNode, ProjectNode } from './nodes';
+import { AwardNode, CompanyNode, PersonNode, PipelineNode, ProjectNode, RegionNode } from './nodes';
 
 export const portfolioNodeTypes: NodeTypes = {
   person: PersonNode,
@@ -7,4 +7,5 @@ export const portfolioNodeTypes: NodeTypes = {
   project: ProjectNode,
   award: AwardNode,
   pipeline: PipelineNode,
+  region: RegionNode,
 };

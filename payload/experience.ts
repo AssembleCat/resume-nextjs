@@ -15,7 +15,7 @@ const experience: IExperience.Payload = {
           descriptions: [
             {
               content:
-                '1인 백엔드로 문서 추론 파이프라인과 금융권 온프레미스 연동을 책임졌고, 현장의 배치·재처리 요구를 고객사 맞춤이 아닌 솔루션 기능으로 흡수했습니다',
+                '문서 추론 파이프라인과 금융권 온프레미스 연동을 맡았고, 현장의 배치·재처리 요구를 고객사 맞춤이 아닌 솔루션 기능으로 흡수했습니다',
               weight: 'MEDIUM',
             },
             {
@@ -48,20 +48,12 @@ const experience: IExperience.Payload = {
           endedAt: '2025-03',
           descriptions: [
             {
-              content:
-                '기존 KIOSK 팀 요청으로 VAN 확장과 자사 포인트 구축에 합류했습니다. 결제 모듈을 1개사에서 4개사로 늘렸고, 페이 포함 결제수단을 설정만으로 전환할 수 있게 했습니다',
+              content: '기존 KIOSK 팀 요청으로 VAN 확장과 자사 포인트에 합류했습니다',
               weight: 'MEDIUM',
             },
             {
               content:
-                '통합 전에는 같은 기능의 키오스크도 계약 VAN마다 배포·운영 비용이 갈렸습니다. 결제·환불·조회를 공통 동작으로 두고 Factory·Strategy로 구현체를 교체했습니다',
-            },
-            {
-              content: '피크타임 결제 부하와 유실을 막기 위해 VAN 연동을 비동기로 두었습니다',
-            },
-            {
-              content:
-                '외부 포인트 연동 수수료를 줄이려 자사 적립·사용을 만들었고, 개발 리드 설계 아래 구현 방향을 보태며 잔액 정합성(트랜잭션·멱등)을 성능보다 우선했습니다',
+                '개발 리드 설계 아래 자사 적립·사용 구현 방향을 보태며, 잔액 정합성(트랜잭션·멱등)을 성능보다 우선했습니다',
             },
           ],
           skillKeywords: ['Spring', 'Kotlin', 'Docker', 'AWS', 'RDB'],
@@ -79,7 +71,7 @@ const experience: IExperience.Payload = {
           descriptions: [
             {
               content:
-                '두 번째 개발자로 웹·백오피스 백엔드를 맡았습니다. 배포와 AWS 운영을 백엔드와 한 흐름으로 붙여, 작은 팀의 개발·운영 포인트를 줄였습니다',
+                '웹·백오피스 백엔드를 맡았습니다. 배포와 AWS 운영을 백엔드와 한 흐름으로 붙여, 작은 팀의 개발·운영 포인트를 줄였습니다',
               weight: 'MEDIUM',
             },
             {
@@ -97,7 +89,7 @@ const experience: IExperience.Payload = {
       href: 'https://www.imtsoft.co.kr/',
       positions: [
         {
-          title: 'KIOSK Team Backend Engineer',
+          title: 'KIOSK Team Web Developer',
           startedAt: '2021-09',
           endedAt: '2023-08',
           descriptions: [

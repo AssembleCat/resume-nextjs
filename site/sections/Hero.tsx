@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'motion/react';
 import { IProfile } from '../../component/profile/IProfile';
 import { assetSrc } from '../lib/format';
-import { DOMAIN_LINE, NOW_FACTS } from '../lib/career';
+import { DOMAIN_LINE, LOMIN_PRODUCT_HREF, NOW_FACTS } from '../lib/career';
 import { CompanyName } from './CompanyName';
 
 const container = {
@@ -17,6 +17,26 @@ const item = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0 },
 };
+
+function emphasizeLomin(line: string) {
+  const marker = 'Lomin';
+  const index = line.indexOf(marker);
+  if (index === -1) {
+    return line;
+  }
+
+  return (
+    <>
+      {line.slice(0, index)}
+      <CompanyName
+        title={marker}
+        href={LOMIN_PRODUCT_HREF}
+        className="font-semibold text-zinc-100"
+      />
+      {line.slice(index + marker.length)}
+    </>
+  );
+}
 
 export function Hero({
   profile,
@@ -113,12 +133,12 @@ export function Hero({
           />
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">Now</p>
           <p className="mt-2 text-lg font-semibold">
-            <CompanyName title="로민" href={currentCompanyHref} />
-            {' · 백엔드챕터'}
+            <CompanyName title="로민" href={currentCompanyHref} className="font-bold text-white" />
+            {' · Backend Chapter'}
           </p>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-zinc-400">
             {NOW_FACTS.map((line) => (
-              <li key={line}>{line}</li>
+              <li key={line}>{emphasizeLomin(line)}</li>
             ))}
           </ul>
         </motion.aside>
