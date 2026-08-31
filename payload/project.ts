@@ -12,7 +12,7 @@ const project: IProject.Payload = {
         {
           weight: 'MEDIUM',
           content:
-            '고객사·프로젝트가 100개를 넘으며 버전 기록이 Slack·Confluence·SharePoint에 흩어져 설정 불일치와 휴먼 에러가 났습니다. 운영 구성을 단일 플랫폼으로 전산화해, 고객사당 평균 4시간 걸리던 환경 구성을 약 30분으로 줄였습니다.',
+            '고객사·프로젝트가 100개를 넘으며 버전 기록이 Slack·Confluence·SharePoint에 흩어져 설정 불일치와 휴먼 에러가 났습니다. 운영 구성을 단일 플랫폼으로 전산화해, 고객사당 수일 걸리던 환경 구성을 약 30분으로 줄였습니다.',
         },
         {
           content:
