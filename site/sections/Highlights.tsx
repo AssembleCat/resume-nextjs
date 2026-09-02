@@ -63,12 +63,12 @@ const HIGHLIGHTS: {
     target: { kind: 'project', id: 'van-switch' },
   },
   {
-    kicker: 'Startup',
-    title: '웹 · 백오피스',
-    body: '백엔드뿐 아니라 AWS 배포와 서버 운영까지 같이 맡았습니다.',
+    kicker: 'Spire',
+    title: '3,200만 Run',
+    body: 'Slay the Spire 로그를 모아 전투를 재현하고, 카드 가치를 데이터로 확인했습니다.',
     span: 'md:col-start-2 md:row-start-3',
     titleClass: 'text-2xl md:text-3xl',
-    target: { kind: 'experience', id: 'tenacity' },
+    target: { kind: 'project', id: 'spire' },
   },
   {
     kicker: 'KIOSK',

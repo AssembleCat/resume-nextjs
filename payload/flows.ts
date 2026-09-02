@@ -1,4 +1,4 @@
-export type FlowDiagramId = 'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock';
+export type FlowDiagramId = 'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock' | 'spire';
 
 export interface PipelineNodeSeed {
   id: string;
@@ -598,6 +598,102 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
       { id: 'e-out', source: 'st-llm', target: 'st-out', animated: true },
     ],
   },
+  {
+    id: 'spire',
+    title: 'Spire 분석 아키텍처',
+    subtitle: '플레이 로그를 걸러 전투 시점으로 재현하고, 기대 피해로 카드 가치를 확인합니다.',
+    projectId: 'spire',
+    groups: [
+      { id: 'sp-g-in', label: '수집', caption: '공개 런 로그', nodeIds: ['sp-runs'] },
+      { id: 'sp-g-st', label: '적재', caption: '컬럼형 저장', nodeIds: ['sp-parquet'] },
+      { id: 'sp-g-f', label: '정제', caption: '코호트 · 손상 런', nodeIds: ['sp-filter', 'sp-drop'] },
+      { id: 'sp-g-sim', label: '재현', caption: '층별 상태', nodeIds: ['sp-sim', 'sp-battle'] },
+      { id: 'sp-g-ml', label: '학습 · 인사이트', caption: '기대 피해', nodeIds: ['sp-model', 'sp-insight'] },
+    ],
+    nodes: [
+      {
+        id: 'sp-runs',
+        label: 'Run Logs',
+        caption: '약 3,200만 건 플레이 로그',
+        x: 0,
+        y: 140,
+        tone: 'mute',
+        kicker: 'Raw',
+      },
+      {
+        id: 'sp-parquet',
+        label: 'Parquet',
+        caption: '런 단위 컬럼 저장. 병렬 읽기',
+        x: 260,
+        y: 140,
+        tone: 'ember',
+        kicker: 'Store',
+      },
+      {
+        id: 'sp-filter',
+        label: 'Cohort Filter',
+        caption: '4캐릭터 · 승천 0–20 · 베타/무한 제외',
+        x: 540,
+        y: 40,
+        tone: 'ok',
+        kicker: '정제',
+      },
+      {
+        id: 'sp-drop',
+        label: 'Run Guard',
+        caption: '필드 누락 · HP 불일치 런은 재현 전에 제외',
+        x: 540,
+        y: 240,
+        tone: 'danger',
+        kicker: '가드',
+      },
+      {
+        id: 'sp-sim',
+        label: 'Floor Simulator',
+        caption: '카드 선택 · 유물 · 이벤트로 층마다 덱을 재구성',
+        x: 840,
+        y: 40,
+        tone: 'ember',
+        kicker: '재현',
+      },
+      {
+        id: 'sp-battle',
+        label: 'Battle Snapshot',
+        caption: '전투 시점의 덱 · 유물 · 적 · 피해',
+        x: 840,
+        y: 240,
+        tone: 'ok',
+        kicker: '전투',
+      },
+      {
+        id: 'sp-model',
+        label: 'Damage Model',
+        caption: '덱 · 유물 · 적 타입으로 기대 피해를 학습',
+        x: 1140,
+        y: 40,
+        tone: 'ember',
+        kicker: '학습',
+      },
+      {
+        id: 'sp-insight',
+        label: 'Card Value',
+        caption: "2.2 패치 사일런트 기준 '곡예'가 가장 가치 높음",
+        x: 1140,
+        y: 240,
+        tone: 'ok',
+        kicker: '인사이트',
+      },
+    ],
+    edges: [
+      { id: 'e-sp-runs', source: 'sp-runs', target: 'sp-parquet', animated: true },
+      { id: 'e-sp-f', source: 'sp-parquet', target: 'sp-filter', animated: true },
+      { id: 'e-sp-drop', source: 'sp-parquet', target: 'sp-drop', kind: 'fail', label: '손상 런' },
+      { id: 'e-sp-sim', source: 'sp-filter', target: 'sp-sim', animated: true },
+      { id: 'e-sp-battle', source: 'sp-sim', target: 'sp-battle', animated: true },
+      { id: 'e-sp-model', source: 'sp-battle', target: 'sp-model', animated: true },
+      { id: 'e-sp-insight', source: 'sp-model', target: 'sp-insight', animated: true },
+    ],
+  },
 ];
 
 export const DIAGRAM_TABS: { id: FlowDiagramId; label: string }[] = [
@@ -608,4 +704,5 @@ export const DIAGRAM_TABS: { id: FlowDiagramId; label: string }[] = [
   { id: 'point', label: '자사 포인트' },
   { id: 'kiosk', label: '다중 브랜드' },
   { id: 'stock', label: 'Stock Agent' },
+  { id: 'spire', label: 'Spire 분석' },
 ];

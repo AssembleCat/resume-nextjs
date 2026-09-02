@@ -1,11 +1,11 @@
 /**
  * 한 payload로 이력서 형태를 나눈다.
  *
- * - `/?view=core`  백엔드 핵심 (기본값, Spire 생략)
+ * - `/?view=core`  백엔드 핵심 (기본값, Spire 포함)
  * - `/?view=full`  전체
- * - `/?view=game`  핵심 + Spire
+ * - `/?view=game`  핵심과 동일. 게임 데이터 강조용 별칭
  * - `/?view=core&hide=stock-agent`  추가로 숨김
- * - `/?view=core&show=spire`        추가로 표시
+ * - `/?view=core&hide=spire`        Spire만 숨김
  * - `/?blind=true` 와 함께 쓸 수 있다
  */
 
@@ -37,6 +37,7 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
       'onprem',
       'lomin-backend',
       'stock-agent',
+      'spire',
       'van-switch',
       'inhouse-point',
       'kiosk-multi',
