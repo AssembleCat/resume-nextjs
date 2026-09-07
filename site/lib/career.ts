@@ -55,6 +55,66 @@ export function sideProjects(list: IProject.Item[]): IProject.Item[] {
   return list.filter((item) => parentOfProject(item.id) === 'side');
 }
 
+export function workProjects(list: IProject.Item[]): IProject.Item[] {
+  return list.filter((item) => parentOfProject(item.id) !== 'side');
+}
+
+export type CareerDomainId = 'document-ai' | 'onprem' | 'payments' | 'kiosk';
+
+export const CAREER_DOMAINS: { id: CareerDomainId; label: string }[] = [
+  { id: 'document-ai', label: 'Document AI' },
+  { id: 'onprem', label: 'On-prem' },
+  { id: 'payments', label: 'Payments' },
+  { id: 'kiosk', label: 'KIOSK' },
+];
+
+const ENTITY_DOMAINS: Record<string, CareerDomainId[]> = {
+  lomin: ['document-ai', 'onprem'],
+  onprem: ['onprem', 'document-ai'],
+  'lomin-backend': ['document-ai', 'onprem'],
+  'imt-freelance': ['payments', 'kiosk'],
+  'van-switch': ['payments', 'kiosk'],
+  'inhouse-point': ['payments', 'kiosk'],
+  'imt-kiosk': ['kiosk', 'payments'],
+  'kiosk-multi': ['kiosk'],
+  payment: ['kiosk', 'payments'],
+};
+
+export const COMPANY_OUTCOMES: Record<string, string[]> = {
+  lomin: ['추론 파이프', '온프렘 연동'],
+  'imt-freelance': ['VAN 4사', '자사 포인트'],
+  tenacity: ['웹·백오피스', '배포·AWS'],
+  'imt-kiosk': ['결제 수집 통일'],
+};
+
+export const PROJECT_OUTCOMES: Record<string, string[]> = {
+  onprem: ['고객사 100+', '수일 → 30분'],
+  'lomin-backend': ['일 8만 건', '타임아웃 70%'],
+  'stock-agent': ['RAG 질의', '근거·수치 답변'],
+  spire: ['3,200만 Run', '카드 가치'],
+  'van-switch': ['VAN 4사', '설정 전환'],
+  'inhouse-point': ['멱등', '잔액 정합성'],
+  'kiosk-multi': ['설정 기반', '브랜드 흡수'],
+  payment: ['일 40만 건', '유실 Zero'],
+};
+
+export function outcomesFor(id?: string): string[] {
+  if (!id) {
+    return [];
+  }
+  return PROJECT_OUTCOMES[id] || COMPANY_OUTCOMES[id] || [];
+}
+
+export function entityMatchesDomain(id: string | undefined, domain?: CareerDomainId): boolean {
+  if (!domain) {
+    return true;
+  }
+  if (!id) {
+    return false;
+  }
+  return (ENTITY_DOMAINS[id] || []).includes(domain);
+}
+
 export type TimelineKind = 'work' | 'aside';
 
 export interface TimelineSegment {

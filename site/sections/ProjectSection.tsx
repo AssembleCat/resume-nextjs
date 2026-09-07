@@ -1,26 +1,25 @@
-import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { motion } from 'motion/react';
 import { IProject } from '../../component/project/IProject';
-import { sideProjects } from '../lib/career';
-import { findPipelineByProjectId } from '../lib/graph';
+import { sideProjects, outcomesFor } from '../lib/career';
 import { periodLabel } from '../lib/date';
-import { FlowDiagramId } from '../../payload/flows';
+import { parseBracketTag } from '../lib/description';
 
 export function ProjectCard({
   item,
   index,
-  onOpenDiagram,
+  selected,
+  onOpenDetail,
   hideWhere,
 }: {
   item: IProject.Item;
   index: number;
-  onOpenDiagram: (id: FlowDiagramId, nodeId?: string) => void;
+  selected?: boolean;
+  onOpenDetail: (id: string) => void;
   hideWhere?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
-  const pipeline = findPipelineByProjectId(item.id);
+  const outcomes = outcomesFor(item.id);
   const lead = item.descriptions.find((desc) => desc.weight === 'MEDIUM') || item.descriptions[0];
-  const rest = item.descriptions.filter((desc) => desc !== lead);
+  const parsedLead = lead ? parseBracketTag(lead.content) : undefined;
 
   return (
     <motion.article
@@ -29,67 +28,49 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ delay: index * 0.04 }}
-      className={`card-frame flex flex-col p-6 ${hideWhere ? 'bg-ink-950' : 'bg-ink-800'}`}
+      onClick={() => item.id && onOpenDetail(item.id)}
+      className={`card-frame cursor-pointer p-5 md:p-6 ${
+        hideWhere ? 'bg-ink-950' : 'bg-ink-800'
+      } ${selected ? 'is-active' : ''}`}
     >
       {hideWhere ? null : (
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{item.where}</p>
       )}
       <h3 className={`text-xl font-semibold leading-snug ${hideWhere ? '' : 'mt-2'}`}>{item.title}</h3>
       <p className="mt-1 font-mono text-xs text-zinc-500">{periodLabel(item.startedAt, item.endedAt)}</p>
-      {lead ? <p className="mt-4 text-sm leading-relaxed text-zinc-300">{lead.content}</p> : null}
-      <AnimatePresence initial={false}>
-        {open && rest.length > 0 ? (
-          <motion.ul
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.26, 0.02, 0.23, 0.94] }}
-            className="mt-3 space-y-2 overflow-hidden text-sm leading-relaxed text-zinc-400"
-          >
-            {rest.map((desc) => (
-              <li key={desc.content}>{desc.content}</li>
-            ))}
-          </motion.ul>
-        ) : null}
-      </AnimatePresence>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {pipeline ? (
-          <button
-            type="button"
-            onClick={() => onOpenDiagram(pipeline.id, item.id ? `project:${item.id}` : undefined)}
-            className="bg-white px-3 py-1.5 text-xs font-semibold text-black"
-          >
-            처리 흐름
-          </button>
-        ) : null}
-        {rest.length > 0 ? (
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            className="chip-frame px-3 py-1.5 text-xs text-zinc-300"
-          >
-            {open ? '접기' : '더 보기'}
-          </button>
-        ) : null}
-        {item.href ? (
-          <a
-            href={item.href}
-            className="chip-frame px-3 py-1.5 text-xs text-zinc-300"
-          >
-            링크
-          </a>
-        ) : null}
-      </div>
+      {outcomes.length > 0 ? (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {outcomes.map((outcome) => (
+            <span key={outcome} className="bg-ember-500/15 px-3 py-1.5 text-sm text-ember-400">
+              {outcome}
+            </span>
+          ))}
+        </div>
+      ) : null}
+      {outcomes.length === 0 && parsedLead ? (
+        <div className="mt-4">
+          {parsedLead.tag ? (
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ember-400">
+              {parsedLead.tag}
+            </p>
+          ) : null}
+          <p className={`text-sm leading-relaxed text-zinc-300 ${parsedLead.tag ? 'mt-1' : ''}`}>
+            {parsedLead.body}
+          </p>
+        </div>
+      ) : null}
     </motion.article>
   );
 }
 
 export function ProjectSection({
   project,
-  onOpenDiagram,
+  selectedId,
+  onOpenDetail,
 }: {
   project: IProject.Payload;
-  onOpenDiagram: (id: FlowDiagramId, nodeId?: string) => void;
+  selectedId?: string;
+  onOpenDetail: (id: string) => void;
 }) {
   if (project.disable) {
     return null;
@@ -104,9 +85,16 @@ export function ProjectSection({
     <section id="projects" className="mx-auto max-w-6xl px-5 py-20">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Side</p>
       <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">사이드 프로젝트</h2>
+      <p className="mt-3 font-mono text-xs text-zinc-500">카드를 누르면 상세</p>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
         {side.map((item, index) => (
-          <ProjectCard key={item.id || item.title} item={item} index={index} onOpenDiagram={onOpenDiagram} />
+          <ProjectCard
+            key={item.id || item.title}
+            item={item}
+            index={index}
+            selected={Boolean(item.id) && selectedId === `project:${item.id}`}
+            onOpenDetail={onOpenDetail}
+          />
         ))}
       </div>
     </section>
