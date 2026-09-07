@@ -186,7 +186,7 @@ export function buildCareerGraph(input: {
 
 const PIPE_NODE_WIDTH = 210;
 const GROUP_PAD_X = 22;
-const GROUP_PAD_TOP = 48;
+const GROUP_PAD_TOP = 36;
 const GROUP_PAD_BOTTOM = 22;
 
 function estimatedNodeHeight(caption?: string): number {

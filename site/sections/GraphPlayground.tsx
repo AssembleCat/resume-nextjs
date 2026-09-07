@@ -21,6 +21,7 @@ interface Detail {
   kicker: string;
   title: string;
   caption?: string;
+  summary?: string;
   items: IRow.Description[];
   href?: string;
   tags?: string[];
@@ -83,12 +84,12 @@ function parseSelection(
   );
   if (pipeline) {
     const node = pipeline.nodes.find((entry) => entry.id === selectedId);
-    const linked = project.list.find((entry) => entry.id === pipeline.projectId);
     return {
       kicker: pipeline.title,
       title: node?.label || pipeline.title,
       caption: node?.caption,
-      items: linked?.descriptions.slice(0, 3) || [],
+      summary: pipeline.subtitle,
+      items: [],
     };
   }
   return undefined;
@@ -222,9 +223,14 @@ export function GraphPlayground({
               </button>
             </div>
             {detail.caption ? <p className="mt-3 text-xs text-zinc-500">{detail.caption}</p> : null}
-            <div className="mt-6">
-              <DescriptionList items={detail.items} />
-            </div>
+            {detail.summary ? (
+              <p className="mt-6 text-sm leading-relaxed text-zinc-300">{detail.summary}</p>
+            ) : null}
+            {detail.items.length > 0 ? (
+              <div className="mt-6">
+                <DescriptionList items={detail.items} />
+              </div>
+            ) : null}
             {detail.tags ? (
               <div className="mt-6 flex flex-wrap gap-1.5">
                 {detail.tags.map((tag) => (

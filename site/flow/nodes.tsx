@@ -132,9 +132,6 @@ export function RegionNode({ data }: FlowNodeProps) {
       />
       <div className="px-4 pt-3">
         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{data.label}</p>
-        {data.caption ? (
-          <p className="mt-0.5 text-[10px] leading-snug text-zinc-600">{data.caption}</p>
-        ) : null}
       </div>
     </div>
   );
