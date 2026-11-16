@@ -87,7 +87,6 @@ export function ExperienceSection({
     () => workProjects(project.list).filter((item) => entityMatchesDomain(item.id, domain)),
     [project.list, domain],
   );
-  const featuredProjects = projects.filter((item) => item.featured);
   const otherProjects = projects.filter((item) => !item.featured);
 
   if (experience.disable) {
@@ -130,22 +129,6 @@ export function ExperienceSection({
           </motion.p>
         ) : null}
       </AnimatePresence>
-      {featuredProjects.length > 0 ? (
-        <div className="mt-10">
-          <h3 className="text-xl font-semibold">대표 프로젝트</h3>
-          <div className="mt-4 space-y-5">
-            {featuredProjects.map((item, index) => (
-              <ProjectCard
-                key={item.id || item.title}
-                item={item}
-                index={index}
-                selected={selectedId === `project:${item.id}`}
-                onOpenDetail={onSelectProject}
-              />
-            ))}
-          </div>
-        </div>
-      ) : null}
       {companies.length > 0 ? (
         <div className="mt-10 space-y-3">
           <h3 className="text-xl font-semibold">회사별 경력</h3>
@@ -227,10 +210,8 @@ export function ExperienceSection({
       ) : null}
       {otherProjects.length > 0 ? (
         <div className="mt-12">
-          <h3 className="text-xl font-semibold">
-            {featuredProjects.length > 0 ? '다른 업무 프로젝트' : '업무 프로젝트'}
-          </h3>
-          <div className="mt-4 space-y-4">
+          <h3 className="text-xl font-semibold">다른 업무 프로젝트</h3>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
             {otherProjects.map((item, index) => (
               <ProjectCard
                 key={item.id || item.title}

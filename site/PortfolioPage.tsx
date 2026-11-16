@@ -14,9 +14,9 @@ import { buildPipelineGraph } from './lib/graph';
 import { CareerStrip } from './sections/CareerStrip';
 import { DetailDrawer } from './sections/DetailDrawer';
 import { ExperienceSection } from './sections/ExperienceSection';
+import { FeaturedProjects } from './sections/FeaturedProjects';
 import { GraphPlayground } from './sections/GraphPlayground';
 import { Hero } from './sections/Hero';
-import { HighlightTarget, Highlights } from './sections/Highlights';
 import { ProjectSection } from './sections/ProjectSection';
 import { RecordsSection } from './sections/RecordsSection';
 import { SiteFooter } from './sections/SiteFooter';
@@ -85,18 +85,6 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
     window.setTimeout(() => scrollToId(`project-${id}`), 50);
   };
 
-  const handleHighlight = (target: HighlightTarget) => {
-    if (target.kind === 'diagram') {
-      openDiagram(target.id);
-      return;
-    }
-    if (target.kind === 'experience') {
-      openExperience(target.id);
-      return;
-    }
-    openProject(target.id);
-  };
-
   const handleTimelineSelect = (segment: TimelineSegment) => {
     if (segment.kind === 'aside') {
       openProject(segment.id);
@@ -114,13 +102,17 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         skills={skills}
         currentCompanyHref={lomin?.href}
       />
+      <FeaturedProjects
+        project={resume.project}
+        selectedId={selectedId}
+        onOpenDetail={(id) => openProject(id, { toggle: true })}
+      />
       <CareerStrip
         segments={timeline}
         totalLabel={totalLabel}
         activeId={expandedExp}
         onSelect={handleTimelineSelect}
       />
-      <Highlights onOpen={handleHighlight} />
       <ExperienceSection
         experience={resume.experience}
         project={resume.project}
@@ -149,11 +141,7 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         selectedId={selectedId}
         onOpenDetail={(id) => openProject(id, { toggle: true, keepFilters: true })}
       />
-      <RecordsSection
-        education={resume.education}
-        etc={resume.etc}
-        isBlind={isBlind}
-      />
+      <RecordsSection education={resume.education} etc={resume.etc} isBlind={isBlind} />
       <SiteFooter profile={resume.profile} />
       <DetailDrawer
         selectedId={selectedId}

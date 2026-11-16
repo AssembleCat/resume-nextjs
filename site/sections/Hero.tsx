@@ -64,7 +64,7 @@ export function Hero({
         animate={{ rotate: -12, x: ['0%', '-30%'] }}
         transition={{ duration: 8, repeat: Infinity, repeatType: 'mirror' }}
       />
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-[1.3fr_0.7fr] md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-6 px-5 py-10 md:grid-cols-[1.3fr_0.7fr] md:gap-12 md:py-20">
         <motion.div variants={container} initial="hidden" animate="visible">
           <motion.p
             variants={item}
@@ -135,25 +135,33 @@ export function Hero({
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="card-frame relative z-10 bg-ink-800/80 p-5"
+          className="card-frame relative z-10 grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-4 bg-ink-800/80 p-4 md:block md:p-5"
         >
           <img
             src={assetSrc(profile.image)}
             alt={profile.name.title}
             width={176}
             height={176}
-            className="mx-auto mb-5 block h-36 w-36 object-cover object-top ring-1 ring-white/10 md:h-44 md:w-44"
+            className="block h-20 w-16 object-cover object-top ring-1 ring-white/10 md:mx-auto md:mb-5 md:h-44 md:w-44"
           />
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">Now</p>
-          <p className="mt-2 text-lg font-semibold">
-            <CompanyName title="로민" href={currentCompanyHref} className="font-bold text-white" />
-            {' · Backend Chapter'}
-          </p>
-          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-zinc-400">
-            {NOW_FACTS.map((line) => (
-              <li key={line}>{emphasizeLomin(line)}</li>
-            ))}
-          </ul>
+          <div className="min-w-0">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">Now</p>
+            <p className="mt-2 text-lg font-semibold">
+              <CompanyName
+                title="로민"
+                href={currentCompanyHref}
+                className="font-bold text-white"
+              />
+              {' · Backend Chapter'}
+            </p>
+            <ul className="mt-2 space-y-2 text-sm leading-relaxed text-zinc-400 md:mt-4">
+              {NOW_FACTS.map((line, index) => (
+                <li key={line} className={index > 0 ? 'hidden md:list-item' : undefined}>
+                  {emphasizeLomin(line)}
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.aside>
       </div>
     </section>

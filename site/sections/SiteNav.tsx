@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 
 const LINKS = [
   { href: '#intro', label: '소개' },
+  { href: '#featured', label: '대표 프로젝트' },
   { href: '#experience', label: '경력' },
   { href: '#architecture', label: '아키텍처' },
   { href: '#projects', label: '사이드' },
