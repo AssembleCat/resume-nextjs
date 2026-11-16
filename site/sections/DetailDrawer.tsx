@@ -70,7 +70,7 @@ export function parseSelection(
       kicker: 'Project',
       title: item.title,
       caption: `${item.where} · ${periodLabel(item.startedAt, item.endedAt)}`,
-      items: item.descriptions,
+      items: [...(item.overview || []), ...item.descriptions],
       href: item.href,
       outcomes: outcomesFor(id),
       diagramId: pipeline?.id,
@@ -119,7 +119,7 @@ export function DetailDrawer({
   project: IProject.Payload;
   etc: IEtc.Payload;
   onSelect: (id?: string) => void;
-  onOpenDiagram: (id: FlowDiagramId, nodeId?: string) => void;
+  onOpenDiagram: (id: FlowDiagramId) => void;
 }) {
   const detail = parseSelection(selectedId, experience, project, etc);
 
@@ -140,6 +140,8 @@ export function DetailDrawer({
     <AnimatePresence mode="wait">
       {detail ? (
         <motion.aside
+          id="project-detail"
+          aria-label={`${detail.title} 상세`}
           key={detail.title}
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
@@ -159,7 +161,7 @@ export function DetailDrawer({
             <button
               type="button"
               onClick={() => onSelect(undefined)}
-              className="chip-frame px-3 py-1.5 text-xs text-zinc-400"
+              className="chip-frame min-h-11 shrink-0 whitespace-nowrap px-3 py-2 text-sm text-zinc-300"
             >
               닫기
             </button>
@@ -218,7 +220,7 @@ export function DetailDrawer({
                   if (!detail.diagramId) {
                     return;
                   }
-                  onOpenDiagram(detail.diagramId, selectedId);
+                  onOpenDiagram(detail.diagramId);
                 }}
                 className="bg-white px-3 py-1.5 text-xs font-semibold text-black"
               >

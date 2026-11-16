@@ -45,10 +45,13 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
     setDomain(undefined);
   };
 
-  const openDiagram = (id: FlowDiagramId, nodeId?: string) => {
+  const openDiagram = (id: FlowDiagramId) => {
     setDiagram(id);
-    setSelectedId(nodeId);
-    window.setTimeout(() => scrollToId('architecture'), 50);
+    setSelectedId(undefined);
+    window.setTimeout(() => {
+      document.getElementById('architecture-title')?.focus({ preventScroll: true });
+      scrollToId('architecture');
+    }, 50);
   };
 
   const openExperience = (id: string, options?: { toggle?: boolean; keepFilters?: boolean }) => {

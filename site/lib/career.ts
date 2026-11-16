@@ -10,16 +10,7 @@ export const NOW_FACTS = [
   '주로 Python, Kotlin으로 SaaS, On-prem 환경의 고민점을 해결하고 있습니다.',
 ];
 
-const STACK_ORDER = [
-  'Kotlin',
-  'Spring',
-  'Python',
-  'FastAPI',
-  'Redis',
-  'Docker',
-  'AWS',
-  'RDB',
-];
+const STACK_ORDER = ['Kotlin', 'Spring', 'Python', 'FastAPI', 'Redis', 'Docker', 'AWS', 'RDB'];
 
 const SHORT_NAME: Record<string, string> = {
   lomin: '로민',
@@ -87,14 +78,14 @@ export const COMPANY_OUTCOMES: Record<string, string[]> = {
 };
 
 export const PROJECT_OUTCOMES: Record<string, string[]> = {
-  onprem: ['고객사 100+', '수일 → 30분'],
-  'lomin-backend': ['일 8만 건', '타임아웃 70%'],
+  onprem: ['프로젝트 100+', '운영 구성 통합'],
+  'lomin-backend': ['일 추론 대상 약 8만 문서', '실패 지점부터 재처리'],
   'stock-agent': ['RAG 질의', '근거·수치 답변'],
   spire: ['3,200만 Run', '카드 가치'],
   'van-switch': ['VAN 4사', '설정 전환'],
   'inhouse-point': ['멱등', '잔액 정합성'],
   'kiosk-multi': ['설정 기반', '브랜드 흡수'],
-  payment: ['일 40만 건', '유실 Zero'],
+  payment: ['운영 관측 · 일 최대 40만 건', '로컬 보관·재전송·DLQ'],
 };
 
 export function outcomesFor(id?: string): string[] {
@@ -155,7 +146,10 @@ export function totalMonths(experience: IExperience.Payload): number {
   return experience.list.reduce(
     (sum, company) =>
       sum +
-      company.positions.reduce((inner, position) => inner + monthCount(position.startedAt, position.endedAt), 0),
+      company.positions.reduce(
+        (inner, position) => inner + monthCount(position.startedAt, position.endedAt),
+        0,
+      ),
     0,
   );
 }

@@ -11,10 +11,7 @@ import {
 } from '../lib/career';
 import { formatMonths, monthCount, periodLabel } from '../lib/date';
 import { CompanyName } from './CompanyName';
-
-function shouldIgnoreCardToggle(target: EventTarget | null) {
-  return target instanceof Element && Boolean(target.closest('a, button, [data-no-toggle]'));
-}
+import { ProjectCard } from './ProjectSection';
 
 function FilterChip({
   label,
@@ -90,6 +87,8 @@ export function ExperienceSection({
     () => workProjects(project.list).filter((item) => entityMatchesDomain(item.id, domain)),
     [project.list, domain],
   );
+  const featuredProjects = projects.filter((item) => item.featured);
+  const otherProjects = projects.filter((item) => !item.featured);
 
   if (experience.disable) {
     return null;
@@ -99,7 +98,7 @@ export function ExperienceSection({
     <section id="experience" className="mx-auto max-w-6xl scroll-mt-24 px-5 py-20">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Experience</p>
       <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">경험과 경력</h2>
-      <p className="mt-3 font-mono text-xs text-zinc-500">총 {totalLabel} · 카드를 누르면 상세</p>
+      <p className="mt-3 text-sm text-zinc-400">총 {totalLabel} · 프로젝트 요약과 회사별 경력</p>
       <div className="mt-6 flex flex-wrap gap-2">
         <LayoutGroup>
           <FilterChip
@@ -131,8 +130,25 @@ export function ExperienceSection({
           </motion.p>
         ) : null}
       </AnimatePresence>
+      {featuredProjects.length > 0 ? (
+        <div className="mt-10">
+          <h3 className="text-xl font-semibold">대표 프로젝트</h3>
+          <div className="mt-4 space-y-5">
+            {featuredProjects.map((item, index) => (
+              <ProjectCard
+                key={item.id || item.title}
+                item={item}
+                index={index}
+                selected={selectedId === `project:${item.id}`}
+                onOpenDetail={onSelectProject}
+              />
+            ))}
+          </div>
+        </div>
+      ) : null}
       {companies.length > 0 ? (
         <div className="mt-10 space-y-3">
+          <h3 className="text-xl font-semibold">회사별 경력</h3>
           {companies.map((company, index) => {
             const position = company.positions[0];
             const companyId = company.id || company.title;
@@ -152,13 +168,7 @@ export function ExperienceSection({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: index * 0.04 }}
-                onClick={(event) => {
-                  if (shouldIgnoreCardToggle(event.target)) {
-                    return;
-                  }
-                  onSelectExperience(companyId);
-                }}
-                className={`card-frame cursor-pointer bg-ink-800 p-5 md:p-6 ${selected ? 'is-active' : ''}`}
+                className={`card-frame bg-ink-800 p-5 md:p-6 ${selected ? 'is-active' : ''}`}
               >
                 <div
                   className={
@@ -181,6 +191,15 @@ export function ExperienceSection({
                     <div className="mt-4">
                       <OutcomeMarks items={outcomes} />
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => onSelectExperience(companyId)}
+                      aria-label={`${company.title} 경력 상세 보기`}
+                      aria-expanded={selectedId === `exp:${companyId}`}
+                      className="chip-frame mt-4 min-h-11 px-3 py-2 text-sm text-zinc-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400"
+                    >
+                      경력 상세 보기
+                    </button>
                   </div>
                   {nested.length > 0 ? (
                     <div className="grid min-w-0 gap-2">
@@ -206,38 +225,21 @@ export function ExperienceSection({
           })}
         </div>
       ) : null}
-      {projects.length > 0 ? (
+      {otherProjects.length > 0 ? (
         <div className="mt-12">
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-500">Projects</p>
-          <div className="mt-4 space-y-3">
-            {projects.map((item, index) => {
-              const outcomes = outcomesFor(item.id);
-              const selected = selectedId === `project:${item.id}`;
-              return (
-                <motion.article
-                  key={item.id || item.title}
-                  id={item.id ? `project-${item.id}` : undefined}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ delay: index * 0.03 }}
-                  onClick={() => item.id && onSelectProject(item.id)}
-                  className={`card-frame cursor-pointer bg-ink-800 px-5 py-4 md:px-6 ${
-                    selected ? 'is-active' : ''
-                  }`}
-                >
-                  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-8">
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold leading-snug">{item.title}</h3>
-                      <p className="mt-1 font-mono text-xs text-zinc-500">
-                        {item.where} · {periodLabel(item.startedAt, item.endedAt)}
-                      </p>
-                    </div>
-                    <OutcomeMarks items={outcomes} />
-                  </div>
-                </motion.article>
-              );
-            })}
+          <h3 className="text-xl font-semibold">
+            {featuredProjects.length > 0 ? '다른 업무 프로젝트' : '업무 프로젝트'}
+          </h3>
+          <div className="mt-4 space-y-4">
+            {otherProjects.map((item, index) => (
+              <ProjectCard
+                key={item.id || item.title}
+                item={item}
+                index={index}
+                selected={selectedId === `project:${item.id}`}
+                onOpenDetail={onSelectProject}
+              />
+            ))}
           </div>
         </div>
       ) : null}

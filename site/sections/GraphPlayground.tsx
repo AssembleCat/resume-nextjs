@@ -38,8 +38,8 @@ export function GraphPlayground({
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">
             Architecture
           </p>
-          <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">
-            아키텍쳐로 보기
+          <h2 id="architecture-title" tabIndex={-1} className="mt-2 font-display text-3xl tracking-tight outline-none md:text-5xl">
+            아키텍처로 보기
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400">
             {pipeline?.subtitle || '프로젝트별 처리 흐름입니다.'}

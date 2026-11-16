@@ -2,24 +2,23 @@ import { motion } from 'motion/react';
 import { IProject } from '../../payload/types';
 import { sideProjects, outcomesFor } from '../lib/career';
 import { periodLabel } from '../lib/date';
-import { parseBracketTag } from '../lib/description';
+import { DescriptionList } from './DescriptionList';
 
 export function ProjectCard({
   item,
   index,
   selected,
   onOpenDetail,
-  hideWhere,
 }: {
   item: IProject.Item;
   index: number;
   selected?: boolean;
   onOpenDetail: (id: string) => void;
-  hideWhere?: boolean;
 }) {
   const outcomes = outcomesFor(item.id);
   const lead = item.descriptions.find((desc) => desc.weight === 'MEDIUM') || item.descriptions[0];
-  const parsedLead = lead ? parseBracketTag(lead.content) : undefined;
+  const fallbackOverview = lead ? [lead] : [];
+  const overview = item.overview?.length ? item.overview : fallbackOverview;
 
   return (
     <motion.article
@@ -28,16 +27,11 @@ export function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ delay: index * 0.04 }}
-      onClick={() => item.id && onOpenDetail(item.id)}
-      className={`card-frame cursor-pointer p-5 md:p-6 ${
-        hideWhere ? 'bg-ink-950' : 'bg-ink-800'
-      } ${selected ? 'is-active' : ''}`}
+      className={`card-frame bg-ink-800 p-5 md:p-6 ${selected ? 'is-active' : ''}`}
     >
-      {hideWhere ? null : (
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-500">{item.where}</p>
-      )}
-      <h3 className={`text-xl font-semibold leading-snug ${hideWhere ? '' : 'mt-2'}`}>{item.title}</h3>
-      <p className="mt-1 font-mono text-xs text-zinc-500">{periodLabel(item.startedAt, item.endedAt)}</p>
+      <p className="text-sm text-zinc-400">{item.where}</p>
+      <h3 className="mt-2 break-keep text-xl font-semibold leading-snug">{item.title}</h3>
+      <p className="mt-2 font-mono text-xs text-zinc-400">{periodLabel(item.startedAt, item.endedAt)}</p>
       {outcomes.length > 0 ? (
         <div className="mt-4 flex flex-wrap gap-2">
           {outcomes.map((outcome) => (
@@ -47,17 +41,22 @@ export function ProjectCard({
           ))}
         </div>
       ) : null}
-      {outcomes.length === 0 && parsedLead ? (
-        <div className="mt-4">
-          {parsedLead.tag ? (
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-ember-400">
-              {parsedLead.tag}
-            </p>
-          ) : null}
-          <p className={`text-sm leading-relaxed text-zinc-300 ${parsedLead.tag ? 'mt-1' : ''}`}>
-            {parsedLead.body}
-          </p>
+      {overview.length > 0 ? (
+        <div className="mt-6 max-w-3xl">
+          <DescriptionList items={overview} />
         </div>
+      ) : null}
+      {item.id ? (
+        <button
+          type="button"
+          aria-label={`${item.title} 상세 ${selected ? '닫기' : '보기'}`}
+          aria-expanded={Boolean(selected)}
+          aria-controls={selected ? 'project-detail' : undefined}
+          onClick={() => item.id && onOpenDetail(item.id)}
+          className="chip-frame mt-6 min-h-11 px-4 py-2 text-sm text-zinc-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400"
+        >
+          {selected ? '상세 닫기' : '설계·구현 상세 보기'}
+        </button>
       ) : null}
     </motion.article>
   );
@@ -85,7 +84,7 @@ export function ProjectSection({
     <section id="projects" className="mx-auto max-w-6xl px-5 py-20">
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-ember-400">Side</p>
       <h2 className="mt-2 font-display text-3xl tracking-tight md:text-5xl">사이드 프로젝트</h2>
-      <p className="mt-3 font-mono text-xs text-zinc-500">카드를 누르면 상세</p>
+      <p className="mt-3 text-sm text-zinc-400">프로젝트 요약과 설계·구현 기록</p>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
         {side.map((item, index) => (
           <ProjectCard

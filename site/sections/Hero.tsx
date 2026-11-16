@@ -78,7 +78,20 @@ export function Hero({
           >
             {profile.name.title}
           </motion.h1>
-          <motion.p variants={item} className="mt-6 font-mono text-xs tracking-[0.12em] text-zinc-500">
+          <motion.p
+            variants={item}
+            className="mt-6 max-w-xl text-xl leading-relaxed text-zinc-100 md:text-2xl"
+          >
+            백엔드를 중심으로 시스템을 설계하고, 운영까지 연결합니다.
+          </motion.p>
+          <motion.p variants={item} className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
+            문서 추론·결제·온프레미스 환경에서 서비스의 경계를 나누고, 비동기 처리와 장애 복구
+            경로를 구현해 왔습니다.
+          </motion.p>
+          <motion.p
+            variants={item}
+            className="mt-6 font-mono text-xs tracking-[0.12em] text-zinc-500"
+          >
             {totalLabel} · {DOMAIN_LINE}
           </motion.p>
           <motion.div variants={item} className="mt-4 flex flex-wrap gap-1.5">

@@ -86,6 +86,10 @@ export declare namespace IProject {
     /** YYYY-MM. */
     startedAt: string;
     endedAt?: string;
+    /** 목록에서 우선 소개할 대표 프로젝트. */
+    featured?: boolean;
+    /** 카드와 상세 패널이 함께 사용하는 핵심 설명. */
+    overview?: IRow.Description[];
     descriptions: IRow.Description[];
   }
 

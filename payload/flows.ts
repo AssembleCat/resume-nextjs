@@ -1,4 +1,5 @@
-export type FlowDiagramId = 'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock' | 'spire';
+export type FlowDiagramId =
+  'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock' | 'spire';
 
 export interface PipelineNodeSeed {
   id: string;
@@ -40,13 +41,17 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
     id: 'inference',
     title: '문서 추론',
     subtitle:
-      '고객사마다 파일이 들어오는 곳이 달라서 어댑터만 바꾸고, Spring이 진행 상태를 남긴 뒤 GPU 워커가 추론한다.',
+      '추론·상태 관리·연동의 구조를 요약한 도식. 기존 분산 처리를 강화하고 상태 관리·재처리를 추가했으며, 특정 기능을 Spring으로 분리했다. 금융권 연동은 별도 프로젝트에서 진행했다.',
     projectId: 'lomin-backend',
     groups: [
       { id: 'inf-g-in', label: 'Ingest', nodeIds: ['inf-nas', 'inf-s3', 'inf-api'] },
       { id: 'inf-g-ad', label: 'Adapter', nodeIds: ['inf-adapter'] },
       { id: 'inf-g-or', label: 'State', nodeIds: ['inf-spring', 'inf-redis'] },
-      { id: 'inf-g-inf', label: 'Inference', nodeIds: ['inf-fastfail', 'inf-workers', 'inf-retry'] },
+      {
+        id: 'inf-g-inf',
+        label: 'Inference',
+        nodeIds: ['inf-fastfail', 'inf-workers', 'inf-retry'],
+      },
       { id: 'inf-g-st', label: 'Store', nodeIds: ['inf-minio', 'inf-rdb'] },
     ],
     nodes: [
@@ -81,7 +86,7 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
       {
         id: 'inf-workers',
         label: 'GPU Workers',
-        caption: 'FastAPI로 렌더·추론. 하루 약 8만 건',
+        caption: 'FastAPI · 일 추론 대상 약 8만 문서',
         x: 820,
         y: 140,
         tone: 'ok',
@@ -107,7 +112,13 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
       { id: 'e-ff', source: 'inf-workers', target: 'inf-fastfail', label: 'reject', kind: 'fail' },
       { id: 'e-out-m', source: 'inf-workers', target: 'inf-minio', animated: true },
       { id: 'e-out-r', source: 'inf-workers', target: 'inf-rdb', animated: true },
-      { id: 'e-redis-retry', source: 'inf-redis', target: 'inf-retry', label: 'checkpoint', kind: 'retry' },
+      {
+        id: 'e-redis-retry',
+        source: 'inf-redis',
+        target: 'inf-retry',
+        label: 'checkpoint',
+        kind: 'retry',
+      },
       { id: 'e-rt', source: 'inf-spring', target: 'inf-retry', kind: 'retry' },
       { id: 'e-re', source: 'inf-retry', target: 'inf-workers', label: 'resume', kind: 'retry' },
     ],
@@ -116,7 +127,7 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
     id: 'onprem',
     title: '온프렘 구성',
     subtitle:
-      '100곳이 넘는 고객사에 깔린 서비스 버전과 DB 버전을 나눠 적어 두고, 그 조합 그대로 다시 설치한다.',
+      '100개가 넘는 프로젝트의 서비스 버전과 DB 버전을 구분해 기록하고, 그 조합으로 납품 환경을 구성한다.',
     projectId: 'onprem',
     groups: [
       { id: 'op-g-src', label: 'Legacy', nodeIds: ['op-prev'] },
@@ -151,7 +162,14 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         tone: 'ok',
       },
       { id: 'op-git', label: 'Git', caption: '고객사별 구성 이력', x: 540, y: 150, tone: 'ok' },
-      { id: 'op-cli', label: 'Lomin CLI', caption: '현장에서 설치 실행', x: 540, y: 280, tone: 'ok' },
+      {
+        id: 'op-cli',
+        label: 'Lomin CLI',
+        caption: '현장에서 설치 실행',
+        x: 540,
+        y: 280,
+        tone: 'ok',
+      },
       {
         id: 'op-svc',
         label: 'Service Bundle',
@@ -251,7 +269,14 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         y: 40,
         tone: 'ok',
       },
-      { id: 'pay-rdb', label: 'RDB', caption: '하루 최대 약 40만 건', x: 1000, y: 200, tone: 'mute' },
+      {
+        id: 'pay-rdb',
+        label: 'RDB',
+        caption: '운영 관측 · 일 최대 40만 건',
+        x: 1000,
+        y: 200,
+        tone: 'mute',
+      },
     ],
     edges: [
       { id: 'e-kiosk-local', source: 'pay-kiosk', target: 'pay-local', animated: true },
@@ -442,7 +467,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
   {
     id: 'stock',
     title: 'Stock Agent',
-    subtitle: '3년치 일·분 시세를 한 형태로 모아 두고, 질문에서 종목·기간·지표를 읽어 숫자로 답한다.',
+    subtitle:
+      '3년치 일·분 시세를 한 형태로 모아 두고, 질문에서 종목·기간·지표를 읽어 숫자로 답한다.',
     projectId: 'stock-agent',
     groups: [
       { id: 'st-g-data', label: 'Market', nodeIds: ['st-ohlcv', 'st-meta'] },
