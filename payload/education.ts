@@ -1,4 +1,4 @@
-import { IEducation } from '../component/education/IEducation';
+import { IEducation } from './types';
 
 const education: IEducation.Payload = {
   disable: false,

@@ -19,7 +19,7 @@
     "target": "es2017",
     "incremental": true
   },
-  "exclude": ["node_modules", "docs", "out", "component/**/*.tsx"],
+  "exclude": ["node_modules", "docs", "out"],
   "include": [
     "next-env.d.ts",
     "types.d.ts",
@@ -27,13 +27,6 @@
     "pages/**/*.tsx",
     "payload/**/*.ts",
     "site/**/*.ts",
-    "site/**/*.tsx",
-    "component/**/*.ts"
-  ],
-  "typedocOptions": {
-    "out": "docs/typedoc",
-    "mode": "file",
-    "name": "Resume Next.js: TypeDoc",
-    "externalPattern": "!**/I*.ts"
-  }
+    "site/**/*.tsx"
+  ]
 }

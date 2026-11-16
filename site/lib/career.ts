@@ -1,5 +1,4 @@
-import { IExperience } from '../../component/experience/IExperience';
-import { IProject } from '../../component/project/IProject';
+import { IExperience, IProject } from '../../payload/types';
 import { formatMonths, monthCount } from './date';
 
 export const DOMAIN_LINE = 'KIOSK · Payments · Document AI · On-prem';

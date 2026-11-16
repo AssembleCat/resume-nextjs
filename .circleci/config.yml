@@ -9,5 +9,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install & lint build & export
-          command: npm run export:with-typedoc
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Lint and typecheck
+          command: npm run lint && npm run typecheck
+      - run:
+          name: Export static site
+          command: npm run export
+workflows:
+  build:
+    jobs:
+      - build

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { IProject } from '../../component/project/IProject';
+import { IProject } from '../../payload/types';
 import { sideProjects, outcomesFor } from '../lib/career';
 import { periodLabel } from '../lib/date';
 import { parseBracketTag } from '../lib/description';

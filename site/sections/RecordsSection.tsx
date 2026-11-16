@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import { IEducation } from '../../component/education/IEducation';
-import { IEtc } from '../../component/etc/IEtc';
+import { IEducation, IEtc } from '../../payload/types';
 import { happenedAt, periodLabel } from '../lib/date';
 import { maskSchoolName } from '../lib/format';
 

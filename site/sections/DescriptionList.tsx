@@ -1,4 +1,4 @@
-import { IRow } from '../../component/common/IRow';
+import { IRow } from '../../payload/types';
 import { parseBracketTag } from '../lib/description';
 
 export function DescriptionList({ items }: { items: IRow.Description[] }) {

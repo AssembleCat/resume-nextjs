@@ -1,4 +1,4 @@
-import { IProfile } from '../../component/profile/IProfile';
+import { IProfile } from '../../payload/types';
 
 export function SiteFooter({ profile }: { profile: IProfile.Payload }) {
   return (

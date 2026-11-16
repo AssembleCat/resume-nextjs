@@ -1,4 +1,4 @@
-import { IEtc } from '../component/etc/IEtc';
+import { IEtc } from './types';
 
 const etc: IEtc.Payload = {
   disable: false,

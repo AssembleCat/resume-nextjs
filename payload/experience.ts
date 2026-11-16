@@ -1,4 +1,4 @@
-import { IExperience } from '../component/experience/IExperience';
+import { IExperience } from './types';
 
 const experience: IExperience.Payload = {
   disable: false,

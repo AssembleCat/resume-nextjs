@@ -6,17 +6,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env DEBUG=yosume:* next dev",
+    "dev": "next dev",
     "build": "next build",
     "prebuild": "npm run lint",
     "start": "next start",
-    "export:with-typedoc": "npm run export && npm run typedoc",
     "export": "cross-env NODE_ENV=production next build",
     "preexport": "npm run clean",
     "postexport": "node shellwork.js",
     "clean": "npx rimraf docs .next out",
-    "lint": "eslint \"pages/**/*.{ts,tsx}\" \"site/**/*.{ts,tsx}\" \"payload/flows.ts\"",
-    "typedoc": "typedoc --excludeExternals"
+    "lint": "eslint \"pages/**/*.{ts,tsx}\" \"site/**/*.{ts,tsx}\" \"payload/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
   },
   "homepage": "https://assemblecat.github.io/resume-nextjs",
   "repository": {
@@ -41,11 +40,9 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@xyflow/react": "^12.8.2",
-    "debug": "^4.3.2",
     "luxon": "^1.28.0",
     "motion": "^12.23.12",
     "next": "^14.2.18",
@@ -54,7 +51,6 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
     "@types/luxon": "^1.27.1",
     "@types/node": "^20.17.6",
     "@types/react": "^18.3.12",
@@ -63,7 +59,6 @@
     "@typescript-eslint/parser": "^7.18.0",
     "autoprefixer": "^10.4.20",
     "chalk": "^4.1.2",
-    "cpy-cli": "^3.1.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -79,7 +74,6 @@
     "rimraf": "^3.0.2",
     "shelljs": "^0.8.5",
     "tailwindcss": "^3.4.16",
-    "typedoc": "~0.19.2",
     "typescript": "^5.5.4"
   }
 }

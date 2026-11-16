@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { motion } from 'motion/react';
-import { IProfile } from '../../component/profile/IProfile';
+import { IProfile } from '../../payload/types';
 import { assetSrc } from '../lib/format';
 import { DOMAIN_LINE, LOMIN_PRODUCT_HREF, NOW_FACTS } from '../lib/career';
 import { CompanyName } from './CompanyName';

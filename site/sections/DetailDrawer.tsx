@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { IExperience } from '../../component/experience/IExperience';
-import { IProject } from '../../component/project/IProject';
-import { IEtc } from '../../component/etc/IEtc';
-import { IRow } from '../../component/common/IRow';
+import { IExperience, IProject, IEtc, IRow } from '../../payload/types';
 import { FlowDiagramId, PIPELINE_DIAGRAMS } from '../../payload/flows';
 import { happenedAt, periodLabel } from '../lib/date';
 import { findPipelineByProjectId } from '../lib/graph';

@@ -1,171 +1,137 @@
-<div align="center">
-  <img src="https://github.com/uyu423/resume-nextjs/raw/master/logo.jpg" alt="Resume Next.js Logo">
-  <br/><hr/>
-  <a href="https://github.com/uyu423/resume-nextjs"><img src="https://img.shields.io/github/stars/uyu423/resume-nextjs.svg?style=popout" alt="Github Star"/></a>
-  <a href="https://circleci.com/gh/uyu423/resume-nextjs"><img src="https://circleci.com/gh/uyu423/resume-nextjs.svg?style=shield" alt="CircleCI"/></a>
-  <a href="https://app.codacy.com/manual/uyu423/resume-nextjs?utm_source=github.com&utm_medium=referral&utm_content=uyu423/resume-nextjs&utm_campaign=Badge_Grade_Dashboard"><img src="https://api.codacy.com/project/badge/Grade/fe3253d51d544a2a971b637ed1570ac7" alt="Codacy Badge"/></a>
-  <a href="https://codeclimate.com/github/uyu423/resume-nextjs/maintainability"><img src="https://api.codeclimate.com/v1/badges/19edd90e9309634ee66a/maintainability" alt="Maintainability"/></a>
-  <br/>
-</div>
+# 천신영 포트폴리오
 
-## Introduce
+백엔드 개발자 천신영의 경력과 프로젝트를 소개하는 정적 웹사이트입니다.
+경력 타임라인, 도메인별 필터, 프로젝트 상세 패널과 인터랙티브 아키텍처 다이어그램을 제공합니다.
+소개된 AI·결제 서비스의 실제 백엔드 구현은 이 저장소에 포함되지 않습니다.
 
-- 누구나 예쁜 웹 이력서를 쉽게 만들 수 있어 <small>(약간의 코딩으로..)</small>
-- Next.js, Bootstrap CSS 가 사용되었다.
-- 사실 https://github.com/uyu423/resume-legacy 를 Next.js 로 포팅한 것.
-- Sample: https://uyu423.github.io/resume-nextjs
-  - 더 많은 예제는 [EXAMPLE.md](https://github.com/uyu423/resume-nextjs/blob/master/EXAMPLE.md) 를 참고한다.
+- 사이트: https://assemblecat.github.io/resume-nextjs/
+- Next.js 14 Pages Router, React 18, TypeScript
+- Tailwind CSS, Motion, React Flow (`@xyflow/react`)
+- `next-seo`, Google Analytics, Luxon
 
-## Contributors
+## 설치와 개발
 
-- [Yowu (uyu423)](https://github.com/uyu423)
-- [Dal-ya](https://github.com/Dal-ya)
-- [Taeyeong Kim (lizard-kim)](https://github.com/lizard-kim)
-- [Taeyang Jin (heli-os)](https://github.com/heli-os)
-- [Hyogeun Oh (Zerohertz)](https://github.com/Zerohertz)
-
-## Requirements
-
-- Node.js > 18
-  - Node.js 18 버전 이상부터 발생하는 `ERR_OSSL_EVP_UNSUPPORTED` 이슈를 회피하기 위해 `NODE_OPTIONS=--openssl-legacy-provider` 옵션이 적용되어 있습니다.
-  - 가급적 Node.js 버전 18 이상에서 테스트하기를 권장하며 가급적 `.nvmrc` 에 기재된 Node.js 버전 사용을 권고합니다.
-
-## Install
+Node.js 버전은 `.nvmrc`의 `20.15.1`을 기준으로 합니다.
 
 ```bash
-# fork to your github account & git cloning your forked repository
-npm install
-```
-
-## Run Development Mode
-
-```bash
+npm ci
 npm run dev
 ```
 
-## Structure
+개발 서버는 기본적으로 http://localhost:3000 에서 실행됩니다.
+`.npmrc`의 `legacy-peer-deps=true`는 잠금 파일과 동일한 의존성 설치 방식을 사용하기 위한 설정입니다.
 
-- asset/
-  - images, favicon
-- component/
-  - React Components
-- pages/
-  - `index.html` 을 렌더링하기 위한 하나의 페이지 뿐이다.
-- **payload/**
-  - **Payload 데이터 변경만으로 개인 웹 이력서를 뽑아낼 수 있다.**
-  - 이력서 렌더링에 필요한 데이터가 포함된다.
-  - 하단의 Payload Detail 참고
-- docs/
-  - `npm run export (next export)` 를 실행하면 Static HTML 이 렌더링되어 `docs` 디렉토리 하단에 생성된다.
-  - Github Pages 의 master branch 의 `docs/` 디렉토리를 지정하여 Github Pages 호스팅을 할 수 있는데, 이를 위해 export 디렉토리 이름을 docs 로 명명했다.
-  - `docs/typedoc/` 에는 TypeDoc HTML 이 포함되지만 `npm run export` 로는 생성하지 않는다. `npm run typedoc` 으로 TypeDoc 을 생성할 수 있다.
+## 구조
 
-### Payload Description
+```text
+pages/
+  index.tsx             URL 옵션 해석, SEO, PortfolioPage 렌더링
+  _app.tsx              전역 스타일과 Google Analytics
+  _document.tsx         문서 언어와 외부 폰트
+payload/
+  index.ts              현재 화면에서 사용하는 데이터 집합
+  types.ts              프로필·경력·프로젝트·기록의 공유 타입
+  profile.ts            이름, 사진, 연락처
+  experience.ts         회사별 경력과 기술 키워드
+  project.ts            업무 및 사이드 프로젝트
+  education.ts          학력
+  etc.ts                수상 및 자격
+  _global.ts            SEO, Open Graph, 파비콘
+  views.ts              URL 기반 표시 프리셋과 필터
+  flows.ts              프로젝트 다이어그램의 노드·연결·설명
+  introduce.ts          보존한 자기소개 편집 원문 (현재 화면에 미연결)
+site/
+  PortfolioPage.tsx      화면 구성과 선택·필터·이동 상태 관리
+  sections/             프로필, 경력, 프로젝트, 기록, 상세 패널 등
+  flow/                 React Flow 캔버스와 파이프라인·영역 노드
+  lib/                  날짜 계산, 관계 매핑, 그래프 변환, 표시 유틸리티
+  styles/globals.css    전역 스타일
+  GoogleAnalytics.tsx   방문 분석 스크립트
+asset/                  프로필·회사 이미지, 미리보기, 파비콘
+public/                 일반·블라인드 이력서 PDF
+docs/                  GitHub Pages에 배포할 정적 산출물
+shellwork.js            out/ 결과를 docs/에 복사하고 배포 파일 생성
+```
 
-- TypeDoc: https://uyu423.github.io/resume-nextjs/typedoc
-  - TypeDoc 내에 모든 Payload 에 대한 Rendering Sample Screenshot 이 포함되어 있습니다.
-- `_global`, `footer` Payload 을 제외한 모든 Payload 에는 `disable?: boolean` 필드가 존재합니다. 해당 필드가 `true` 면 해당 Payload 의 Section 을 렌더링하지 않습니다.
+데이터 흐름은 `payload → pages/index.tsx → applyResumeView → PortfolioPage → sections / flow`입니다.
+현재 UI와 공유 타입은 각각 `site/`, `payload/types.ts`에서 관리합니다.
 
-#### Profile
+화면은 내비게이션, 프로필, 경력 타임라인, 주요 성과, 회사별 경력·업무 프로젝트,
+아키텍처, 사이드 프로젝트, 학력·수상·자격, 푸터 순서로 구성됩니다.
+회사·프로젝트·그래프 노드를 선택하면 상세 패널이 열립니다.
+다이어그램은 브라우저에서 동적으로 로드하며 확대·이동·미니맵을 지원합니다.
 
-- 프로필 사진, 이름, 연락수단, 약간의 공지사항 영역
-- TypeDoc: [IProfile.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iprofile.payload.html)
-- TS Sample: [payload/profile.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/profile.ts)
+## 콘텐츠 수정
 
-#### Introduce
+- 기본 정보, 경력, 프로젝트, 학력·수상은 해당 `payload/*.ts` 파일에서 수정합니다.
+- 현재 업무 소개, 상단 기술 태그의 우선순위, 프로젝트와 회사의 관계, 도메인 분류,
+  성과 배지는 `site/lib/career.ts`에서 관리합니다.
+- 주요 성과 카드의 문구와 이동 대상은 `site/sections/Highlights.tsx`에서 관리합니다.
+- 다이어그램은 `payload/flows.ts`, 화면 구역 순서는 `site/PortfolioPage.tsx`에서 수정합니다.
+- 브라우저 제목과 공유 미리보기는 `payload/_global.ts`, 방문 분석 ID는
+  `site/GoogleAnalytics.tsx`에서 설정합니다.
+- PDF는 `public/`의 파일을 직접 교체합니다. 웹 콘텐츠에서 자동 생성되지 않습니다.
+- `payload/introduce.ts`는 실제 자기소개 원문을 보존한 파일이며 화면용 `Payload`에는
+  포함되지 않습니다. 현재 소개를 바꾸려면 `site/lib/career.ts`와 `Hero.tsx`를 확인합니다.
 
-- 자기 소개 영역
-- TypeDoc: [IIntroduce.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iintroduce.payload.html)
-- TS Sample: [payload/introduce.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/introduce.ts)
+새 프로젝트는 `id`를 정하고 `project.ts`에 추가한 뒤 `career.ts`의 `PROJECT_PARENT`를
+설정합니다. 매핑이 없는 프로젝트는 사이드 프로젝트로 분류됩니다.
+필요에 따라 도메인·성과·하이라이트·다이어그램과 `views.ts`의 프리셋도 함께 갱신합니다.
+기술 태그는 별도 기술 예시 데이터가 아니라 경력의 `skillKeywords`에서 추립니다.
 
-#### Skill
+## URL 옵션
 
-- 본인 보유 기술에 대한 소개 영역
-- TypeDoc: [ISkill.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iskill.payload.html)
-- TS Sample: [payload/skill.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/skill.ts)
+- `?view=core`: 기본 프리셋.
+- `?view=full`: 모든 목록 항목을 포함합니다.
+- `?view=game`: 현재 `core`와 동일한 별칭입니다.
+- `?hide=spire,stock-agent`: 지정한 ID를 목록에서 제외합니다.
+- `?show=spire`: 프리셋에서 제외한 ID를 추가합니다. 같은 ID는 `hide`가 우선합니다.
+- `?blind=true`: 학력의 학교명만 가립니다. 이름·사진·연락처·SEO는 유지됩니다.
 
-#### Experience
+옵션은 `?view=core&hide=spire&blind=true`처럼 조합할 수 있습니다.
+현재 데이터에서는 `core`, `full`, `game`에 포함되는 목록 항목이 같습니다.
+`hide`와 `show`는 경력·프로젝트·학력·수상 목록에 적용되며, 별도로 정의된 하이라이트와
+다이어그램은 필터링하지 않습니다. 이 옵션은 공개 범위를 제한하는 접근 제어가 아닙니다.
 
-- (직장)경험에 대한 소개 영역
-- TypeDoc: [IExperience.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iexperience.payload.html)
-- TS Sample: [payload/experience.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/experience.ts)
+## 검증
 
-#### Project
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
 
-- 수행 프로젝트에 대한 소개 영역
-- TypeDoc: [IProject.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iproject.payload.html)
-- TS Sample: [payload/project.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/project.ts)
+- `lint`: `pages/`, `site/`, `payload/`의 TypeScript 코드를 검사합니다.
+- `typecheck`: TypeScript 타입을 검사합니다.
+- `build`: `prebuild`의 lint를 실행한 뒤 Next.js 프로덕션 정적 빌드를 수행합니다.
+- 별도의 자동화 테스트는 아직 없으며, `npm test`는 미구현 상태를 알리고 실패합니다.
 
-#### Open Source
+CircleCI는 의존성 설치, lint·타입 검사, 정적 내보내기를 실행하도록 구성되어 있습니다.
+이전 이력서 UI의 TypeDoc 생성 명령은 제거했습니다.
 
-- 오픈소스 활동에 대한 소개 영역
-- TypeDoc: [IOpenSource.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iopensource.payload.html)
-- TS Sample: [payload/openSource.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/openSource.ts)
-
-#### Presentation
-
-- 발표 활동에 대한 소개 영역
-- TypeDoc: [IPresentation.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/ipresentation.payload.html)
-- TS Sample: [payload/presentation.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/presentation.ts)
-
-#### Article
-
-- 블로그/SNS 포스트, 기사에 대한 소개 영역
-- TypeDoc: [IArticle.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iarticle.payload.html)
-- TS Sample: [payload/article.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/article.ts)
-
-#### Education
-
-- 학업에 대한 소개 영역
-- TypeDoc: [IEducation.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/ieducation.payload.html)
-- TS Sample: [payload/education.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/education.ts)
-
-#### ETC
-
-- 기타 항목(대회, 자격증, 봉사 등)에 대한 소개 영역
-- TypeDoc: [IEtc.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/ietc.payload.html)
-- TS Sample: [payload/etc.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/etc.ts)
-
-#### \_Global
-
-- 전역 설정(Web Title, SEO, favicon 등)에 대한 설정 영역
-- TypeDoc: [IGlobal.Payload](https://uyu423.github.io/resume-nextjs/typedoc/interfaces/iglobal.payload.html)
-- TS Sample: [payload/\_global.ts](https://github.com/uyu423/resume-nextjs/blob/master/payload/_global.ts)
-
-## Export
+## 정적 배포
 
 ```bash
 npm run export
 ```
 
-- `/docs` 하위에 Static HTML 리소스가 생성된다.
-- Sub Path 가지는 도메인 구조일 경우 (ex. https://uyu423.github.io/resume 로 호스팅) `package.json` 내의 `homepage` 필드 값을 호스팅 원하는 도메인으로 변경한다.
-  - `homepage` 필드에 `pathname` 이 있을 경우 `next.config.js` 의 `assetPrefix` 추가하는 로직이 있음
+1. `preexport`가 `docs/`, `.next/`, `out/`을 정리합니다.
+2. `output: 'export'` 설정으로 Next.js가 `out/`에 정적 사이트를 생성합니다.
+3. `postexport`의 `shellwork.js`가 결과를 `docs/`로 복사하고 `.nojekyll`을 생성합니다.
+4. `homepage`가 사용자 도메인으로 판단되면 `docs/CNAME`도 생성합니다.
 
-### Export to Github Pages
+`docs/`는 생성 파일이므로 직접 수정하지 않습니다. 콘텐츠 변경 후 내보내기를 실행하고
+배포 브랜치의 `docs/`를 GitHub Pages 배포 대상으로 사용합니다.
+`npm run build`만 실행하면 `out/`은 생성되지만 `docs/`는 갱신되지 않습니다.
+`npm run export`는 별도 lint 명령을 선행하지 않으므로 배포 전 위 검증 명령을 실행합니다.
 
-#### Repository Setting
+`package.json`의 `homepage`에서 프로덕션 `basePath`와 `assetPrefix`를 계산합니다.
+현재 값은 `/resume-nextjs`이며, 개발 서버에서는 이 접두 경로를 사용하지 않습니다.
+호스팅 위치를 바꾸면 `homepage`를 수정하고 다시 빌드해야 합니다.
+`npm start`의 `next start`는 이 정적 내보내기 설정의 미리보기 용도가 아닙니다.
+미리보기에는 정적 파일 서버를 사용하고, `/resume-nextjs/`가 산출물 디렉터리를 가리키도록 설정합니다.
 
-- Options - Github Pages - Source - master branch /docs folder 를 선택
-  - Github Pages Source 에 대한 자세한 내용은 [help.github.com](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) 을 참고한다.
-- `npm run export` 를 실행하여 `docs` 내 Static HTML 을 갱신한다.
-- 외부 도메인이 있는 경우 Custom Domain 항목에 기입한다.
-  - **Github Pages Hosting 에 필요한 `docs/CNAME` 파일은 `npm run export` 과정에서 자동으로 생성됩니다.**
-  - `docs/CNAME` 파일 생성에는 `package.json` 내 `homepage` 필드를 참고합니다. Custom Domain 사용시 homepage 값을 수정해주세요.
-  - `package.json` 내 `homepage` 필드가 `*.github.io/*` 로 추정될 경우 Custom Domain 을 사용하지 않는 것으로 간주하고 `docs/CNAME`을 생성하지 않습니다.
-  - 외부 도메인에 대한 자세한 내용은 [help.github.com](https://help.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site) 를 참고한다.
-- `*.github.io` 도메인을 그대로 사용하는 경우 `http://{username}.github.io/{repository_name}` 접속하면 웹 이력서가 나타난다.
+## 라이선스와 원본
 
-## Contribution
-
-- If you want additional features, please pull request. Always open.
-
-## Question?
-
-- production 빌드에서 이미지가 깨지는 경우
-  - see https://github.com/uyu423/resume-nextjs/issues/24
-- Section 의 순서는 어떻게 조절하나요?
-  - 현재는 `pages/index.tsx` 에서 직접 렌더링 순서를 변경하는 수 밖에 없습니다.
-  - 데이터나 `_global` payload 로 핸들링하는 방법을 고민 중입니다.
-- index.html 에서 이미지, CSS가 404 발생하는 경우
-  - https://github.com/uyu423/resume-nextjs/issues/37 참고
+MIT 라이선스입니다. 원본 [uyu423/resume-nextjs](https://github.com/uyu423/resume-nextjs)를 기반으로
+개인 포트폴리오 UI를 구성했습니다. 원저작자와 기여자의 저작권 고지는 `LICENSE`를 따릅니다.

@@ -1,7 +1,6 @@
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { useMemo } from 'react';
-import { IExperience } from '../../component/experience/IExperience';
-import { IProject } from '../../component/project/IProject';
+import { IExperience, IProject } from '../../payload/types';
 import {
   CAREER_DOMAINS,
   CareerDomainId,
