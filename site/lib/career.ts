@@ -45,10 +45,6 @@ export function sideProjects(list: IProject.Item[]): IProject.Item[] {
   return list.filter((item) => parentOfProject(item.id) === 'side');
 }
 
-export function workProjects(list: IProject.Item[]): IProject.Item[] {
-  return list.filter((item) => parentOfProject(item.id) !== 'side');
-}
-
 export const COMPANY_OUTCOMES: Record<string, string[]> = {
   lomin: ['추론 파이프', '온프렘 연동'],
   'imt-freelance': ['VAN 4사', '자사 포인트'],

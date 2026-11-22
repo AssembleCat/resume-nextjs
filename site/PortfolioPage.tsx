@@ -6,7 +6,6 @@ import { scrollToId } from './lib/date';
 import { buildPipelineGraph } from './lib/graph';
 import { DetailDrawer } from './sections/DetailDrawer';
 import { ExperienceSection } from './sections/ExperienceSection';
-import { FeaturedProjects } from './sections/FeaturedProjects';
 import { GraphPlayground } from './sections/GraphPlayground';
 import { Hero } from './sections/Hero';
 import { ProjectSection } from './sections/ProjectSection';
@@ -59,11 +58,11 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
         skills={skills}
         currentCompanyHref={lomin?.href}
       />
-      <FeaturedProjects
-        project={resume.project}
+      <ExperienceSection
+        experience={resume.experience}
+        totalLabel={totalLabel}
         selectedId={selectedId}
-        onOpenDetail={(id) => openDetail('project', id)}
-        onOpenDiagram={openDiagram}
+        onSelectExperience={(id) => openDetail('exp', id)}
       />
       {activeDiagram ? (
         <GraphPlayground
@@ -78,16 +77,9 @@ export function PortfolioPage({ resume, isBlind }: { resume: Payload; isBlind: b
           edges={graph.edges}
           selectedId={selectedId}
           onSelect={setSelectedId}
+          onOpenProject={(id) => openDetail('project', id)}
         />
       ) : null}
-      <ExperienceSection
-        experience={resume.experience}
-        project={resume.project}
-        totalLabel={totalLabel}
-        selectedId={selectedId}
-        onSelectExperience={(id) => openDetail('exp', id)}
-        onSelectProject={(id) => openDetail('project', id)}
-      />
       <ProjectSection
         project={resume.project}
         selectedId={selectedId}

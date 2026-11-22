@@ -86,9 +86,9 @@ export declare namespace IProject {
     /** YYYY-MM. */
     startedAt: string;
     endedAt?: string;
-    /** 목록에서 우선 소개할 대표 프로젝트. */
+    /** 설계 구역에서 도식을 빠르게 선택할 주요 프로젝트. */
     featured?: boolean;
-    /** 첫 화면에서 보여줄 문제 중심 제목과 짧은 소개. */
+    /** 설계 사례의 문제 중심 제목과 짧은 소개. */
     headline?: string;
     summary?: string;
     /** 상세 패널의 핵심 설명. summary가 없으면 목록의 대체 소개로 사용. */

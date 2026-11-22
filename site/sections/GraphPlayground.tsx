@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { DIAGRAM_TABS, FlowDiagramId, PipelineDiagram } from '../../payload/flows';
 import { IProject } from '../../payload/types';
+import { periodLabel } from '../lib/date';
 
 const FlowStage = dynamic(() => import('../flow/FlowStage').then((mod) => mod.FlowStage), {
   ssr: false,
@@ -20,6 +21,7 @@ interface GraphPlaygroundProps {
   edges: import('@xyflow/react').Edge[];
   selectedId?: string;
   onSelect: (id?: string) => void;
+  onOpenProject: (id: string) => void;
 }
 
 export function GraphPlayground({
@@ -31,8 +33,10 @@ export function GraphPlayground({
   edges,
   selectedId,
   onSelect,
+  onOpenProject,
 }: GraphPlaygroundProps) {
   const pipeline = diagrams.find((item) => item.id === diagram);
+  const currentProject = project.list.find((item) => item.id === pipeline?.projectId);
   const featuredIds = project.list.filter((item) => item.featured).map((item) => item.id);
   const primary = diagrams.filter((item) => featuredIds.includes(item.projectId));
   const other = diagrams.filter((item) => !featuredIds.includes(item.projectId));
@@ -49,11 +53,11 @@ export function GraphPlayground({
             tabIndex={-1}
             className="mt-2 font-display text-3xl tracking-tight outline-none md:text-4xl"
           >
-            경험을 구조로 보기
+            설계와 구현
           </h2>
         </div>
         <div className="flex flex-wrap items-end gap-3">
-          <div className="flex flex-wrap gap-2" aria-label="대표 경험 아키텍처">
+          <div className="flex flex-wrap gap-2" aria-label="설계 사례 선택">
             {primary.map((item) => (
               <button
                 key={item.id}
@@ -92,19 +96,48 @@ export function GraphPlayground({
           ) : null}
         </div>
       </div>
-      {pipeline?.contributions ? (
-        <div className="mx-auto mb-5 max-w-6xl px-5">
-          <p className="text-sm font-medium text-zinc-200">{pipeline.title} · 내가 맡은 부분</p>
-          <dl className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-6">
-            {pipeline.contributions.map((item) => (
-              <div key={item.label} className="border-l-2 border-ember-500/60 pl-3">
-                <dt className="text-xs text-ember-400">{item.label}</dt>
-                <dd className="mt-1 break-keep text-[15px] leading-6 text-zinc-100">
-                  {item.description}
-                </dd>
-              </div>
-            ))}
-          </dl>
+      {currentProject ? (
+        <div className="mx-auto mb-6 grid max-w-6xl gap-5 px-5 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+          <div>
+            <p className="text-xs text-zinc-400">
+              {currentProject.where} ·{' '}
+              {periodLabel(currentProject.startedAt, currentProject.endedAt)}
+            </p>
+            <h3 className="mt-3 max-w-xl break-keep text-2xl font-semibold leading-snug">
+              {currentProject.headline || currentProject.title}
+            </h3>
+            {!pipeline?.contributions && currentProject.summary ? (
+              <p className="mt-3 max-w-xl break-keep text-[15px] leading-7 text-zinc-300">
+                {currentProject.summary}
+              </p>
+            ) : null}
+            {currentProject.id ? (
+              <button
+                type="button"
+                onClick={() => currentProject.id && onOpenProject(currentProject.id)}
+                aria-label={`${currentProject.title} 설계·구현 내용 보기`}
+                aria-expanded={selectedId === `project:${currentProject.id}`}
+                aria-controls={
+                  selectedId === `project:${currentProject.id}` ? 'project-detail' : undefined
+                }
+                className="mt-2 min-h-11 text-sm text-zinc-300 underline decoration-white/20 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ember-400"
+              >
+                설계·구현 내용
+              </button>
+            ) : null}
+          </div>
+          {pipeline?.contributions ? (
+            <dl className="grid content-start gap-4 lg:pt-1" aria-label="본인 기여">
+              {pipeline.contributions.map((item) => (
+                <div key={item.label} className="border-l-2 border-ember-500/60 pl-3">
+                  <dt className="text-xs text-ember-400">{item.label}</dt>
+                  <dd className="mt-1 break-keep text-[15px] leading-6 text-zinc-100">
+                    {item.description}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </div>
       ) : null}
       <p className="mx-auto mb-3 max-w-6xl px-5 text-xs leading-6 text-zinc-400">

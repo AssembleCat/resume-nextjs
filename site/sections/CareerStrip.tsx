@@ -19,7 +19,7 @@ export function CareerStrip({
   if (segments.length === 0) return null;
 
   return (
-    <div className="mt-7">
+    <div className="mt-4">
       <p className="mb-3 text-xs text-zinc-400">
         재직 기간별 흐름 · 회사명을 선택하면 경력 상세를 볼 수 있습니다.
       </p>
@@ -27,13 +27,11 @@ export function CareerStrip({
         <div className="min-w-[640px]">
           <div className="flex h-16 border border-white/10">
             {segments.map((segment, index) => (
-              <motion.a
+              <motion.button
                 key={segment.id}
-                href={`#exp-${segment.id}`}
-                onClick={(event) => {
-                  event.preventDefault();
-                  onSelect(segment.id);
-                }}
+                id={`exp-${segment.id}`}
+                type="button"
+                onClick={() => onSelect(segment.id)}
                 aria-label={`${segment.label} ${periodLabel(segment.startedAt, segment.endedAt)} 경력 상세`}
                 aria-expanded={activeId === segment.id}
                 aria-controls={activeId === segment.id ? 'project-detail' : undefined}
@@ -48,7 +46,7 @@ export function CareerStrip({
                   {formatMonths(segment.months)}
                 </p>
                 <p className="mt-1 truncate text-sm font-medium">{segment.short}</p>
-              </motion.a>
+              </motion.button>
             ))}
           </div>
           <div className="mt-2 flex">
