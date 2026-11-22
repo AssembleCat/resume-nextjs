@@ -92,8 +92,24 @@ export function GraphPlayground({
           ) : null}
         </div>
       </div>
-      <p className="mx-auto mb-3 max-w-6xl px-5 text-sm leading-relaxed text-zinc-400">
-        {pipeline?.title} · 노드를 선택하면 설명을 볼 수 있습니다.
+      {pipeline?.contributions ? (
+        <div className="mx-auto mb-5 max-w-6xl px-5">
+          <p className="text-sm font-medium text-zinc-200">{pipeline.title} · 내가 맡은 부분</p>
+          <dl className="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-6">
+            {pipeline.contributions.map((item) => (
+              <div key={item.label} className="border-l-2 border-ember-500/60 pl-3">
+                <dt className="text-xs text-ember-400">{item.label}</dt>
+                <dd className="mt-1 break-keep text-[15px] leading-6 text-zinc-100">
+                  {item.description}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ) : null}
+      <p className="mx-auto mb-3 max-w-6xl px-5 text-xs leading-6 text-zinc-400">
+        {pipeline?.title} 구조 요약 · 노드 선택으로 설명 보기 · +/− 버튼으로 확대·축소 · 드래그로
+        이동
       </p>
       <div className="mx-auto max-w-[1440px] overflow-hidden border-y border-white/10">
         <FlowStage

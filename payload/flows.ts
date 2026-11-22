@@ -5,6 +5,7 @@ export interface PipelineNodeSeed {
   id: string;
   label: string;
   caption: string;
+  description?: string;
   x: number;
   y: number;
   tone?: 'ember' | 'mute' | 'danger' | 'ok';
@@ -31,6 +32,7 @@ export interface PipelineDiagram {
   title: string;
   subtitle: string;
   projectId?: string;
+  contributions?: { label: string; description: string }[];
   groups: PipelineGroupSeed[];
   nodes: PipelineNodeSeed[];
   edges: PipelineEdgeSeed[];
@@ -43,6 +45,10 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
     subtitle:
       '추론·상태 관리·연동의 구조를 요약한 도식. 기존 분산 처리를 강화하고 상태 관리·재처리를 추가했으며, 특정 기능을 Spring으로 분리했다. 금융권 연동은 별도 프로젝트에서 진행했다.',
     projectId: 'lomin-backend',
+    contributions: [
+      { label: '기존 기능 강화', description: '워커 분산·병렬 처리' },
+      { label: '직접 추가', description: '작업 상태 관리·실패 지점 재처리' },
+    ],
     groups: [
       { id: 'inf-g-in', label: 'Ingest', nodeIds: ['inf-nas', 'inf-s3', 'inf-api'] },
       { id: 'inf-g-ad', label: 'Adapter', nodeIds: ['inf-adapter'] },
@@ -70,6 +76,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         id: 'inf-spring',
         label: 'Spring Kotlin',
         caption: '작업 상태와 외부 연동',
+        description:
+          '기존 Python·FastAPI 백엔드의 일부 기능을 직접 분리했습니다. 타입을 일관되게 관리하기 위해 정적 타입 검사와 ORM을 활용했습니다.',
         x: 540,
         y: 100,
         tone: 'ember',
@@ -87,6 +95,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         id: 'inf-workers',
         label: 'GPU Workers',
         caption: 'FastAPI · 일 추론 대상 약 8만 문서',
+        description:
+          '기존에 있던 워커 분산·병렬 처리 기능을 강화했습니다. 작업 상태 관리와 재처리는 별도로 추가한 기능입니다.',
         x: 820,
         y: 140,
         tone: 'ok',
@@ -95,6 +105,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         id: 'inf-retry',
         label: 'Retry',
         caption: '스토리지 순간 장애 시 체크포인트부터',
+        description:
+          '작업 상태 관리와 함께 직접 추가한 재처리 기능입니다. 실패 지점부터 다시 투입해 전체 배치를 재시작하지 않도록 했습니다.',
         x: 820,
         y: 280,
         tone: 'ok',
@@ -214,6 +226,10 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
     subtitle:
       '키오스크 결제 내역을 큐로 보내고 서버가 DB에 넣는다. 망이 끊겨도 단말에 남겨 두었다가 다시 보낸다.',
     projectId: 'payment',
+    contributions: [
+      { label: '직접 설계·구현', description: '저장 시스템 설계·서버사이드 단독 구현' },
+      { label: '협업', description: '클라이언트는 프런트 팀과 협업' },
+    ],
     groups: [
       { id: 'pay-g-edge', label: 'Edge', nodeIds: ['pay-kiosk'] },
       { id: 'pay-g-q', label: 'Queue', nodeIds: ['pay-local', 'pay-sqs'] },
@@ -233,6 +249,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         id: 'pay-local',
         label: 'Local Buffer',
         caption: '네트워크가 끊겨도 단말에 보관',
+        description:
+          '통신이 끊기면 결제 데이터를 로컬에 보관한 뒤 재전송하도록 구성했습니다. 클라이언트 구현은 프런트 팀과 협업했습니다.',
         x: 300,
         y: 140,
         tone: 'ok',
@@ -241,6 +259,8 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
         id: 'pay-sqs',
         label: 'SQS',
         caption: '전송과 DB 저장을 분리',
+        description:
+          'KIOSK가 1분마다 미전송분을 Push하던 방식에서 큐 기반 비동기 처리로 전환했습니다. 서버가 큐의 데이터를 받아 DB에 저장합니다.',
         x: 520,
         y: 140,
         tone: 'ember',
@@ -256,7 +276,7 @@ export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
       {
         id: 'pay-worker',
         label: 'Worker',
-        caption: '서버에서 저장. 같은 건 한 번만',
+        caption: '큐에서 받아 DB에 저장',
         x: 760,
         y: 200,
         tone: 'ember',

@@ -99,8 +99,12 @@ export function parseSelection(
       kicker: pipeline.title,
       title: node?.label || pipeline.title,
       caption: node?.caption,
-      summary: pipeline.subtitle,
+      summary: node?.description,
       items: [],
+      related: project.list
+        .filter((item) => item.id === pipeline.projectId)
+        .map((item) => ({ id: `project:${item.id}`, title: item.title })),
+      relatedKicker: '프로젝트 경험',
     };
   }
   return undefined;
@@ -228,10 +232,7 @@ export function DetailDrawer({
               </button>
             ) : null}
             {detail.href ? (
-              <a
-                href={detail.href}
-                className="chip-frame px-3 py-1.5 text-xs text-ember-400"
-              >
+              <a href={detail.href} className="chip-frame px-3 py-1.5 text-xs text-ember-400">
                 {detail.linkLabel || '관련 링크'}
               </a>
             ) : null}

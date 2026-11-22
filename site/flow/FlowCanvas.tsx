@@ -67,18 +67,23 @@ export function FlowCanvas({ nodes, edges, selectedId, onSelect, hint }: FlowCan
       }}
       onPaneClick={() => onSelect(undefined)}
       fitView
+      zoomOnScroll={false}
+      panOnScroll={false}
+      preventScrolling={false}
+      zoomActivationKeyCode={null}
+      zoomOnDoubleClick={false}
       minZoom={0.25}
       maxZoom={1.45}
       colorMode="dark"
       proOptions={{ hideAttribution: true }}
       nodesConnectable={false}
+      nodesDraggable={false}
       elevateNodesOnSelect={false}
     >
       <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#2a2a2a" />
       <Controls showInteractive={false} />
       <MiniMap
         pannable
-        zoomable
         maskColor="rgba(0,0,0,0.55)"
         nodeColor={(node) => (node.type === 'region' ? '#2a2a2a' : '#ff4d00')}
         bgColor="#111"

@@ -19,11 +19,13 @@ const TONE_CLASS: Record<string, string> = {
 export function PipelineNode({ data }: FlowNodeProps) {
   const tone = TONE_CLASS[data.tone || 'mute'];
   return (
-    <div className={`w-[210px] border px-4 py-3 transition-colors duration-200 hover:border-ember-500/50 ${tone} ${selectedRing(data.selected)}`}>
+    <div
+      className={`w-[210px] border px-4 py-3 transition-colors duration-200 hover:border-ember-500/50 ${tone} ${selectedRing(data.selected)}`}
+    >
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
-      <p className="text-sm font-semibold leading-snug">{data.label}</p>
-      <p className="mt-1 text-[11px] leading-relaxed text-zinc-400">{data.caption}</p>
+      <p className="text-base font-semibold leading-snug">{data.label}</p>
+      <p className="mt-1 break-keep text-[13px] leading-5 text-zinc-300">{data.caption}</p>
     </div>
   );
 }
@@ -43,7 +45,9 @@ export function RegionNode({ data }: FlowNodeProps) {
         }`}
       />
       <div className="px-4 pt-3">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">{data.label}</p>
+        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-zinc-400">
+          {data.label}
+        </p>
       </div>
     </div>
   );
