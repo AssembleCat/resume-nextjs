@@ -49,27 +49,6 @@ export function workProjects(list: IProject.Item[]): IProject.Item[] {
   return list.filter((item) => parentOfProject(item.id) !== 'side');
 }
 
-export type CareerDomainId = 'document-ai' | 'onprem' | 'payments' | 'kiosk';
-
-export const CAREER_DOMAINS: { id: CareerDomainId; label: string }[] = [
-  { id: 'document-ai', label: 'Document AI' },
-  { id: 'onprem', label: 'On-prem' },
-  { id: 'payments', label: 'Payments' },
-  { id: 'kiosk', label: 'KIOSK' },
-];
-
-const ENTITY_DOMAINS: Record<string, CareerDomainId[]> = {
-  lomin: ['document-ai', 'onprem'],
-  onprem: ['onprem', 'document-ai'],
-  'lomin-backend': ['document-ai', 'onprem'],
-  'imt-freelance': ['payments', 'kiosk'],
-  'van-switch': ['payments', 'kiosk'],
-  'inhouse-point': ['payments', 'kiosk'],
-  'imt-kiosk': ['kiosk', 'payments'],
-  'kiosk-multi': ['kiosk'],
-  payment: ['kiosk', 'payments'],
-};
-
 export const COMPANY_OUTCOMES: Record<string, string[]> = {
   lomin: ['추론 파이프', '온프렘 연동'],
   'imt-freelance': ['VAN 4사', '자사 포인트'],
@@ -93,16 +72,6 @@ export function outcomesFor(id?: string): string[] {
     return [];
   }
   return PROJECT_OUTCOMES[id] || COMPANY_OUTCOMES[id] || [];
-}
-
-export function entityMatchesDomain(id: string | undefined, domain?: CareerDomainId): boolean {
-  if (!domain) {
-    return true;
-  }
-  if (!id) {
-    return false;
-  }
-  return (ENTITY_DOMAINS[id] || []).includes(domain);
 }
 
 export type TimelineKind = 'work' | 'aside';

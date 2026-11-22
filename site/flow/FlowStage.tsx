@@ -12,7 +12,7 @@ interface Props {
 
 export function FlowStage({ nodes, edges, selectedId, onSelect, hint }: Props) {
   return (
-    <div className="h-[clamp(620px,78vh,900px)] w-full overflow-hidden border-y border-white/10 bg-ink-900">
+    <div className="h-[clamp(520px,68vh,760px)] w-full overflow-hidden bg-ink-900">
       <ReactFlowProvider>
         <FlowCanvas
           nodes={nodes}

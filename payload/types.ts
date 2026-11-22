@@ -88,7 +88,10 @@ export declare namespace IProject {
     endedAt?: string;
     /** 목록에서 우선 소개할 대표 프로젝트. */
     featured?: boolean;
-    /** 카드와 상세 패널이 함께 사용하는 핵심 설명. */
+    /** 첫 화면에서 보여줄 문제 중심 제목과 짧은 소개. */
+    headline?: string;
+    summary?: string;
+    /** 상세 패널의 핵심 설명. summary가 없으면 목록의 대체 소개로 사용. */
     overview?: IRow.Description[];
     descriptions: IRow.Description[];
   }

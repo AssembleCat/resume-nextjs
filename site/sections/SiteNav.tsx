@@ -2,9 +2,9 @@ import { motion } from 'motion/react';
 
 const LINKS = [
   { href: '#intro', label: '소개' },
-  { href: '#featured', label: '대표 프로젝트' },
-  { href: '#experience', label: '경력' },
+  { href: '#featured', label: '대표 경험' },
   { href: '#architecture', label: '아키텍처' },
+  { href: '#experience', label: '경력' },
   { href: '#projects', label: '사이드' },
   { href: '#records', label: '기록' },
 ];
