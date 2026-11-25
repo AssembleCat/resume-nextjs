@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IExperience, IProject, IEtc, IRow } from '../../payload/types';
 import { FlowDiagramId, PIPELINE_DIAGRAMS } from '../../payload/flows';
 import { happenedAt, periodLabel } from '../lib/date';
@@ -128,15 +128,33 @@ export function DetailDrawer({
 
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const afterCloseRef = useRef<(() => void) | null>(null);
+  const [closing, setClosing] = useState(false);
   const isOpen = Boolean(detail);
+  const requestClose = (afterClose = () => onSelect(undefined)) => {
+    if (afterCloseRef.current) return;
+    afterCloseRef.current = afterClose;
+    setClosing(true);
+  };
+  const finishClose = () => {
+    const afterClose = afterCloseRef.current;
+    if (!afterClose) return;
+    afterCloseRef.current = null;
+    dialogRef.current?.close();
+    setClosing(false);
+    afterClose();
+  };
   useEffect(() => {
     const dialog = dialogRef.current;
+    const previousOverflow = document.body.style.overflow;
     if (isOpen && dialog && !dialog.open) {
       dialog.showModal();
       closeRef.current?.focus();
+      document.body.style.overflow = 'hidden';
     }
     return () => {
       if (dialog?.open) dialog.close();
+      document.body.style.overflow = previousOverflow;
     };
   }, [isOpen]);
 
@@ -145,9 +163,15 @@ export function DetailDrawer({
       ref={dialogRef}
       id="project-detail"
       aria-labelledby="detail-title"
+      data-closing={closing}
+      onAnimationEnd={(event) => {
+        if (event.target === event.currentTarget && event.animationName === 'detail-slide-out') {
+          finishClose();
+        }
+      }}
       onCancel={(event) => {
         event.preventDefault();
-        onSelect(undefined);
+        requestClose();
       }}
       className="detail-dialog fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-lg overflow-y-auto border-l border-white/15 bg-ink-800 p-6 text-zinc-100"
     >
@@ -165,7 +189,7 @@ export function DetailDrawer({
             <button
               type="button"
               ref={closeRef}
-              onClick={() => onSelect(undefined)}
+              onClick={() => requestClose()}
               className="chip-frame min-h-11 shrink-0 whitespace-nowrap px-3 py-2 text-sm text-zinc-300"
             >
               닫기
@@ -208,7 +232,7 @@ export function DetailDrawer({
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => onSelect(item.id)}
+                    onClick={() => requestClose(() => onSelect(item.id))}
                     className="chip-frame px-2.5 py-1 text-left text-[11px] text-zinc-300"
                   >
                     {item.title}
@@ -225,7 +249,8 @@ export function DetailDrawer({
                   if (!detail.diagramId) {
                     return;
                   }
-                  onOpenDiagram(detail.diagramId);
+                  const { diagramId } = detail;
+                  requestClose(() => onOpenDiagram(diagramId));
                 }}
                 className="bg-white px-3 py-1.5 text-xs font-semibold text-black"
               >
