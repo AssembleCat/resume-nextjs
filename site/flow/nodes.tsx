@@ -24,6 +24,14 @@ export function PipelineNode({ data }: FlowNodeProps) {
     >
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
+      <Handle id="top" type="target" position={Position.Top} style={{ visibility: 'hidden' }} />
+      <Handle
+        id="bottom"
+        type="source"
+        position={Position.Bottom}
+        style={{ visibility: 'hidden' }}
+      />
+      <Handle id="right" type="target" position={Position.Right} style={{ visibility: 'hidden' }} />
       <p className="text-base font-semibold leading-snug">{data.label}</p>
       <p className="mt-1 break-keep text-[13px] leading-5 text-zinc-300">{data.caption}</p>
     </div>

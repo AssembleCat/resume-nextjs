@@ -1,5 +1,5 @@
 export type FlowDiagramId =
-  'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock' | 'spire';
+  'inference' | 'onprem' | 'payment' | 'van' | 'point' | 'kiosk' | 'stock' | 'spire' | 'pension';
 
 export interface PipelineNodeSeed {
   id: string;
@@ -15,6 +15,8 @@ export interface PipelineEdgeSeed {
   id: string;
   source: string;
   target: string;
+  sourceHandle?: string;
+  targetHandle?: string;
   label?: string;
   animated?: boolean;
   kind?: 'flow' | 'fail' | 'retry';
@@ -39,6 +41,239 @@ export interface PipelineDiagram {
 }
 
 export const PIPELINE_DIAGRAMS: PipelineDiagram[] = [
+  {
+    id: 'pension',
+    title: '퇴직연금 비동기 처리 · 설계안',
+    projectId: 'samsung-pension',
+    subtitle:
+      '실제 적용 여부 확인 전의 비동기 설계안입니다. 화살표는 논리적 작업 전달을, 각 노드는 처리·복구 경계를 설명합니다.',
+    contributions: [
+      { label: '작업 원장', description: 'PostgreSQL · 상태·결과·Outbox' },
+      { label: '실행 전달', description: 'Redis Streams · Consumer Group · ACK' },
+      { label: '연동 경계', description: '전송과 업무 완료 분리 · 조회·대사' },
+    ],
+    groups: [
+      { id: 'pen-g-input', label: '접수 · 상태 영속화', nodeIds: ['pen-upload', 'pen-ledger'] },
+      {
+        id: 'pen-g-async',
+        label: '비동기 전달 · 추론 연계',
+        nodeIds: ['pen-stream', 'pen-inference', 'pen-ml'],
+      },
+      {
+        id: 'pen-g-process',
+        label: '가공 · 업무 검증',
+        nodeIds: ['pen-process', 'pen-validation', 'pen-review'],
+      },
+      {
+        id: 'pen-g-business',
+        label: '연동 · 결과 확인',
+        nodeIds: ['pen-integrate', 'pen-payment', 'pen-reconcile'],
+      },
+    ],
+    nodes: [
+      {
+        id: 'pen-upload',
+        label: '접수 API',
+        caption: '파일 확보 후 작업 ID 반환',
+        description:
+          '설계안: 파일 저장을 확인하고 요청 메타데이터와 작업을 영속화한 뒤 접수 응답을 반환합니다. 추론부터 연동 완료까지 HTTP 요청을 유지하지 않습니다. 파일 저장과 DB 커밋의 경계에서는 누락·고아 파일 정리를 고려합니다.',
+        x: 0,
+        y: 0,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-ledger',
+        label: 'PostgreSQL 작업 원장',
+        caption: '상태·결과·Outbox / 로컬 TX',
+        description:
+          '설계안: 작업·단계·입력 버전·결과·연동 이력을 관리합니다. 상태 변경과 다음 이벤트를 같은 트랜잭션에 저장하고 발행기가 Outbox를 Redis Streams로 전달합니다. 단계별 워커도 이 원장을 갱신하며, 장기 미완료 작업은 원장과 실행 상태를 대조해 복구합니다.',
+        x: 0,
+        y: 240,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-stream',
+        label: 'Redis Streams',
+        caption: '작업 분배 · ACK · 미처리 회수',
+        description:
+          '설계안: Consumer Group으로 작업을 분배하고, DB 결과 커밋 뒤 ACK합니다. 발행·처리 중복을 허용하는 대신 작업 ID와 단계·입력 버전으로 멱등 처리합니다. 미완료 메시지 회수, 보존·영속화 설정, DB 원장 기반 복구가 함께 필요합니다. 단계별 스트림은 논리적으로 묶어 표시했습니다.',
+        x: 300,
+        y: 0,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-inference',
+        label: '추론 연계 워커',
+        caption: '요청 · 콜백 또는 상태 조회',
+        description:
+          '설계안: ML 엔진에 추론을 요청하고, 엔진 계약에 따라 콜백이나 주기 조회로 결과를 수집합니다. 작업 ID와 실행 버전을 대조해 중복·지연 결과를 구분하며, 추론 대기 중 DB 트랜잭션이나 락을 유지하지 않습니다.',
+        x: 300,
+        y: 240,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-ml',
+        label: '분류·AI-OCR 엔진',
+        caption: '별도 ML 담당 영역',
+        description:
+          '17종·200개 이상 서식을 처리하는 문서 분류·추론 영역입니다. 추론 엔진 등 머신러닝 개발은 별도 담당자가 맡았습니다. 이 설계안에서는 외부 처리 경계로 구분합니다.',
+        x: 300,
+        y: 480,
+        tone: 'mute',
+      },
+      {
+        id: 'pen-process',
+        label: '서식별 가공 워커',
+        caption: '추론 원본 → 공통 문서 모델',
+        description:
+          '설계안: 추론 원본을 보존하고 서식별 변환기로 필드 명칭·형식 차이를 공통 문서 모델로 정규화합니다. 입력과 변환 규칙의 버전을 결과에 남겨 문서 정정 시 영향받는 후속 단계만 다시 실행할 수 있도록 합니다.',
+        x: 600,
+        y: 0,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-validation',
+        label: '업무별 집계·검증',
+        caption: '문서 완료 ≠ 업무 완료',
+        description:
+          '설계안: 업무 건에 필요한 문서가 모였는지 확인하고 필수값·형식·문서 간 일치 여부 등을 검증합니다. 통과한 데이터만 연동 대상으로 확정하며, 입력 오류는 기술 장애의 재시도와 구분합니다. 구체적인 규칙은 현업 요구와 실제 구현을 대조해야 합니다.',
+        x: 600,
+        y: 240,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-review',
+        label: '담당자 확인·재처리',
+        caption: '데이터 수정 · 새 입력 버전',
+        description:
+          '설계안: 누락·불일치 등 업무 데이터 오류는 담당자 확인이나 반려로 분리합니다. 문서가 수정되면 새 입력 버전으로 필요한 가공·검증 단계를 다시 실행하며, 이전 결과와 처리 이력을 보존합니다.',
+        x: 600,
+        y: 480,
+        tone: 'danger',
+      },
+      {
+        id: 'pen-integrate',
+        label: '연동 워커',
+        caption: '전송 의도·시도·결과 기록',
+        description:
+          '설계안: 검증 완료 데이터의 전송을 앞단 처리와 분리합니다. 전송·상대 접수·업무 완료를 각각 기록하고, 외부 시스템의 지연과 장애가 문서 가공 워커를 점유하지 않게 합니다. 단계 결과와 후속 작업은 DB에 커밋한 뒤 ACK합니다.',
+        x: 900,
+        y: 0,
+        tone: 'ember',
+      },
+      {
+        id: 'pen-payment',
+        label: '고객 업무 시스템',
+        caption: '지급 업무 / Oracle 역할 가정',
+        description:
+          '설계안: Oracle을 고객 업무 DB로 가정한 논리적 연동 경계입니다. 합의된 API·인터페이스를 통해 처리 결과를 연결하며, 실제 DB 역할과 연동 방식은 확인 대상입니다. 로컬 전송 성공과 실제 지급 업무 완료를 동일하게 취급하지 않습니다.',
+        x: 900,
+        y: 240,
+        tone: 'mute',
+      },
+      {
+        id: 'pen-reconcile',
+        label: '조회·대사·복구',
+        caption: '성공 여부 불명 · 재시도 소진',
+        description:
+          '설계안: 응답 유실은 즉시 실패로 확정하지 않고 요청 ID로 상대 결과를 확인합니다. 상대가 멱등키를 지원할 때 같은 키로 재전송하고, 그렇지 않으면 결과 확인 또는 수동 조치가 필요합니다. 일시 장애는 제한된 재시도, 장기 미완료·소진 건은 운영 확인으로 분리합니다.',
+        x: 900,
+        y: 480,
+        tone: 'danger',
+      },
+    ],
+    edges: [
+      {
+        id: 'pen-e-accept',
+        source: 'pen-upload',
+        target: 'pen-ledger',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '작업 저장',
+      },
+      {
+        id: 'pen-e-publish',
+        source: 'pen-ledger',
+        target: 'pen-stream',
+        label: 'Outbox 발행',
+        animated: true,
+      },
+      {
+        id: 'pen-e-request',
+        source: 'pen-stream',
+        target: 'pen-inference',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '작업 분배',
+      },
+      {
+        id: 'pen-e-ml',
+        source: 'pen-inference',
+        target: 'pen-ml',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '추론 요청',
+      },
+      { id: 'pen-e-result', source: 'pen-ml', target: 'pen-process', label: '결과 수집 후 가공' },
+      {
+        id: 'pen-e-normalize',
+        source: 'pen-process',
+        target: 'pen-validation',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '공통 모델',
+      },
+      {
+        id: 'pen-e-validated',
+        source: 'pen-validation',
+        target: 'pen-integrate',
+        label: '검증 통과',
+        animated: true,
+      },
+      {
+        id: 'pen-e-review',
+        source: 'pen-validation',
+        target: 'pen-review',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '확인 필요',
+        kind: 'fail',
+      },
+      {
+        id: 'pen-e-reprocess',
+        source: 'pen-review',
+        target: 'pen-process',
+        targetHandle: 'right',
+        label: '수정 후 재처리',
+        kind: 'retry',
+      },
+      {
+        id: 'pen-e-business',
+        source: 'pen-integrate',
+        target: 'pen-payment',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '업무 연동',
+      },
+      {
+        id: 'pen-e-unknown',
+        source: 'pen-payment',
+        target: 'pen-reconcile',
+        sourceHandle: 'bottom',
+        targetHandle: 'top',
+        label: '결과 확인',
+        kind: 'fail',
+      },
+      {
+        id: 'pen-e-retry',
+        source: 'pen-reconcile',
+        target: 'pen-integrate',
+        targetHandle: 'right',
+        label: '확인 후 복구',
+        kind: 'retry',
+      },
+    ],
+  },
   {
     id: 'inference',
     title: '문서 추론',

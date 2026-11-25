@@ -28,7 +28,7 @@ export function sideProjects(list: IProject.Item[]): IProject.Item[] {
 }
 
 export const COMPANY_OUTCOMES: Record<string, string[]> = {
-  lomin: ['추론 파이프', '온프렘 연동'],
+  lomin: ['연금 문서 자동화', '추론 파이프', '온프렘 연동'],
   'imt-freelance': ['VAN 4사', '자사 포인트'],
   tenacity: ['웹·백오피스', '배포·AWS'],
   'imt-kiosk': ['결제 수집 통일'],

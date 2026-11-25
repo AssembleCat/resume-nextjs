@@ -114,6 +114,8 @@ export function buildPipelineGraph(diagram: PipelineDiagram): {
         id: edge.id,
         source: edge.source,
         target: edge.target,
+        sourceHandle: edge.sourceHandle,
+        targetHandle: edge.targetHandle,
         label: edge.label,
         animated: !sidePath && Boolean(edge.animated),
         className: edge.kind,

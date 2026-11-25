@@ -15,6 +15,11 @@ const experience: IExperience.Payload = {
           descriptions: [
             {
               content:
+                '삼성증권 연금사업부의 퇴직연금 문서 자동화 프로젝트에서 문서 파일 관리·업무별 데이터 가공·검증·시스템 연동의 초기 설계부터 구현·운영까지 담당했습니다',
+              weight: 'MEDIUM',
+            },
+            {
+              content:
                 '문서 추론 파이프라인과 금융권 온프레미스 연동을 맡았고, 현장의 배치·재처리 요구를 고객사 맞춤이 아닌 솔루션 기능으로 흡수했습니다',
               weight: 'MEDIUM',
             },
@@ -33,6 +38,8 @@ const experience: IExperience.Payload = {
             'Redis',
             'Celery',
             'MinIO',
+            'PostgreSQL',
+            'Oracle',
           ],
         },
       ],
@@ -94,8 +101,7 @@ const experience: IExperience.Payload = {
           endedAt: '2023-08',
           descriptions: [
             {
-              content:
-                '레거시 ASP·KIOSK를 유지보수하며 결제 수집 경로를 전용 서버로 통일했습니다',
+              content: '레거시 ASP·KIOSK를 유지보수하며 결제 수집 경로를 전용 서버로 통일했습니다',
               weight: 'MEDIUM',
             },
             { content: 'KIOSK 오류를 현장에서 파악할 수 있도록 자가진단 프로그램 개발' },

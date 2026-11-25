@@ -4,6 +4,46 @@ const project: IProject.Payload = {
   disable: false,
   list: [
     {
+      id: 'samsung-pension',
+      companyId: 'lomin',
+      title: '삼성증권 연금사업부 퇴직연금 문서 자동화',
+      where: '로민',
+      startedAt: '2026-07',
+      featured: true,
+      headline: '퇴직연금 문서의 가공·검증과 지급 업무 연동을 설계·구현했습니다.',
+      summary:
+        '17종·200개 이상 서식의 AI-OCR 결과를 업무별 데이터로 가공·검증하고, 문서 파일 관리부터 시스템 연동까지 백엔드 설계·구현·운영을 담당했습니다.',
+      outcomes: ['17종 · 200개 이상 서식', '2026.11 운영계 배포 · 운영 중'],
+      overview: [
+        {
+          weight: 'MEDIUM',
+          content:
+            '[문제] 17종·200개 이상 서식의 퇴직연금 문서를 AI-OCR로 처리하고, 추론 결과를 업무별로 가공·검증해 지급 업무로 이어지는 시스템에 연동해야 했습니다.',
+        },
+        {
+          content:
+            '[기여] 문서 파일 관리, 업무별 데이터 가공·검증과 시스템 연동 개발을 담당했습니다. 추론 엔진 등 머신러닝 영역은 ML 담당자가 맡았습니다.',
+        },
+      ],
+      descriptions: [
+        {
+          content:
+            '[설계 배경] 현업과 확인한 업무별 처리 요건을 문서 가공·검증과 시스템 연동 설계에 반영했습니다.',
+        },
+        {
+          content:
+            '[비동기 설계안] 가공·검증·연동 워커를 분리하고, 작업 원장과 멱등 처리로 단계별 재처리를 구성하는 안입니다. 세부 구조는 아래 다이어그램에 정리했습니다.',
+        },
+        {
+          content: '[기술] Spring · Kotlin · PostgreSQL · Oracle · Redis',
+        },
+        {
+          content:
+            '[운영] 5인 팀의 백엔드 담당 · 2026년 7~12월 프로젝트 · 11월 폐쇄망 운영계 배포 후 운영 중',
+        },
+      ],
+    },
+    {
       id: 'onprem',
       companyId: 'lomin',
       outcomes: ['프로젝트 100+', '운영 구성 통합'],
