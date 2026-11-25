@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 const LINKS = [
   { href: '#intro', label: '소개' },
   { href: '#experience', label: '경력' },
-  { href: '#architecture', label: '설계 경험' },
+  { href: '#architecture', label: '프로젝트 경험' },
   { href: '#projects', label: '사이드' },
   { href: '#records', label: '기록' },
 ];
@@ -16,6 +16,9 @@ export function SiteNav() {
       className="sticky top-0 z-30 border-b border-white/10 bg-black/70 backdrop-blur-md"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+        <a href="#main-content" className="skip-link">
+          본문으로 이동
+        </a>
         <a href="#intro" className="font-display text-sm tracking-tight">
           AssembleCat
         </a>
@@ -30,12 +33,14 @@ export function SiteNav() {
             </a>
           ))}
         </nav>
-        <a
-          href="mailto:groove.csy.1226@gmail.com"
-          className="bg-ember-500 px-3 py-1.5 text-xs font-semibold text-black"
-        >
-          Contact
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="mailto:groove.csy.1226@gmail.com"
+            className="bg-ember-500 px-3 py-1.5 text-xs font-semibold text-black"
+          >
+            Contact
+          </a>
+        </div>
       </div>
     </motion.header>
   );

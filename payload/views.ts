@@ -11,7 +11,7 @@
 
 export const RESUME_VIEWS = ['core', 'full', 'game'] as const;
 
-export type ResumeView = typeof RESUME_VIEWS[number];
+export type ResumeView = (typeof RESUME_VIEWS)[number];
 
 export const DEFAULT_RESUME_VIEW: ResumeView = 'core';
 
@@ -33,17 +33,8 @@ export interface ResumeViewQuery {
 export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   core: {
     experience: 'all',
-    project: [
-      'onprem',
-      'lomin-backend',
-      'stock-agent',
-      'spire',
-      'van-switch',
-      'inhouse-point',
-      'kiosk-multi',
-      'payment',
-    ],
-    education: ['hanshin'],
+    project: 'all',
+    education: 'all',
     etc: 'all',
   },
   full: {
@@ -54,17 +45,8 @@ export const VIEW_PRESETS: Record<ResumeView, ResumeViewPreset> = {
   },
   game: {
     experience: 'all',
-    project: [
-      'onprem',
-      'lomin-backend',
-      'stock-agent',
-      'spire',
-      'van-switch',
-      'inhouse-point',
-      'kiosk-multi',
-      'payment',
-    ],
-    education: ['hanshin'],
+    project: 'all',
+    education: 'all',
     etc: 'all',
   },
 };
@@ -118,7 +100,7 @@ export function applyResumeView<
     project: FilterableSection<Identifiable>;
     education: FilterableSection<Identifiable>;
     etc: FilterableSection<Identifiable>;
-  }
+  },
 >(payload: T, query: ResumeViewQuery): T {
   const preset = VIEW_PRESETS[query.view];
   return {

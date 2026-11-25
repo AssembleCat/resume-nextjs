@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import { IExperience, IProject, IEtc, IRow } from '../../payload/types';
 import { FlowDiagramId, PIPELINE_DIAGRAMS } from '../../payload/flows';
 import { happenedAt, periodLabel } from '../lib/date';
 import { findPipelineByProjectId } from '../lib/graph';
-import { outcomesFor, projectsForCompany } from '../lib/career';
+import { COMPANY_OUTCOMES, projectsForCompany } from '../lib/career';
 import { CompanyName } from './CompanyName';
 import { DescriptionList } from './DescriptionList';
 
@@ -51,7 +50,7 @@ export function parseSelection(
       items: position.descriptions,
       href: company.href,
       tags: position.skillKeywords,
-      outcomes: outcomesFor(id),
+      outcomes: COMPANY_OUTCOMES[id] || [],
       related: projectsForCompany(project.list, id)
         .filter((item) => item.id)
         .map((item) => ({ id: `project:${item.id}`, title: item.title })),
@@ -72,7 +71,7 @@ export function parseSelection(
       caption: `${item.where} · ${periodLabel(item.startedAt, item.endedAt)}`,
       items: [...(item.overview || []), ...item.descriptions],
       href: item.href,
-      outcomes: outcomesFor(id),
+      outcomes: item.outcomes,
       diagramId: pipeline?.id,
       linkLabel: '관련 링크',
     };
@@ -127,43 +126,45 @@ export function DetailDrawer({
 }) {
   const detail = parseSelection(selectedId, experience, project, etc);
 
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const isOpen = Boolean(detail);
   useEffect(() => {
-    if (!detail) {
-      return undefined;
+    const dialog = dialogRef.current;
+    if (isOpen && dialog && !dialog.open) {
+      dialog.showModal();
+      closeRef.current?.focus();
     }
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onSelect(undefined);
-      }
+    return () => {
+      if (dialog?.open) dialog.close();
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [detail, onSelect]);
+  }, [isOpen]);
 
   return (
-    <AnimatePresence mode="wait">
+    <dialog
+      ref={dialogRef}
+      id="project-detail"
+      aria-labelledby="detail-title"
+      onCancel={(event) => {
+        event.preventDefault();
+        onSelect(undefined);
+      }}
+      className="detail-dialog fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-full max-w-lg overflow-y-auto border-l border-white/15 bg-ink-800 p-6 text-zinc-100"
+    >
       {detail ? (
-        <motion.aside
-          id="project-detail"
-          aria-label={`${detail.title} 상세`}
-          key={detail.title}
-          initial={{ x: '100%' }}
-          animate={{ x: 0 }}
-          exit={{ x: '100%' }}
-          transition={{ type: 'tween', duration: 0.25, ease: 'easeOut' }}
-          className="fixed inset-y-0 right-0 z-50 w-full max-w-md overflow-y-auto border-l border-white/10 bg-ink-800 p-6 shadow-2xl shadow-black/50"
-        >
+        <>
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-ember-400">
                 {detail.kicker}
               </p>
-              <h3 className="mt-2 text-xl font-semibold leading-snug">
+              <h3 id="detail-title" className="mt-2 text-xl font-semibold leading-snug">
                 <CompanyName title={detail.title} href={detail.href} />
               </h3>
             </div>
             <button
               type="button"
+              ref={closeRef}
               onClick={() => onSelect(undefined)}
               className="chip-frame min-h-11 shrink-0 whitespace-nowrap px-3 py-2 text-sm text-zinc-300"
             >
@@ -237,8 +238,8 @@ export function DetailDrawer({
               </a>
             ) : null}
           </div>
-        </motion.aside>
+        </>
       ) : null}
-    </AnimatePresence>
+    </dialog>
   );
 }

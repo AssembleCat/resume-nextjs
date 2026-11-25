@@ -49,6 +49,9 @@ export declare namespace IProfile {
 
   export interface Payload extends ICommon.Payload {
     image: string | { src: string };
+    role: string;
+    headline: string;
+    summary: string;
     name: { title: string; small?: string };
     contact: Contact[];
   }
@@ -82,11 +85,15 @@ export declare namespace IProject {
     id?: string;
     title: string;
     where: string;
+    /** 소속 경력 ID. 생략하면 독립/사이드 프로젝트. */
+    companyId?: string;
+    /** 화면과 이력서에서 함께 사용하는 확인된 성과·규모. */
+    outcomes?: string[];
     href?: string;
     /** YYYY-MM. */
     startedAt: string;
     endedAt?: string;
-    /** 설계 구역에서 도식을 빠르게 선택할 주요 프로젝트. */
+    /** 목록 상단에서 문제·기여를 바로 보여줄 대표 프로젝트. */
     featured?: boolean;
     /** 설계 사례의 문제 중심 제목과 짧은 소개. */
     headline?: string;

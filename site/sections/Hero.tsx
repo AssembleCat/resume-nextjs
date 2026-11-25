@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'motion/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { IProfile } from '../../payload/types';
 import { assetSrc } from '../lib/format';
 import { DOMAIN_LINE, LOMIN_PRODUCT_HREF, NOW_FACTS } from '../lib/career';
@@ -49,6 +52,7 @@ export function Hero({
   skills: string[];
   currentCompanyHref?: string;
 }) {
+  const router = useRouter();
   return (
     <section id="intro" className="relative overflow-hidden site-grid">
       <motion.div
@@ -70,7 +74,7 @@ export function Hero({
             variants={item}
             className="font-mono text-[11px] uppercase tracking-[0.28em] text-ember-400"
           >
-            Backend Engineer
+            {profile.role}
           </motion.p>
           <motion.h1
             variants={item}
@@ -82,10 +86,10 @@ export function Hero({
             variants={item}
             className="mt-6 max-w-xl text-xl leading-relaxed text-zinc-100 md:text-2xl"
           >
-            서비스의 경계와 실패 복구를 설계하는 백엔드 개발자입니다.
+            {profile.headline}
           </motion.p>
           <motion.p variants={item} className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
-            문서 추론·결제·온프레미스 환경에서 설계와 구현, 운영을 이어 왔습니다.
+            {profile.summary}
           </motion.p>
           <motion.p
             variants={item}
@@ -128,6 +132,13 @@ export function Hero({
                 </span>
               );
             })}
+            <Link
+              href={{ pathname: '/resume', query: router.query }}
+              className="chip-frame inline-flex items-center gap-2 px-4 py-2.5 text-sm text-zinc-300"
+            >
+              <FontAwesomeIcon icon={faFileAlt} />
+              <span>이력서</span>
+            </Link>
           </motion.div>
         </motion.div>
         <motion.aside

@@ -5,6 +5,8 @@ const project: IProject.Payload = {
   list: [
     {
       id: 'onprem',
+      companyId: 'lomin',
+      outcomes: ['프로젝트 100+', '운영 구성 통합'],
       summary: '흩어진 서비스 버전과 환경 구성을 하나의 운영 플랫폼으로 관리했습니다.',
       title: '온프레미스 사이트 운영 플랫폼',
       startedAt: '2025-11',
@@ -31,6 +33,8 @@ const project: IProject.Payload = {
     },
     {
       id: 'lomin-backend',
+      companyId: 'lomin',
+      outcomes: ['일 추론 대상 약 8만 문서', '실패 지점부터 재처리'],
       headline: '실패한 문서를 처음부터 다시 처리하지 않도록',
       summary: '기존 분산 처리를 강화하고, 작업 상태 관리와 실패 지점 재처리를 직접 추가했습니다.',
       featured: true,
@@ -64,6 +68,7 @@ const project: IProject.Payload = {
     },
     {
       id: 'stock-agent',
+      outcomes: ['RAG 질의', '근거·수치 답변'],
       summary: '주식 데이터와 자연어 질의를 연결해 근거와 수치로 답하는 에이전트를 구현했습니다.',
       title: 'Stock Agent / Destiny Stock',
       startedAt: '2025-07',
@@ -98,6 +103,7 @@ const project: IProject.Payload = {
     },
     {
       id: 'spire',
+      outcomes: ['3,200만 Run', '카드 가치'],
       summary: '좋아하는 게임의 플레이 로그로 전투 상태를 재현하고 카드 가치를 분석했습니다.',
       title: 'Analyze the Spire',
       startedAt: '2025-01',
@@ -126,6 +132,8 @@ const project: IProject.Payload = {
     },
     {
       id: 'van-switch',
+      companyId: 'imt-freelance',
+      outcomes: ['VAN 4사', '설정 전환'],
       summary: 'VAN별 결제·환불·조회를 공통화하고 설정으로 결제수단을 전환하게 했습니다.',
       title: 'VAN 확장 및 결제수단 전환',
       startedAt: '2024-11',
@@ -148,6 +156,8 @@ const project: IProject.Payload = {
     },
     {
       id: 'inhouse-point',
+      companyId: 'imt-freelance',
+      outcomes: ['멱등', '잔액 정합성'],
       summary: '개발 리드의 설계 아래 멱등 처리와 잔액 정합성을 고려한 포인트 기능을 구현했습니다.',
       title: '자사 포인트 적립·사용',
       startedAt: '2024-11',
@@ -170,6 +180,8 @@ const project: IProject.Payload = {
     },
     {
       id: 'kiosk-multi',
+      companyId: 'imt-kiosk',
+      outcomes: ['설정 기반', '브랜드 흡수'],
       summary: '브랜드별로 나뉜 KIOSK를 설정으로 전환하는 공통 코드베이스로 통합했습니다.',
       title: '다중 브랜드 대응 KIOSK 시스템 개발',
       startedAt: '2023-04',
@@ -193,6 +205,8 @@ const project: IProject.Payload = {
     },
     {
       id: 'payment',
+      companyId: 'imt-kiosk',
+      outcomes: ['운영 관측 · 일 최대 40만 건', '로컬 보관·재전송·DLQ'],
       headline: '통신이 끊겨도 결제 데이터를 다시 보내도록',
       summary:
         '서버사이드 단독 구현과 프런트 팀 협업으로, 로컬 보관·재전송과 큐 기반 적재를 구성했습니다.',

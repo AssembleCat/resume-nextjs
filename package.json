@@ -5,7 +5,7 @@
   "description": "Interactive portfolio made with Next.js, Motion, and React Flow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/*.test.cjs",
     "dev": "next dev",
     "build": "next build",
     "prebuild": "npm run lint",

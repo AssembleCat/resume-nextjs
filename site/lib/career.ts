@@ -19,30 +19,12 @@ const SHORT_NAME: Record<string, string> = {
   tenacity: '테너시티즈',
 };
 
-export const PROJECT_PARENT: Record<string, string> = {
-  onprem: 'lomin',
-  'lomin-backend': 'lomin',
-  'van-switch': 'imt-freelance',
-  'inhouse-point': 'imt-freelance',
-  'kiosk-multi': 'imt-kiosk',
-  payment: 'imt-kiosk',
-  'stock-agent': 'side',
-  spire: 'side',
-};
-
-export function parentOfProject(id?: string): string {
-  if (!id) {
-    return 'side';
-  }
-  return PROJECT_PARENT[id] || 'side';
-}
-
 export function projectsForCompany(list: IProject.Item[], companyId: string): IProject.Item[] {
-  return list.filter((item) => parentOfProject(item.id) === companyId);
+  return list.filter((item) => item.companyId === companyId);
 }
 
 export function sideProjects(list: IProject.Item[]): IProject.Item[] {
-  return list.filter((item) => parentOfProject(item.id) === 'side');
+  return list.filter((item) => !item.companyId);
 }
 
 export const COMPANY_OUTCOMES: Record<string, string[]> = {
@@ -51,24 +33,6 @@ export const COMPANY_OUTCOMES: Record<string, string[]> = {
   tenacity: ['웹·백오피스', '배포·AWS'],
   'imt-kiosk': ['결제 수집 통일'],
 };
-
-export const PROJECT_OUTCOMES: Record<string, string[]> = {
-  onprem: ['프로젝트 100+', '운영 구성 통합'],
-  'lomin-backend': ['일 추론 대상 약 8만 문서', '실패 지점부터 재처리'],
-  'stock-agent': ['RAG 질의', '근거·수치 답변'],
-  spire: ['3,200만 Run', '카드 가치'],
-  'van-switch': ['VAN 4사', '설정 전환'],
-  'inhouse-point': ['멱등', '잔액 정합성'],
-  'kiosk-multi': ['설정 기반', '브랜드 흡수'],
-  payment: ['운영 관측 · 일 최대 40만 건', '로컬 보관·재전송·DLQ'],
-};
-
-export function outcomesFor(id?: string): string[] {
-  if (!id) {
-    return [];
-  }
-  return PROJECT_OUTCOMES[id] || COMPANY_OUTCOMES[id] || [];
-}
 
 export type TimelineKind = 'work' | 'aside';
 

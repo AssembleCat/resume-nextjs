@@ -78,6 +78,8 @@ export function FlowCanvas({ nodes, edges, selectedId, onSelect, hint }: FlowCan
       proOptions={{ hideAttribution: true }}
       nodesConnectable={false}
       nodesDraggable={false}
+      edgesFocusable={false}
+      edgesReconnectable={false}
       elevateNodesOnSelect={false}
     >
       <Background variant={BackgroundVariant.Dots} gap={22} size={1} color="#2a2a2a" />

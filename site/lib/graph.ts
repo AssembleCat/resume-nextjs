@@ -25,7 +25,10 @@ function estimatedNodeHeight(caption?: string): number {
   return Math.max(108, 48 + lines * 17);
 }
 
-export function buildPipelineGraph(diagram: PipelineDiagram): { nodes: PortfolioNode[]; edges: Edge[] } {
+export function buildPipelineGraph(diagram: PipelineDiagram): {
+  nodes: PortfolioNode[];
+  edges: Edge[];
+} {
   const byId = new Map(diagram.nodes.map((node) => [node.id, node]));
   const groupedIds = new Set<string>();
   const nodes: PortfolioNode[] = [];
@@ -42,7 +45,9 @@ export function buildPipelineGraph(diagram: PipelineDiagram): { nodes: Portfolio
     const minX = Math.min(...members.map((member) => member.x));
     const minY = Math.min(...members.map((member) => member.y));
     const maxX = Math.max(...members.map((member) => member.x + PIPE_NODE_WIDTH));
-    const maxY = Math.max(...members.map((member) => member.y + estimatedNodeHeight(member.caption)));
+    const maxY = Math.max(
+      ...members.map((member) => member.y + estimatedNodeHeight(member.caption)),
+    );
     const originX = minX - GROUP_PAD_X;
     const originY = minY - GROUP_PAD_TOP;
     const width = maxX - minX + GROUP_PAD_X * 2;
@@ -54,6 +59,7 @@ export function buildPipelineGraph(diagram: PipelineDiagram): { nodes: Portfolio
       position: { x: originX, y: originY },
       draggable: false,
       selectable: false,
+      focusable: false,
       connectable: false,
       style: { width, height },
       data: {

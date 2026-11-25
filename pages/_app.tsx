@@ -1,4 +1,5 @@
 import '../site/styles/globals.css';
+import '../site/styles/resume.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { AppProps } from 'next/app';
