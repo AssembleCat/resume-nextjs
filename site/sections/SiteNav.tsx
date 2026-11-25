@@ -33,14 +33,6 @@ export function SiteNav() {
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
-          <a
-            href="mailto:groove.csy.1226@gmail.com"
-            className="bg-ember-500 px-3 py-1.5 text-xs font-semibold text-black"
-          >
-            Contact
-          </a>
-        </div>
       </div>
     </motion.header>
   );
